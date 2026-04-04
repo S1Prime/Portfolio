@@ -1,0 +1,231 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
+
+:root {
+    --bg: white;
+    --surface:#ffffff;
+    --border: #e8e4de;
+    --text: #1a1a18;
+    --muted: #7d6c28;
+    --accent: #2d6a4f;
+    --accent-light: #31cd7f;
+    --tag-bg: #dcdad7;
+    --tag-text: #896510;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+a.tag {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+a.tag:hover {
+    background: var(--accent-light);
+    color: var(--accent);
+}
+.profile-img {
+    transition: transform 0.3s ease;
+}
+
+.profile-img:hover {
+    transform: scale(1.15);
+}
+
+header {
+    padding: 80px 0 48px;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+
+.profile-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--border);
+    flex-shrink: 0;
+}
+
+.header-text h1 {
+    font-size: 1.6rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+}
+
+.header-text p {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-top: 4px;
+}
+
+.status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.78rem;
+    color: var(--accent);
+    margin-top: 8px;
+}
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+    background: var(--accent);
+    border-radius: 50%;
+}
+
+
+nav {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 0;
+    position: sticky;
+    top: 0;
+    background: rgba(249, 248, 246, 0.92);
+    backdrop-filter: blur(8px);
+    z-index: 100;
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    text-align:center;
+}
+
+nav a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 6px;
+    transition: all 0.15s;
+    font-family: 'DM Mono', monospace;
+}
+
+nav a:hover {
+    color: var(--text);
+    background: var(--tag-bg);
+}
+
+
+main { padding-bottom: 80px; }
+
+section {
+    padding: 48px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+section:last-child { border-bottom: none; }
+
+h2 {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 0.95rem;
+    color: #3a3a36;
+    line-height: 1.75;
+}
+
+
+.edu-item strong {
+    font-size: 0.95rem;
+    font-weight: 600;
+    display: block;
+}
+
+.edu-item span {
+    font-size: 0.85rem;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+}
+
+
+.tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tag {
+    background: var(--tag-bg);
+    color: var(--tag-text);
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 0.83rem;
+    font-weight: 500;
+    font-family: 'DM Mono', monospace;
+    transition: background 0.15s;
+}
+
+.tag:hover { background: var(--border); }
+
+
+a.project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--tag-bg);
+    color: var(--tag-text);
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 0.83rem;
+    font-weight: 500;
+    font-family: 'DM Mono', monospace;
+    text-decoration: none;
+    transition: all 0.15s;
+}
+
+a.project-link:hover {
+    background: var(--accent-light);
+    color: var(--accent);
+}
+
+a.project-link::after { content: " ↗"; opacity: 0.5; }
+
+
+.contact-links {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.contact-link {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 500;
+    padding-bottom: 2px;
+    border-bottom: 1.5px solid var(--text);
+    transition: opacity 0.15s;
+}
+
+.contact-link:hover { opacity: 0.5; }
+
+footer {
+    padding: 32px 0;
+    font-size: 0.75rem;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    border-top: 1px solid var(--border);
+    text-align: center;
+}
