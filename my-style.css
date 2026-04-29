@@ -203,23 +203,6 @@ a.project-link:hover {
 a.project-link::after { content: " ↗"; opacity: 0.5; }
 
 
-.contact-links {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-}
-
-.contact-link {
-    color: var(--text);
-    text-decoration: none;
-    font-size: 0.88rem;
-    font-weight: 500;
-    padding-bottom: 2px;
-    border-bottom: 1.5px solid var(--text);
-    transition: opacity 0.15s;
-}
-
-.contact-link:hover { opacity: 0.5; }
 
 footer {
     padding: 32px 0;
