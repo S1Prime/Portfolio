@@ -2,7 +2,7 @@
 
 The navigation (nav) tag defines a set of navigation links. It tells browsers and screen readers that this specific block contains the primary links used to navigate the website or page sections.
 
-The <main> tag wraps the dominant content of the <body>. There should only be one <main> element per page, and it excludes content that is repeated across pages.
+The main tag wraps the dominant content of the <body>. There should only be one <main> element per page, and it excludes content that is repeated across pages.
 
 The footer tag defines the "bottom" of a document or section. It usually contains metadata such as copyright information, contact links, or sitemaps.
 
