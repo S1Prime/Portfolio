@@ -1,4 +1,7 @@
 # Portfolio
+To showcase my skills, projects, and contact information as a Computer Science student in a clean professional format
+
+Tags involved in the HTML/CSS Portfolio
 
 The navigation (nav) tag defines a set of navigation links. It tells browsers and screen readers that this specific block contains the primary links used to navigate the website or page sections.
 
