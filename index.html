@@ -12,13 +12,14 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
 </head>
 <body>
+    <canvas id="bg-canvas"></canvas>
     <header>
         <img src="Vaishnav Venu.jpeg" alt="Vaishnav Venu" class="profile-img">
         <div class="header-text">
             <a href="#" style="text-decoration: none; color: inherit;">
                 <h1>Vaishnav Venu</h1>
             </a>
-            <p>Computer Science Student || AI Enthusiast</p>
+            <p id="typed-subtitle"></p>
             <span class="status">
                 <span class="status-dot"></span>
                 Open to opportunities
@@ -50,8 +51,12 @@
         <section id="Education">
             <h2>Education</h2>
             <div class="edu-item">
+                <strong>Class 10</strong>
+                <span>St.Thomas Residential School,Naharlagun,Arunachal Pradesh(2023)</span>
+                <strong>Class 12 (PCM)</strong>
+                <span>Chinmaya Vidyalaya,Alappuzha,Kerala (2025)</span>
                 <strong>B.Tech in Computer Science</strong>
-                <span>Amrita Vishwa Vidyapeetham 2025-2029</span>
+                <span>Amrita Vishwa Vidyapeetham,Amritapuri,Kollam,Kerala (2025-2029)</span>
             </div>
         </section>
          <section id="Skills">
@@ -69,14 +74,22 @@
                 <a href="https://github.com/S1Prime/Matlab" class="card-item" target="_blank">
                     <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/matlab/matlab-original.svg" alt="Matlab" />
                     <span>Matlab Project</span>
+                    <p class="project-desc">A computational model developed in MATLAB for analyzing and visualizing complex numerical data sets.</p>
                 </a>
                 <a href="https://github.com/S1Prime/Calculator" class="card-item" target="_blank">
                     <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="Python" />
                     <span>Python Project</span>
+                    <p class="project-desc">A fully functional desktop calculator application built with Python. Features standard arithmetic operations with an intuitive user interface.</p>
                 </a>
                 <a href="https://s1prime.github.io/Student-Registration-Form/" class="card-item" target="_blank">
                     <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" alt="HTML/CSS" />
                     <span>User Interface Design Project</span>
+                    <p class="project-desc">A responsive web-based student registration form designed with HTML and CSS, focusing on accessibility and clean user experience.</p>
+                </a>
+                <a href="https://online-quiz-cqaw.onrender.com" target="_blank" class="card-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/eclipse/eclipse-original.svg" alt="Java Project"/>
+                    <span>Java Project</span>
+                    <p class="project-desc">An online quiz management system developed with Java, featuring a fully integrated frontend and backend architecture.</p>
                 </a>
             </div>
         </section>
@@ -111,17 +124,32 @@
         </section>
         <section id="Contact-Me">
             <h2>Contact</h2>
-            <div class="tags-container">
-                <a href="mailto:vaishnavvenu2007@gmail.com" class="tag">Email</a>
-                <a href="https://github.com/S1Prime" class="tag" target="_blank">GitHub</a>
-                <a href="https://www.linkedin.com/in/vaishnav-venu-079a2a383/" class="tag"
-                    target="_blank">LinkedIn</a>
-                <a href="mailto:am.sc.u4cse25057@am.students.amrita.edu" class="tag" target="_blank">OutLook</a>
+            <div class="contact-grid">
+                <a href="mailto:vaishnavvenu2007@gmail.com" class="contact-card">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/google/google-original.svg" alt="Email" style="filter: grayscale(100%) brightness(200%);" />
+                    <span>Email</span>
+                </a>
+                <a href="https://github.com/S1Prime" class="contact-card" target="_blank">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" alt="GitHub" style="filter: invert(100%);" />
+                    <span>GitHub</span>
+                </a>
+                <a href="https://www.linkedin.com/in/vaishnav-venu-079a2a383/" class="contact-card" target="_blank">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linkedin/linkedin-original.svg" alt="LinkedIn" />
+                    <span>LinkedIn</span>
+                </a>
+                <a href="mailto:am.sc.u4cse25057@am.students.amrita.edu" class="contact-card" target="_blank">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/windows8/windows8-original.svg" alt="Outlook" />
+                    <span>OutLook</span>
+                </a>
             </div>
         </section>
     </main>
     <footer>
         <p>&copy; 2026 Vaishnav Venu | All Rights Reserved</p>
     </footer>
+
+    <button id="scroll-top-btn" aria-label="Back to top">&#8679;</button>
+
+    <script src="portfolio.js"></script>
 </body>
 </html>
