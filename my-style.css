@@ -85,6 +85,26 @@ html[data-theme="emerald"] {
     --filter-github: invert(100%);
 }
 
+html[data-theme="dracula"] {
+    --bg:           #282a36;
+    --bg-deep:      #1e1f29;
+    --bg-gradient-top: #44475a;
+    --surface:      rgba(40, 42, 54, 0.72);
+    --surface-hi:   rgba(68, 71, 90, 0.85);
+    --border:       rgba(189, 147, 249, 0.15);
+    --border-hi:    rgba(189, 147, 249, 0.45);
+    --text:         #f8f8f2;
+    --muted:        #6272a4;
+    --accent:       #bd93f9;
+    --accent-glow:  rgba(189, 147, 249, 0.2);
+    --accent-light: #ff79c6;
+    --tag-bg:       rgba(189, 147, 249, 0.08);
+    --tag-text:     #bd93f9;
+    --canvas-opacity: 0.50;
+    --filter-email: grayscale(100%) brightness(200%);
+    --filter-github: invert(100%);
+}
+
 .icon-email {
     filter: var(--filter-email);
     transition: filter var(--transition);
@@ -329,6 +349,7 @@ nav a.active {
 .swatch.light { background: #4f46e5; }
 .swatch.sunset { background: #ec4899; }
 .swatch.emerald { background: #10b981; }
+.swatch.dracula { background: #bd93f9; }
 
 
 main { padding-bottom: 100px; }
