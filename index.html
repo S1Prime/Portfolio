@@ -19,7 +19,7 @@
             <a href="#" style="text-decoration: none; color: inherit;">
                 <h1>Vaishnav Venu</h1>
             </a>
-            <p>Computer Science Student &amp; Engineering || AI Enthusiast</p>
+            <p><span id="typing-subtitle">Computer Science Student</span><span class="typing-cursor" style="color: var(--accent); font-weight: bold; margin-left: 2px;">|</span></p>
             <span class="status">
                 <span class="status-dot"></span>
                 Open to opportunities
@@ -27,15 +27,37 @@
         </div>
     </header>
     <nav>
-        <a href="#About-Me">About</a>
-        <a href="#Education">Education</a>
-        <a href="#Skills">Skills</a>
-        <a href="#Projects">Projects</a>
-        <a href="#Tools">Tools</a>
-        <a href="#Contact-Me">Contact</a>
+        <div class="nav-links">
+            <a href="#About-Me">About</a>
+            <a href="#Education">Education</a>
+            <a href="#Skills">Skills</a>
+            <a href="#Projects">Projects</a>
+            <a href="#Tools">Tools</a>
+            <a href="#Contact-Me">Contact</a>
+        </div>
+        <div class="theme-switcher">
+            <button class="theme-btn" id="theme-menu-btn" aria-label="Switch Theme">
+                <span class="theme-icon">✦</span>
+                <span class="theme-label">Theme</span>
+            </button>
+            <div class="theme-dropdown" id="theme-dropdown">
+                <button data-theme="space" class="theme-opt active">
+                    <span class="swatch space"></span> Space
+                </button>
+                <button data-theme="light" class="theme-opt">
+                    <span class="swatch light"></span> Slate
+                </button>
+                <button data-theme="sunset" class="theme-opt">
+                    <span class="swatch sunset"></span> Sunset
+                </button>
+                <button data-theme="emerald" class="theme-opt">
+                    <span class="swatch emerald"></span> Forest
+                </button>
+            </div>
+        </div>
     </nav>
     <main>
-        <section id="About-Me">
+        <section id="About-Me" class="reveal">
             <h2>About</h2>
             <p>
                 Hi, I'm Vaishnav Venu, a Computer Science student at <strong>Amrita Vishwa Vidyapeetham</strong>. 
@@ -48,18 +70,36 @@
                 Outside of academics, I love exploring <strong>Open-Source AI Models </strong> and projects.
             </p>
         </section>
-        <section id="Education">
+        <section id="Education" class="reveal">
             <h2>Education</h2>
-            <div class="edu-item">
-                <strong>B.Tech in Computer Science</strong>
-                <span>Amrita Vishwa Vidyapeetham,Amritapuri,Kollam,Kerala (2025-2029)</span>
-                <strong>Higher Secondary</strong>
-                <span>Chinmaya Vidyalaya,Alappuzha,Kerala (2025)</span>
-                <strong>Secondary</strong>
-                <span>St.Thomas Residential School,Naharlagun,Arunachal Pradesh(2023)</span>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">2025 - 2029</div>
+                        <h3>B.Tech in Computer Science</h3>
+                        <p class="timeline-school">Amrita Vishwa Vidyapeetham, Amritapuri, Kollam, Kerala</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">2023 - 2025</div>
+                        <h3>Higher Secondary</h3>
+                        <p class="timeline-school">Chinmaya Vidyalaya, Alappuzha, Kerala</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">2021 - 2023</div>
+                        <h3>Secondary</h3>
+                        <p class="timeline-school">St. Thomas Residential School, Naharlagun, Arunachal Pradesh</p>
+                    </div>
+                </div>
             </div>
         </section>
-         <section id="Skills">
+         <section id="Skills" class="reveal">
             <h2>Skills</h2>
             <div class="tags-container">
                 <span class="tag">Python</span>
@@ -68,7 +108,7 @@
                 <span class="tag">Problem Solving</span>
             </div>
         </section>
-        <section id="Projects">
+        <section id="Projects" class="reveal">
             <h2>Projects</h2>
             <div class="cards-grid">
                 <a href="https://github.com/S1Prime/Matlab" class="card-item" target="_blank">
@@ -93,7 +133,7 @@
                 </a>
             </div>
         </section>
-        <section id="Tools">
+        <section id="Tools" class="reveal">
              <h2>Tools</h2>
             <div class="cards-grid">
                 <a href="https://code.visualstudio.com/download" target="_blank" class="card-item">
@@ -122,15 +162,15 @@
                 </a>
             </div>
         </section>
-        <section id="Contact-Me">
+        <section id="Contact-Me" class="reveal">
             <h2>Contact</h2>
             <div class="contact-grid">
                 <a href="mailto:vaishnavvenu2007@gmail.com" class="contact-card">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/google/google-original.svg" alt="Email" style="filter: grayscale(100%) brightness(200%);" />
+                    <img class="icon-email" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/google/google-original.svg" alt="Email" />
                     <span>Email</span>
                 </a>
                 <a href="https://github.com/S1Prime" class="contact-card" target="_blank">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" alt="GitHub" style="filter: invert(100%);" />
+                    <img class="icon-github" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" alt="GitHub" />
                     <span>GitHub</span>
                 </a>
                 <a href="https://www.linkedin.com/in/vaishnav-venu-079a2a383/" class="contact-card" target="_blank">
