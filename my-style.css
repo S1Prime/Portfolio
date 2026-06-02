@@ -517,22 +517,67 @@ html[data-theme="emerald"] .timeline-item:hover .timeline-content {
     margin-top: 8px;
 }
 
-.card-item {
+.card-item, .contact-card {
+    position: relative;
+    overflow: hidden; /* clips the sheen reflect gradient */
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 12px;
     background: var(--surface);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
-    padding: 22px 16px;
     border-radius: var(--radius);
+    border: 1px solid var(--border);
     text-decoration: none;
     color: var(--text);
-    border: 1px solid var(--border);
-    transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
     text-align: center;
     will-change: transform;
+    
+    /* 3D Perspective Rotation */
+    transform: perspective(1000px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) scale3d(1, 1, 1);
+    transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), border-color var(--transition), box-shadow var(--transition), background var(--transition);
+    transform-style: preserve-3d;
+}
+
+.card-item {
+    gap: 12px;
+    padding: 22px 16px;
+}
+
+.contact-card {
+    gap: 10px;
+    padding: 18px 12px;
+}
+
+.card-item:hover, .contact-card:hover {
+    border-color: var(--border-hi);
+    box-shadow: 0 12px 32px var(--accent-glow);
+    transition: transform 0.05s linear, border-color var(--transition), box-shadow var(--transition);
+}
+
+/* Hover Sheen Reflection */
+.card-item::after, .contact-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle 120px at var(--glow-x, 50%) var(--glow-y, 50%), var(--accent-glow) 0%, transparent 80%);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 5;
+}
+
+.card-item:hover::after, .contact-card:hover::after {
+    opacity: 1;
+}
+
+/* Child elements preservation in 3D */
+.card-item img, .card-item span, .card-item p, .contact-card img, .contact-card span {
+    transform: translateZ(20px); /* elevates elements off the glass surface slightly */
+    transition: transform 0.22s var(--transition);
 }
 
 .card-item img {
@@ -544,7 +589,7 @@ html[data-theme="emerald"] .timeline-item:hover .timeline-content {
 }
 
 .card-item:hover img {
-    transform: scale(1.08);
+    transform: translateZ(32px) scale(1.08); /* pops outward more during active tilt hover */
     filter: drop-shadow(0 0 10px var(--accent-glow));
 }
 
@@ -561,35 +606,11 @@ html[data-theme="emerald"] .timeline-item:hover .timeline-content {
     margin-top: 4px;
 }
 
-.card-item:hover {
-    border-color: var(--border-hi);
-    box-shadow: 0 6px 24px var(--accent-glow);
-}
-
-
 .contact-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
     gap: 16px;
     margin-top: 8px;
-}
-
-.contact-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    background: var(--surface);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    padding: 18px 12px;
-    border-radius: var(--radius);
-    text-decoration: none;
-    color: var(--text);
-    border: 1px solid var(--border);
-    transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
-    text-align: center;
-    will-change: transform;
 }
 
 .contact-card img {
@@ -599,17 +620,14 @@ html[data-theme="emerald"] .timeline-item:hover .timeline-content {
     transition: transform var(--transition);
 }
 
-.contact-card:hover img { transform: scale(1.12); }
+.contact-card:hover img { 
+    transform: translateZ(32px) scale(1.12); /* pops outward during active tilt hover */
+}
 
 .contact-card span {
     font-size: 0.79rem;
     font-weight: 500;
     font-family: 'DM Mono', monospace;
-}
-
-.contact-card:hover {
-    border-color: var(--border-hi);
-    box-shadow: 0 6px 24px var(--accent-glow);
 }
 
 

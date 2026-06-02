@@ -90,157 +90,149 @@
 })();
 
 
-/* ─── Interactive Constellation Particle Background ────────────────────── */
+/* ─── Siri-style dynamic fluid waves ────────────────────── */
 (function () {
   const canvas = document.getElementById('bg-canvas');
   if (!canvas) return;
 
   const ctx = canvas.getContext('2d');
-  let particles = [];
   let animationFrameId;
-
-  // Track mouse
-  const mouse = {
-    x: null,
-    y: null,
-    radius: 120, // repulsion radius
-  };
+  let mouse = { x: null, y: null, active: false };
 
   window.addEventListener('mousemove', (e) => {
     mouse.x = e.clientX;
     mouse.y = e.clientY;
+    mouse.active = true;
   });
 
-  window.addEventListener('mouseout', () => {
+  window.addEventListener('mouseleave', () => {
     mouse.x = null;
     mouse.y = null;
+    mouse.active = false;
   });
 
-  // Sharp rendering for Retina/High-DPI screens
   function resizeCanvas() {
     const dpr = window.devicePixelRatio || 1;
     const width = window.innerWidth;
     const height = window.innerHeight;
-    
     canvas.width = width * dpr;
     canvas.height = height * dpr;
     ctx.scale(dpr, dpr);
-    
     canvas.style.width = `${width}px`;
     canvas.style.height = `${height}px`;
-
-    initParticles();
   }
 
-  class Particle {
-    constructor(x, y) {
-      this.x = x;
-      this.y = y;
-      this.vx = (Math.random() - 0.5) * 0.35;
-      this.vy = (Math.random() - 0.5) * 0.35;
-      this.radius = Math.random() * 1.5 + 1;
-      this.originalVx = this.vx;
-      this.originalVy = this.vy;
+  let waveData = [
+    {
+      phase: 0,
+      amplitude: 35,
+      frequency: 0.003,
+      speed: 0.015,
+      offset: 0,
+      alpha: 0.15
+    },
+    {
+      phase: Math.PI * 0.4,
+      amplitude: 45,
+      frequency: 0.002,
+      speed: -0.01,
+      offset: 20,
+      alpha: 0.1
+    },
+    {
+      phase: Math.PI * 0.8,
+      amplitude: 25,
+      frequency: 0.005,
+      speed: 0.02,
+      offset: -20,
+      alpha: 0.12
+    },
+    {
+      phase: Math.PI * 1.2,
+      amplitude: 30,
+      frequency: 0.004,
+      speed: -0.015,
+      offset: 10,
+      alpha: 0.08
     }
-
-    draw(color) {
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-      ctx.fillStyle = color;
-      ctx.fill();
-    }
-
-    update() {
-      // Repulsion from mouse
-      if (mouse.x !== null && mouse.y !== null) {
-        const dx = this.x - mouse.x;
-        const dy = this.y - mouse.y;
-        const dist = Math.hypot(dx, dy);
-        
-        if (dist < mouse.radius) {
-          const force = (mouse.radius - dist) / mouse.radius;
-          const angle = Math.atan2(dy, dx);
-          // Apply repulsion force
-          this.vx += Math.cos(angle) * force * 0.25;
-          this.vy += Math.sin(angle) * force * 0.25;
-        }
-      }
-
-      // Physics deceleration back to original speed
-      this.vx *= 0.95;
-      this.vy *= 0.95;
-      this.vx += (this.originalVx - this.vx) * 0.05;
-      this.vy += (this.originalVy - this.vy) * 0.05;
-
-      // Update positions
-      this.x += this.vx;
-      this.y += this.vy;
-
-      // Wrap around or bounce edges
-      const margin = 10;
-      if (this.x < -margin) this.x = window.innerWidth + margin;
-      else if (this.x > window.innerWidth + margin) this.x = -margin;
-      
-      if (this.y < -margin) this.y = window.innerHeight + margin;
-      else if (this.y > window.innerHeight + margin) this.y = -margin;
-    }
-  }
-
-  function initParticles() {
-    particles = [];
-    // Number of particles proportional to screen size
-    const particleCount = Math.floor((window.innerWidth * window.innerHeight) / 9500);
-    const count = Math.min(Math.max(particleCount, 40), 120); // bounds
-
-    for (let i = 0; i < count; i++) {
-      const x = Math.random() * window.innerWidth;
-      const y = Math.random() * window.innerHeight;
-      particles.push(new Particle(x, y));
-    }
-  }
+  ];
 
   function getAccentColor() {
-    // Get computed styles of document element to get dynamic active theme accent color
     const accent = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim();
     return accent || '#64ffda';
   }
 
-  function animate() {
+  function hexToRgb(hex) {
+    const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+    const fullHex = hex.replace(shorthandRegex, (m, r, g, b) => r + r + g + g + b + b);
+    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(fullHex);
+    return result ? {
+      r: parseInt(result[1], 16),
+      g: parseInt(result[2], 16),
+      b: parseInt(result[3], 16)
+    } : { r: 100, g: 255, b: 218 };
+  }
+
+  function drawWaves() {
     ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+
     const accent = getAccentColor();
+    const rgb = hexToRgb(accent);
+    
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    
+    const theme = document.documentElement.getAttribute('data-theme');
+    ctx.globalCompositeOperation = (theme === 'light') ? 'multiply' : 'screen';
 
-    // Draw and connect particles
-    for (let i = 0; i < particles.length; i++) {
-      const p = particles[i];
-      p.update();
-      p.draw(accent);
+    waveData.forEach((wave, idx) => {
+      wave.phase += wave.speed;
+      
+      ctx.beginPath();
+      
+      const grad = ctx.createLinearGradient(0, 0, width, 0);
+      grad.addColorStop(0, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0)`);
+      grad.addColorStop(0.5, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${wave.alpha})`);
+      grad.addColorStop(1, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0)`);
+      
+      ctx.fillStyle = grad;
 
-      for (let j = i + 1; j < particles.length; j++) {
-        const p2 = particles[j];
-        const dx = p.x - p2.x;
-        const dy = p.y - p2.y;
-        const dist = Math.hypot(dx, dy);
+      for (let x = 0; x <= width; x += 10) {
+        let y = height * 0.72 + wave.offset;
+        let waveAmp = wave.amplitude;
+        let mouseInfluence = 0;
+        
+        if (mouse.active && mouse.x !== null) {
+          const distToMouse = Math.abs(x - mouse.x);
+          if (distToMouse < 250) {
+            const factor = (250 - distToMouse) / 250;
+            waveAmp += factor * 22;
+            mouseInfluence = factor * Math.sin((x - mouse.x) * 0.05) * 12;
+          }
+        }
 
-        if (dist < 110) {
-          const alpha = ((110 - dist) / 110) * 0.15;
-          ctx.beginPath();
-          ctx.moveTo(p.x, p.y);
-          ctx.lineTo(p2.x, p2.y);
-          ctx.strokeStyle = accent;
-          ctx.globalAlpha = alpha;
-          ctx.lineWidth = 0.8;
-          ctx.stroke();
-          ctx.globalAlpha = 1.0; // reset
+        const sineVal = Math.sin(x * wave.frequency + wave.phase) * Math.cos(x * 0.001 + wave.phase * 0.5);
+        y += sineVal * waveAmp + mouseInfluence;
+
+        if (x === 0) {
+          ctx.moveTo(x, y);
+        } else {
+          ctx.lineTo(x, y);
         }
       }
-    }
 
-    animationFrameId = requestAnimationFrame(animate);
+      ctx.lineTo(width, height);
+      ctx.lineTo(0, height);
+      ctx.closePath();
+      ctx.fill();
+    });
+
+    animationFrameId = requestAnimationFrame(drawWaves);
   }
 
   window.addEventListener('resize', resizeCanvas);
   resizeCanvas();
-  animate();
+  drawWaves();
 })();
 
 
@@ -308,4 +300,41 @@
   });
 
   revealElements.forEach(el => observer.observe(el));
+})();
+
+
+/* ─── 3D Card Hover Parallax Tilt & Sheen Reflect ─────────────────────── */
+(function () {
+  const cards = document.querySelectorAll('.card-item, .contact-card');
+  if (cards.length === 0) return;
+
+  cards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left; // relative mouse coordinate X inside card
+      const y = e.clientY - rect.top;  // relative mouse coordinate Y inside card
+      
+      // Calculate normalized offset ratios (-0.5 to 0.5)
+      const px = x / rect.width;
+      const py = y / rect.height;
+      
+      // Compute tilt angles (max 18 degrees tilt)
+      const tiltX = (0.5 - py) * 18;
+      const tiltY = (px - 0.5) * 18;
+      
+      // Set custom CSS variables on target element in real time
+      card.style.setProperty('--tilt-x', `${tiltX}deg`);
+      card.style.setProperty('--tilt-y', `${tiltY}deg`);
+      card.style.setProperty('--glow-x', `${px * 100}%`);
+      card.style.setProperty('--glow-y', `${py * 100}%`);
+    });
+
+    card.addEventListener('mouseleave', () => {
+      // Smooth reset on mouse leave
+      card.style.setProperty('--tilt-x', `0deg`);
+      card.style.setProperty('--tilt-y', `0deg`);
+      card.style.setProperty('--glow-x', `50%`);
+      card.style.setProperty('--glow-y', `50%`);
+    });
+  });
 })();
