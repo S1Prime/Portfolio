@@ -90,25 +90,24 @@
 })();
 
 
-/* ─── Siri-style dynamic fluid waves ────────────────────── */
+/* ─── Neural Network Particle Background ────────────────────── */
 (function () {
   const canvas = document.getElementById('bg-canvas');
   if (!canvas) return;
 
   const ctx = canvas.getContext('2d');
   let animationFrameId;
-  let mouse = { x: null, y: null, active: false };
+  let particles = [];
+  const mouse = { x: null, y: null, radius: 150 };
 
   window.addEventListener('mousemove', (e) => {
     mouse.x = e.clientX;
     mouse.y = e.clientY;
-    mouse.active = true;
   });
 
   window.addEventListener('mouseleave', () => {
     mouse.x = null;
     mouse.y = null;
-    mouse.active = false;
   });
 
   function resizeCanvas() {
@@ -120,42 +119,8 @@
     ctx.scale(dpr, dpr);
     canvas.style.width = `${width}px`;
     canvas.style.height = `${height}px`;
+    initParticles();
   }
-
-  let waveData = [
-    {
-      phase: 0,
-      amplitude: 35,
-      frequency: 0.003,
-      speed: 0.015,
-      offset: 0,
-      alpha: 0.15
-    },
-    {
-      phase: Math.PI * 0.4,
-      amplitude: 45,
-      frequency: 0.002,
-      speed: -0.01,
-      offset: 20,
-      alpha: 0.1
-    },
-    {
-      phase: Math.PI * 0.8,
-      amplitude: 25,
-      frequency: 0.005,
-      speed: 0.02,
-      offset: -20,
-      alpha: 0.12
-    },
-    {
-      phase: Math.PI * 1.2,
-      amplitude: 30,
-      frequency: 0.004,
-      speed: -0.015,
-      offset: 10,
-      alpha: 0.08
-    }
-  ];
 
   function getAccentColor() {
     const accent = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim();
@@ -173,66 +138,110 @@
     } : { r: 100, g: 255, b: 218 };
   }
 
-  function drawWaves() {
-    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-
-    const accent = getAccentColor();
-    const rgb = hexToRgb(accent);
-    
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-    
-    const theme = document.documentElement.getAttribute('data-theme');
-    ctx.globalCompositeOperation = (theme === 'light') ? 'multiply' : 'screen';
-
-    waveData.forEach((wave, idx) => {
-      wave.phase += wave.speed;
-      
+  class Particle {
+    constructor(x, y, vx, vy, size) {
+      this.x = x;
+      this.y = y;
+      this.vx = vx;
+      this.vy = vy;
+      this.size = size;
+    }
+    draw(rgb) {
       ctx.beginPath();
-      
-      const grad = ctx.createLinearGradient(0, 0, width, 0);
-      grad.addColorStop(0, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0)`);
-      grad.addColorStop(0.5, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${wave.alpha})`);
-      grad.addColorStop(1, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0)`);
-      
-      ctx.fillStyle = grad;
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fillStyle = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`;
+      ctx.fill();
+    }
+    update() {
+      if (this.x > window.innerWidth || this.x < 0) this.vx = -this.vx;
+      if (this.y > window.innerHeight || this.y < 0) this.vy = -this.vy;
 
-      for (let x = 0; x <= width; x += 10) {
-        let y = height * 0.72 + wave.offset;
-        let waveAmp = wave.amplitude;
-        let mouseInfluence = 0;
-        
-        if (mouse.active && mouse.x !== null) {
-          const distToMouse = Math.abs(x - mouse.x);
-          if (distToMouse < 250) {
-            const factor = (250 - distToMouse) / 250;
-            waveAmp += factor * 22;
-            mouseInfluence = factor * Math.sin((x - mouse.x) * 0.05) * 12;
-          }
-        }
-
-        const sineVal = Math.sin(x * wave.frequency + wave.phase) * Math.cos(x * 0.001 + wave.phase * 0.5);
-        y += sineVal * waveAmp + mouseInfluence;
-
-        if (x === 0) {
-          ctx.moveTo(x, y);
-        } else {
-          ctx.lineTo(x, y);
+      // Mouse interaction (particles avoid the mouse slightly, creating a cool effect)
+      if (mouse.x !== null && mouse.y !== null) {
+        let dx = mouse.x - this.x;
+        let dy = mouse.y - this.y;
+        let distance = Math.sqrt(dx * dx + dy * dy);
+        if (distance < mouse.radius) {
+          const forceDirectionX = dx / distance;
+          const forceDirectionY = dy / distance;
+          const force = (mouse.radius - distance) / mouse.radius;
+          const directionX = forceDirectionX * force * 1.5;
+          const directionY = forceDirectionY * force * 1.5;
+          this.x -= directionX;
+          this.y -= directionY;
         }
       }
 
-      ctx.lineTo(width, height);
-      ctx.lineTo(0, height);
-      ctx.closePath();
-      ctx.fill();
-    });
+      this.x += this.vx;
+      this.y += this.vy;
+    }
+  }
 
-    animationFrameId = requestAnimationFrame(drawWaves);
+  function initParticles() {
+    particles = [];
+    let numberOfParticles = (window.innerWidth * window.innerHeight) / 10000;
+    if (numberOfParticles > 120) numberOfParticles = 120; // Cap to ensure performance
+    
+    for (let i = 0; i < numberOfParticles; i++) {
+      let size = (Math.random() * 1.5) + 0.5;
+      let x = Math.random() * window.innerWidth;
+      let y = Math.random() * window.innerHeight;
+      let vx = (Math.random() - 0.5) * 1.2;
+      let vy = (Math.random() - 0.5) * 1.2;
+      particles.push(new Particle(x, y, vx, vy, size));
+    }
+  }
+
+  function drawNetwork() {
+    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    const accent = getAccentColor();
+    const rgb = hexToRgb(accent);
+
+    // Update and draw particles
+    for (let i = 0; i < particles.length; i++) {
+      particles[i].update();
+      particles[i].draw(rgb);
+
+      // Connect particles
+      for (let j = i + 1; j < particles.length; j++) {
+        let dx = particles[i].x - particles[j].x;
+        let dy = particles[i].y - particles[j].y;
+        let distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (distance < 110) {
+          let opacity = 1 - (distance / 110);
+          ctx.beginPath();
+          ctx.strokeStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${opacity * 0.4})`;
+          ctx.lineWidth = 1;
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.stroke();
+        }
+      }
+      
+      // Connect to mouse
+      if (mouse.x !== null && mouse.y !== null) {
+        let dx = particles[i].x - mouse.x;
+        let dy = particles[i].y - mouse.y;
+        let distance = Math.sqrt(dx * dx + dy * dy);
+        if (distance < 140) {
+          let opacity = 1 - (distance / 140);
+          ctx.beginPath();
+          ctx.strokeStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${opacity * 0.6})`;
+          ctx.lineWidth = 1.2;
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(mouse.x, mouse.y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    animationFrameId = requestAnimationFrame(drawNetwork);
   }
 
   window.addEventListener('resize', resizeCanvas);
   resizeCanvas();
-  drawWaves();
+  drawNetwork();
 })();
 
 
