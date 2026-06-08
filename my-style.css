@@ -210,16 +210,16 @@ body {
 
 .status-badge {
     position: absolute;
-    bottom: 2px;
-    right: 6px;
+    bottom: -4px;
+    right: -8px;
     background: var(--bg);
     border: 1px solid var(--border-hi);
-    padding: 4px 10px;
-    border-radius: 12px;
+    padding: 3px 8px;
+    border-radius: 10px;
     display: flex;
     align-items: center;
-    gap: 6px;
-    font-size: 0.72rem;
+    gap: 4px;
+    font-size: 0.65rem;
     font-weight: 600;
     color: var(--accent);
     box-shadow: 0 4px 10px rgba(0,0,0,0.15);
@@ -391,34 +391,37 @@ body {
 /* Nav Menu Header styling */
 nav {
     position: sticky;
-    top: 0;
-    background: var(--surface);
+    top: 24px;
+    background: var(--surface-hi);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border);
-    padding: 16px 0;
-    margin-bottom: 16px;
+    border: 1px solid var(--border-hi);
+    padding: 8px 12px;
+    margin: 0 auto 32px auto;
+    border-radius: 100px;
     z-index: 50;
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
+    width: fit-content;
+    box-shadow: var(--shadow);
 }
 
 .nav-links {
     display: flex;
-    gap: 6px;
+    gap: 4px;
 }
 
 nav a {
     color: var(--muted);
     text-decoration: none;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-weight: 600;
-    padding: 8px 16px;
-    border-radius: 8px;
+    padding: 8px 20px;
+    border-radius: 100px;
     font-family: 'Fira Code', monospace;
     border: 1px solid transparent;
-    transition: color var(--transition), background var(--transition), border-color var(--transition);
+    transition: all var(--transition);
 }
 
 nav a:hover {
