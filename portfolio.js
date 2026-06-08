@@ -1,15 +1,21 @@
-/* ─── Active nav link on scroll ──────────────────────────────────────────── */
+/* ─── Active Nav Link on Scroll ──────────────────────────────────────────── */
 (function () {
-  const navLinks = document.querySelectorAll('nav a');
+  const navLinks = document.querySelectorAll('#main-nav .nav-links a');
   const sections = document.querySelectorAll('main section[id]');
 
   function setActive() {
     let current = '';
+    const scrollPos = window.scrollY + 140; // offset for sticky nav header
+    
     sections.forEach(sec => {
-      if (window.scrollY >= sec.offsetTop - 120) current = sec.id;
+      if (scrollPos >= sec.offsetTop) {
+        current = sec.id;
+      }
     });
+
     navLinks.forEach(a => {
-      a.classList.toggle('active', a.getAttribute('href') === `#${current}`);
+      const href = a.getAttribute('href');
+      a.classList.toggle('active', href === `#${current}`);
     });
   }
 
@@ -18,7 +24,7 @@
 })();
 
 
-/* ─── Scroll-to-top button ───────────────────────────────────────────────── */
+/* ─── Scroll-to-top Button ───────────────────────────────────────────────── */
 (function () {
   const btn = document.getElementById('scroll-top-btn');
   if (!btn) return;
@@ -34,28 +40,32 @@
 
 
 /* ─── Premium Theme Switcher & Storage ───────────────────────────────────── */
-(function () {
-  const menuBtn = document.getElementById('theme-menu-btn');
-  const dropdown = document.getElementById('theme-dropdown');
-  const themeOpts = document.querySelectorAll('.theme-opt');
+let currentTheme = 'space';
 
-  if (!menuBtn || !dropdown) return;
+(function () {
+  const hubBtn = document.getElementById('theme-hub-btn');
+  const dropdown = document.getElementById('theme-hub-dropdown');
+  const themeOpts = document.querySelectorAll('.theme-hub-opt');
+
+  if (!hubBtn || !dropdown) return;
 
   // Toggle dropdown on button click
-  menuBtn.addEventListener('click', (e) => {
+  hubBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     dropdown.classList.toggle('show');
   });
 
   // Close dropdown when clicking outside
   document.addEventListener('click', (e) => {
-    if (!dropdown.contains(e.target) && e.target !== menuBtn) {
+    if (!dropdown.contains(e.target) && e.target !== hubBtn) {
       dropdown.classList.remove('show');
     }
   });
 
   // Switch Theme function
   function applyTheme(theme) {
+    currentTheme = theme;
+    
     // Apply data-theme attribute to html
     if (theme === 'space') {
       document.documentElement.removeAttribute('data-theme');
@@ -98,7 +108,7 @@
   const ctx = canvas.getContext('2d');
   let animationFrameId;
   let particles = [];
-  const mouse = { x: null, y: null, radius: 150 };
+  const mouse = { x: null, y: null, radius: 160 };
 
   window.addEventListener('mousemove', (e) => {
     mouse.x = e.clientX;
@@ -123,19 +133,50 @@
   }
 
   function getAccentColor() {
+    // Dynamically retrieve accent color computed by CSS variable
     const accent = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim();
     return accent || '#64ffda';
   }
 
-  function hexToRgb(hex) {
-    const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-    const fullHex = hex.replace(shorthandRegex, (m, r, g, b) => r + r + g + g + b + b);
-    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(fullHex);
-    return result ? {
-      r: parseInt(result[1], 16),
-      g: parseInt(result[2], 16),
-      b: parseInt(result[3], 16)
-    } : { r: 100, g: 255, b: 218 };
+  function parseColor(colorString) {
+    // Handles HSL values e.g. "hsl(166, 100%, 70%)"
+    if (colorString.startsWith('hsl')) {
+      const matches = colorString.match(/\d+/g);
+      if (matches && matches.length >= 3) {
+        return { h: parseInt(matches[0]), s: parseInt(matches[1]), l: parseInt(matches[2]) };
+      }
+    }
+    // Fallback space theme teal color
+    return { h: 166, s: 100, l: 70 };
+  }
+
+  function hslToRgb(h, s, l) {
+    s /= 100;
+    l /= 100;
+    let c = (1 - Math.abs(2 * l - 1)) * s;
+    let x = c * (1 - Math.abs((h / 60) % 2 - 1));
+    let m = l - c / 2;
+    let r = 0, g = 0, b = 0;
+
+    if (0 <= h && h < 60) {
+      r = c; g = x; b = 0;
+    } else if (60 <= h && h < 120) {
+      r = x; g = c; b = 0;
+    } else if (120 <= h && h < 180) {
+      r = 0; g = c; b = x;
+    } else if (180 <= h && h < 240) {
+      r = 0; g = x; b = c;
+    } else if (240 <= h && h < 300) {
+      r = x; g = 0; b = c;
+    } else if (300 <= h && h < 360) {
+      r = c; g = 0; b = x;
+    }
+    
+    return {
+      r: Math.round((r + m) * 255),
+      g: Math.round((g + m) * 255),
+      b: Math.round((b + m) * 255)
+    };
   }
 
   class Particle {
@@ -156,7 +197,7 @@
       if (this.x > window.innerWidth || this.x < 0) this.vx = -this.vx;
       if (this.y > window.innerHeight || this.y < 0) this.vy = -this.vy;
 
-      // Mouse interaction (particles avoid the mouse slightly, creating a cool effect)
+      // Mouse repulsion physics
       if (mouse.x !== null && mouse.y !== null) {
         let dx = mouse.x - this.x;
         let dy = mouse.y - this.y;
@@ -165,8 +206,8 @@
           const forceDirectionX = dx / distance;
           const forceDirectionY = dy / distance;
           const force = (mouse.radius - distance) / mouse.radius;
-          const directionX = forceDirectionX * force * 1.5;
-          const directionY = forceDirectionY * force * 1.5;
+          const directionX = forceDirectionX * force * 1.6;
+          const directionY = forceDirectionY * force * 1.6;
           this.x -= directionX;
           this.y -= directionY;
         }
@@ -179,23 +220,24 @@
 
   function initParticles() {
     particles = [];
-    let numberOfParticles = (window.innerWidth * window.innerHeight) / 10000;
-    if (numberOfParticles > 120) numberOfParticles = 120; // Cap to ensure performance
+    let numberOfParticles = (window.innerWidth * window.innerHeight) / 11000;
+    if (numberOfParticles > 100) numberOfParticles = 100;
     
     for (let i = 0; i < numberOfParticles; i++) {
-      let size = (Math.random() * 1.5) + 0.5;
+      let size = (Math.random() * 1.6) + 0.6;
       let x = Math.random() * window.innerWidth;
       let y = Math.random() * window.innerHeight;
-      let vx = (Math.random() - 0.5) * 1.2;
-      let vy = (Math.random() - 0.5) * 1.2;
+      let vx = (Math.random() - 0.5) * 1.0;
+      let vy = (Math.random() - 0.5) * 1.0;
       particles.push(new Particle(x, y, vx, vy, size));
     }
   }
 
   function drawNetwork() {
     ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-    const accent = getAccentColor();
-    const rgb = hexToRgb(accent);
+    const accentColorStr = getAccentColor();
+    const hsl = parseColor(accentColorStr);
+    const rgb = hslToRgb(hsl.h, hsl.s, hsl.l);
 
     // Update and draw particles
     for (let i = 0; i < particles.length; i++) {
@@ -208,18 +250,18 @@
         let dy = particles[i].y - particles[j].y;
         let distance = Math.sqrt(dx * dx + dy * dy);
 
-        if (distance < 110) {
-          let opacity = 1 - (distance / 110);
+        if (distance < 115) {
+          let opacity = 1 - (distance / 115);
           ctx.beginPath();
-          ctx.strokeStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${opacity * 0.4})`;
-          ctx.lineWidth = 1;
+          ctx.strokeStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${opacity * 0.35})`;
+          ctx.lineWidth = 0.9;
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(particles[j].x, particles[j].y);
           ctx.stroke();
         }
       }
       
-      // Connect to mouse
+      // Connect particles to mouse pointer
       if (mouse.x !== null && mouse.y !== null) {
         let dx = particles[i].x - mouse.x;
         let dy = particles[i].y - mouse.y;
@@ -227,8 +269,8 @@
         if (distance < 140) {
           let opacity = 1 - (distance / 140);
           ctx.beginPath();
-          ctx.strokeStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${opacity * 0.6})`;
-          ctx.lineWidth = 1.2;
+          ctx.strokeStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${opacity * 0.5})`;
+          ctx.lineWidth = 1.1;
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(mouse.x, mouse.y);
           ctx.stroke();
@@ -251,8 +293,8 @@
   if (!subtitleEl) return;
 
   const titles = [
-    'Computer Science Student & Engineer',
-    'Artificial Intelligence Enthusiast',
+    'Computer Science Student',
+    'AI & Machine Learning Enthusiast',
     'Problem Solver & Web Developer',
     'Open-Source AI Model Explorer'
   ];
@@ -260,28 +302,28 @@
   let titleIndex = 0;
   let charIndex = 0;
   let isDeleting = false;
-  let typingSpeed = 70;
+  let typingSpeed = 65;
 
   function type() {
     const currentTitle = titles[titleIndex];
     
     if (isDeleting) {
       charIndex--;
-      typingSpeed = 35; // faster deletion
+      typingSpeed = 30; // fast deletion
     } else {
       charIndex++;
-      typingSpeed = 70; // standard typing speed
+      typingSpeed = 65; // standard typing
     }
 
     subtitleEl.textContent = currentTitle.substring(0, charIndex);
 
     if (!isDeleting && charIndex === currentTitle.length) {
       isDeleting = true;
-      typingSpeed = 2200; // pause at full text
+      typingSpeed = 2000; // hold full phrase
     } else if (isDeleting && charIndex === 0) {
       isDeleting = false;
       titleIndex = (titleIndex + 1) % titles.length;
-      typingSpeed = 400; // pause before next word
+      typingSpeed = 350; // pause before next typing loop
     }
 
     setTimeout(type, typingSpeed);
@@ -314,24 +356,22 @@
 
 /* ─── 3D Card Hover Parallax Tilt & Sheen Reflect ─────────────────────── */
 (function () {
-  const cards = document.querySelectorAll('.card-item, .contact-card');
+  const cards = document.querySelectorAll('.card-item, .tool-item, .contact-icon-card');
   if (cards.length === 0) return;
 
   cards.forEach(card => {
     card.addEventListener('mousemove', (e) => {
       const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left; // relative mouse coordinate X inside card
-      const y = e.clientY - rect.top;  // relative mouse coordinate Y inside card
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
       
-      // Calculate normalized offset ratios (-0.5 to 0.5)
       const px = x / rect.width;
       const py = y / rect.height;
       
-      // Compute tilt angles (max 18 degrees tilt)
-      const tiltX = (0.5 - py) * 18;
-      const tiltY = (px - 0.5) * 18;
+      // Tilt logic: maximum 15deg tilt
+      const tiltX = (0.5 - py) * 15;
+      const tiltY = (px - 0.5) * 15;
       
-      // Set custom CSS variables on target element in real time
       card.style.setProperty('--tilt-x', `${tiltX}deg`);
       card.style.setProperty('--tilt-y', `${tiltY}deg`);
       card.style.setProperty('--glow-x', `${px * 100}%`);
@@ -339,11 +379,126 @@
     });
 
     card.addEventListener('mouseleave', () => {
-      // Smooth reset on mouse leave
+      // Smooth reset properties on leave
       card.style.setProperty('--tilt-x', `0deg`);
       card.style.setProperty('--tilt-y', `0deg`);
       card.style.setProperty('--glow-x', `50%`);
       card.style.setProperty('--glow-y', `50%`);
     });
   });
+})();
+
+
+
+/* ─── Filterable Projects Grid ─────────────────────────────────────────── */
+(function () {
+  const filterTabs = document.querySelectorAll('.filter-tab');
+  const projectCards = document.querySelectorAll('.cards-grid .card-item');
+
+  if (filterTabs.length === 0 || projectCards.length === 0) return;
+
+  filterTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      // Set active tab styling
+      filterTabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+
+      const filterVal = tab.getAttribute('data-filter');
+
+      // Filter cards
+      projectCards.forEach(card => {
+        const category = card.getAttribute('data-category');
+        
+        // Hide card first to trigger animation
+        card.classList.remove('fade-in');
+        card.classList.add('hide');
+
+        if (filterVal === 'all' || category === filterVal) {
+          // Wrap in a tiny timeout to allow display layout recalculation before fading in
+          setTimeout(() => {
+            card.classList.remove('hide');
+            card.classList.add('fade-in');
+          }, 20);
+        }
+      });
+    });
+  });
+})();
+
+
+/* ─── Interactive Contact Form Submission Lifecycle ─────────────────────── */
+(function () {
+  const form = document.getElementById('portfolio-contact-form');
+  if (!form) return;
+
+  const btnSubmit = document.getElementById('btn-contact-submit');
+  const btnText = document.getElementById('submit-btn-text');
+  const spinner = document.getElementById('contact-spinner');
+  const statusMsg = document.getElementById('contact-status-msg');
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    // Reset status message
+    statusMsg.className = 'form-status-msg';
+    statusMsg.textContent = '';
+    statusMsg.style.display = 'none';
+
+    // Retrieve input values
+    const nameEl = document.getElementById('contact-name');
+    const emailEl = document.getElementById('contact-email');
+    const messageEl = document.getElementById('contact-message');
+
+    const name = nameEl.value.trim();
+    const email = emailEl.value.trim();
+    const message = messageEl.value.trim();
+
+    // Simple validation checks
+    if (!name || !email || !message) {
+      showStatus('Please fill in all the input fields.', 'error');
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      showStatus('Please enter a valid email address.', 'error');
+      return;
+    }
+
+    // Set sending UI State
+    setLoadingState(true);
+
+    // Mock API request cycle (1.8 seconds)
+    setTimeout(() => {
+      setLoadingState(false);
+      showStatus('Thanks! Your message has been sent successfully.', 'success');
+      form.reset();
+
+      // Clear success state after 4 seconds
+      setTimeout(() => {
+        statusMsg.style.display = 'none';
+        statusMsg.textContent = '';
+      }, 4000);
+    }, 1800);
+  });
+
+  function setLoadingState(isLoading) {
+    if (isLoading) {
+      btnSubmit.disabled = true;
+      spinner.style.display = 'inline-block';
+      btnText.textContent = 'Sending...';
+      form.querySelectorAll('input, textarea').forEach(input => input.disabled = true);
+    } else {
+      btnSubmit.disabled = false;
+      spinner.style.display = 'none';
+      btnText.textContent = 'Send Message';
+      form.querySelectorAll('input, textarea').forEach(input => input.disabled = false);
+    }
+  }
+
+  function showStatus(text, type) {
+    statusMsg.textContent = text;
+    statusMsg.className = `form-status-msg ${type}`;
+    statusMsg.style.display = 'block';
+  }
 })();

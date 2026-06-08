@@ -3,194 +3,324 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Vaishnav Venu's professional AI portfolio">
-    <title>Vaishnav Venu | CS Portfolio</title>
+    <meta name="description" content="Vaishnav Venu's professional AI and Software Engineering Portfolio">
+    <title>Vaishnav Venu | Portfolio</title>
     <link rel="stylesheet" href="my-style.css">
-    <link
-        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap"
-        rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
 </head>
 <body>
+    <!-- Interactive Background Particle Canvas -->
     <canvas id="bg-canvas"></canvas>
-    <header>
-        <img src="VV.jpeg" alt="Vaishnav Venu" class="profile-img">
-        <div class="header-text">
-            <a href="#" style="text-decoration: none; color: inherit;">
-                <h1>Vaishnav Venu</h1>
-            </a>
-            <p><span id="typing-subtitle">Computer Science Student</span><span class="typing-cursor" style="color: var(--accent); font-weight: bold; margin-left: 2px;">|</span></p>
-            <span class="status">
-                <span class="status-dot"></span>
-                Open to opportunities
-            </span>
-        </div>
-    </header>
-    <nav>
-        <div class="nav-links">
-            <a href="#About-Me">About</a>
-            <a href="#Education">Education</a>
-            <a href="#Skills">Skills</a>
-            <a href="#Projects">Projects</a>
-            <a href="#Tools">Tools</a>
-            <a href="#Contact-Me">Contact</a>
-        </div>
-        <div class="theme-switcher">
-            <button class="theme-btn" id="theme-menu-btn" aria-label="Switch Theme">
-                <span class="theme-icon">✦</span>
-                <span class="theme-label">Theme</span>
-            </button>
-            <div class="theme-dropdown" id="theme-dropdown">
-                <button data-theme="space" class="theme-opt active">
-                    <span class="swatch space"></span> Space
-                </button>
-                <button data-theme="sunset" class="theme-opt">
-                    <span class="swatch sunset"></span> Sunset
-                </button>
-                <button data-theme="emerald" class="theme-opt">
-                    <span class="swatch emerald"></span> Forest
-                </button>
-                <button data-theme="dracula" class="theme-opt">
-                    <span class="swatch dracula"></span> Dracula
-                </button>
-            </div>
-        </div>
-    </nav>
-    <main>
-        <section id="About-Me" class="reveal">
-            <h2>About</h2>
-            <p>
-                Hi, I'm Vaishnav Venu, a Computer Science student at <strong>Amrita Vishwa Vidyapeetham</strong>. 
-                I am deeply passionate about programming, modern web development, and the transformative power of Artificial Intelligence.
-            </p>
-            <p>
-                Currently, I am focused on expanding my skill set in<strong> Artificial Intelligence</strong> and I enjoy tackling complex problems, building intuitive digital experiences, and continuously learning emerging technologies.
-            </p>
-            <p>
-                Outside of academics, I love exploring <strong>Open-Source AI Models </strong> and projects.
-            </p>
-        </section>
-        <section id="Education" class="reveal">
-            <h2>Education</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">2025 - 2029</div>
-                        <h3>B.Tech in Computer Science</h3>
-                        <p class="timeline-school">Amrita Vishwa Vidyapeetham, Amritapuri, Kollam, Kerala</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">2023 - 2025</div>
-                        <h3>Higher Secondary</h3>
-                        <p class="timeline-school">Chinmaya Vidyalaya, Alappuzha, Kerala</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">2021 - 2023</div>
-                        <h3>Secondary</h3>
-                        <p class="timeline-school">St. Thomas Residential School, Naharlagun, Arunachal Pradesh</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-         <section id="Skills" class="reveal">
-            <h2>Skills</h2>
-            <div class="tags-container">
-                <span class="tag">Python</span>
-                <span class="tag">Java</span>
-                <span class="tag">HTML / CSS</span>
-                <span class="tag">Problem Solving</span>
-                <span class="tag">JavaScript</span>
-            </div>
-        </section>
-        <section id="Projects" class="reveal">
-            <h2>Projects</h2>
-            <div class="cards-grid">
-                <a href="https://github.com/S1Prime/Matlab" class="card-item" target="_blank">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/matlab/matlab-original.svg" alt="Matlab" />
-                    <span>Matlab Project</span>
-                    <p class="project-desc">A computational model developed in MATLAB for analyzing and visualizing complex numerical data sets.</p>
-                </a>
-                <a href="https://github.com/S1Prime/Calculator" class="card-item" target="_blank">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="Python" />
-                    <span>Python Project</span>
-                    <p class="project-desc">A fully functional desktop calculator application built with Python. Features standard arithmetic operations with an intuitive user interface.</p>
-                </a>
-                <a href="https://s1prime.github.io/Student-Task-Manager/" class="card-item" target="_blank">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" alt="HTML/CSS" />
-                    <span>User Interface Design Project</span>
-                    <p class="project-desc">A responsive web-based student registration form designed with HTML and CSS, focusing on accessibility and clean user experience.</p>
-                </a>
-                <a href="https://online-quiz-cqaw.onrender.com" target="_blank" class="card-item">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/eclipse/eclipse-original.svg" alt="Java Project"/>
-                    <span>Java Project</span>
-                    <p class="project-desc">An online quiz management system developed with Java, featuring a fully integrated frontend and backend architecture.</p>
-                </a>
-            </div>
-        </section>
-        <section id="Tools" class="reveal">
-             <h2>Tools</h2>
-            <div class="cards-grid">
-                <a href="https://code.visualstudio.com/download" target="_blank" class="card-item">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg" alt="VS Code" />
-                    <span>Visual Studio Code</span>
-                </a>
-                 <a href="https://www.python.org/downloads/" target="_blank" class="card-item">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="Python" />
-                    <span>Python (IDLE)</span>
-                </a>
-                <a href="https://desktop.github.com/download/" target="_blank" class="card-item">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" alt="GitHub" />
-                    <span>Git & GitHub</span>
-                </a>
-                <a href="https://eclipseide.org" target="_blank" class="card-item">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/eclipse/eclipse-original.svg" alt="Eclipse" />
-                    <span>Java (ECLIPSE)</span>
-                </a>
-                <a href="https://www.jetbrains.com/idea/" target="_blank" class="card-item">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/intellij/intellij-original.svg" alt="IntelliJ" />
-                    <span>Java (Intellij IDEA)</span>
-                </a>
-                <a href="https://antigravity.google/download" target="_blank" class="card-item">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/google/google-original.svg" alt="Google Antigravity" />
-                    <span>Google Antigravity</span>
-                </a>
-            </div>
-        </section>
-        <section id="Contact-Me" class="reveal">
-            <h2>Contact</h2>
-            <div class="contact-grid">
-                <a href="mailto:vaishnavvenu2007@gmail.com" class="contact-card">
-                    <img class="icon-email" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/google/google-original.svg" alt="Email" />
-                    <span>Email</span>
-                </a>
-                <a href="https://github.com/S1Prime" class="contact-card" target="_blank">
-                    <img class="icon-github" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" alt="GitHub" />
-                    <span>GitHub</span>
-                </a>
-                <a href="https://www.linkedin.com/in/vaishnav-venu-079a2a383/" class="contact-card" target="_blank">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linkedin/linkedin-original.svg" alt="LinkedIn" />
-                    <span>LinkedIn</span>
-                </a>
-                <a href="mailto:am.sc.u4cse25057@am.students.amrita.edu" class="contact-card" target="_blank">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/windows8/windows8-original.svg" alt="Outlook" />
-                    <span>OutLook</span>
-                </a>
-            </div>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2026 Vaishnav Venu | All Rights Reserved</p>
-    </footer>
 
-    <button id="scroll-top-btn" aria-label="Back to top">&#8679;</button>
+    <!-- Main Container supporting split screen -->
+    <div class="portfolio-container">
+        
+        <!-- Sticky Left Profile Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-top">
+                <div class="profile-card">
+                    <div class="profile-img-container">
+                        <img src="VV.jpeg" alt="Vaishnav Venu" class="profile-img">
+                        <div class="status-badge" id="availability-status">
+                            <span class="status-dot-pulse"></span>
+                            <span>Open to Role</span>
+                        </div>
+                    </div>
+                    <div class="sidebar-details">
+                        <h1>Vaishnav Venu</h1>
+                        <div class="subtitle-container">
+                            <span id="typing-subtitle">Computer Science Student</span>
+                            <span class="typing-cursor">|</span>
+                        </div>
+                        <div class="divider"></div>
+                        <div class="stats-dashboard">
+                            <div class="stat-item">
+                                <span class="stat-val">2029</span>
+                                <span class="stat-label">Graduation</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-val">4+</span>
+                                <span class="stat-label">Projects</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="sidebar-footer">
+                <div class="theme-hub">
+                    <button class="theme-hub-btn" id="theme-hub-btn" aria-label="Switch Theme">
+                        <span>✦ Theme Hub</span>
+                        <span>▾</span>
+                    </button>
+                    <div class="theme-hub-dropdown" id="theme-hub-dropdown">
+                        <button data-theme="space" class="theme-hub-opt active" id="theme-opt-space">
+                            <span class="swatch-hub space"></span> Space
+                        </button>
+                        <button data-theme="sunset" class="theme-hub-opt" id="theme-opt-sunset">
+                            <span class="swatch-hub sunset"></span> Sunset
+                        </button>
+                        <button data-theme="emerald" class="theme-hub-opt" id="theme-opt-emerald">
+                            <span class="swatch-hub emerald"></span> Forest
+                        </button>
+                        <button data-theme="dracula" class="theme-hub-opt" id="theme-opt-dracula">
+                            <span class="swatch-hub dracula"></span> Dracula
+                        </button>
+                        <button data-theme="light" class="theme-hub-opt" id="theme-opt-light">
+                            <span class="swatch-hub light"></span> Aurora Light
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </aside>
 
+        <!-- Right Content Area -->
+        <div class="main-content">
+            
+            <!-- Floating Navigation -->
+            <nav id="main-nav">
+                <div class="nav-links">
+                    <a href="#About-Me" id="nav-link-about">About</a>
+                    <a href="#Education" id="nav-link-education">Education</a>
+                    <a href="#Skills" id="nav-link-skills">Skills</a>
+                    <a href="#Projects" id="nav-link-projects">Projects</a>
+                    <a href="#Tools" id="nav-link-tools">Tools</a>
+                    <a href="#Contact-Me" id="nav-link-contact">Contact</a>
+                </div>
+            </nav>
+
+            <!-- Main Sections -->
+            <main>
+                <!-- About Section -->
+                <section id="About-Me" class="reveal">
+                    <h2>About</h2>
+                    <p>
+                        Hi, I'm Vaishnav Venu, a Computer Science student at <strong>Amrita Vishwa Vidyapeetham</strong>. 
+                        I am deeply passionate about programming, modern web development, and the transformative power of Artificial Intelligence.
+                    </p>
+                    <p>
+                        Currently, I am focused on expanding my skill set in <strong>Artificial Intelligence</strong>. I enjoy tackling complex computational problems, building intuitive digital experiences, and continuously learning emerging technologies.
+                    </p>
+                    <p>
+                        Outside of academics, I love exploring <strong>Open-Source AI Models</strong> and contributing to local software projects.
+                    </p>
+                </section>
+
+                <!-- Education Section -->
+                <section id="Education" class="reveal">
+                    <h2>Education</h2>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-date">2025 - 2029</div>
+                                <h3>B.Tech in Computer Science</h3>
+                                <p class="timeline-school">Amrita Vishwa Vidyapeetham, Amritapuri, Kollam, Kerala</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-date">2023 - 2025</div>
+                                <h3>Higher Secondary Education</h3>
+                                <p class="timeline-school">Chinmaya Vidyalaya, Alappuzha, Kerala</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-date">2021 - 2023</div>
+                                <h3>Secondary Education</h3>
+                                <p class="timeline-school">St. Thomas Residential School, Naharlagun, Arunachal Pradesh</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Skills Section -->
+                <section id="Skills" class="reveal">
+                    <h2>Skills</h2>
+                    <div class="skills-categories">
+                        
+                        <div class="skills-cat-group">
+                            <div class="skills-cat-title">Programming Languages</div>
+                            <div class="skills-tags-grid">
+                                <span class="skill-tag">Python</span>
+                                <span class="skill-tag">Java</span>
+                                <span class="skill-tag">JavaScript</span>
+                            </div>
+                        </div>
+
+                        <div class="skills-cat-group">
+                            <div class="skills-cat-title">Web & Problem Solving</div>
+                            <div class="skills-tags-grid">
+                                <span class="skill-tag">HTML & CSS</span>
+                                <span class="skill-tag">Problem Solving</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- Filterable Projects Section -->
+                <section id="Projects" class="reveal">
+                    <h2>Projects</h2>
+                    
+                    <div class="filter-tabs">
+                        <button class="filter-tab active" data-filter="all" id="filter-tab-all">All</button>
+                        <button class="filter-tab" data-filter="python" id="filter-tab-python">Python</button>
+                        <button class="filter-tab" data-filter="java" id="filter-tab-java">Java</button>
+                        <button class="filter-tab" data-filter="web" id="filter-tab-web">Web</button>
+                        <button class="filter-tab" data-filter="matlab" id="filter-tab-matlab">MATLAB</button>
+                    </div>
+
+                    <div class="cards-grid">
+                        <a href="https://github.com/S1Prime/Calculator" class="card-item" target="_blank" data-category="python">
+                            <div class="card-icon-container">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="Python" />
+                            </div>
+                            <span class="card-title">Python Calculator</span>
+                            <p class="project-desc">A fully functional desktop calculator application built with Python. Features standard arithmetic operations with an intuitive user interface.</p>
+                            <div class="card-meta">
+                                <span class="card-tag">Python</span>
+                                <span class="card-link-icon">↗</span>
+                            </div>
+                        </a>
+                        
+                        <a href="https://online-quiz-cqaw.onrender.com" target="_blank" class="card-item" data-category="java">
+                            <div class="card-icon-container">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/eclipse/eclipse-original.svg" alt="Eclipse" />
+                            </div>
+                            <span class="card-title">Quiz Management System</span>
+                            <p class="project-desc">An online quiz management system developed with Java, featuring a fully integrated frontend and backend architecture with SQL data persistence.</p>
+                            <div class="card-meta">
+                                <span class="card-tag">Java / Web</span>
+                                <span class="card-link-icon">↗</span>
+                            </div>
+                        </a>
+                        
+                        <a href="https://s1prime.github.io/Student-Task-Manager/" class="card-item" target="_blank" data-category="web">
+                            <div class="card-icon-container">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" alt="HTML/CSS" />
+                            </div>
+                            <span class="card-title">Student Task Manager</span>
+                            <p class="project-desc">A responsive web-based student task registration form designed with HTML and CSS, focusing on accessibility and clean user experience.</p>
+                            <div class="card-meta">
+                                <span class="card-tag">HTML & CSS</span>
+                                <span class="card-link-icon">↗</span>
+                            </div>
+                        </a>
+                        
+                        <a href="https://github.com/S1Prime/Matlab" class="card-item" target="_blank" data-category="matlab">
+                            <div class="card-icon-container">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/matlab/matlab-original.svg" alt="Matlab" />
+                            </div>
+                            <span class="card-title">Matlab Computation Model</span>
+                            <p class="project-desc">A computational model developed in MATLAB for analyzing and visualizing complex numerical data sets and math functions.</p>
+                            <div class="card-meta">
+                                <span class="card-tag">MATLAB</span>
+                                <span class="card-link-icon">↗</span>
+                            </div>
+                        </a>
+                    </div>
+                </section>
+
+                <!-- Tools Section -->
+                <section id="Tools" class="reveal">
+                    <h2>Tools</h2>
+                    <div class="tools-grid">
+                        <a href="https://code.visualstudio.com/download" target="_blank" class="tool-item">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg" alt="VS Code" />
+                            <span>VS Code</span>
+                        </a>
+                        <a href="https://www.python.org/downloads/" target="_blank" class="tool-item">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="Python IDLE" />
+                            <span>Python IDLE</span>
+                        </a>
+                        <a href="https://desktop.github.com/download/" target="_blank" class="tool-item">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" alt="GitHub" />
+                            <span>Git & GitHub</span>
+                        </a>
+                        <a href="https://eclipseide.org" target="_blank" class="tool-item">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/eclipse/eclipse-original.svg" alt="Eclipse" />
+                            <span>Eclipse</span>
+                        </a>
+                        <a href="https://www.jetbrains.com/idea/" target="_blank" class="tool-item">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/intellij/intellij-original.svg" alt="IntelliJ" />
+                            <span>IntelliJ IDEA</span>
+                        </a>
+                        <a href="https://antigravity.google/download" target="_blank" class="tool-item">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/google/google-original.svg" alt="Google Antigravity" />
+                            <span>Antigravity</span>
+                        </a>
+                    </div>
+                </section>
+
+                <!-- Contact Form and Details Section -->
+                <section id="Contact-Me" class="reveal">
+                    <h2>Contact</h2>
+                    <div class="contact-container">
+                        
+                        <!-- Contact Glassmorphic Form Card -->
+                        <div class="contact-card-glass">
+                            <form class="contact-form" id="portfolio-contact-form" novalidate>
+                                <div class="form-group-row">
+                                    <div class="form-group">
+                                        <label for="contact-name">Name</label>
+                                        <input type="text" id="contact-name" name="name" placeholder="John Doe" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="contact-email">Email</label>
+                                        <input type="email" id="contact-email" name="email" placeholder="john@example.com" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="contact-message">Message</label>
+                                    <textarea id="contact-message" name="message" placeholder="Type your message here..." required></textarea>
+                                </div>
+                                <button type="submit" class="btn-submit" id="btn-contact-submit">
+                                    <span class="submit-spinner" id="contact-spinner"></span>
+                                    <span id="submit-btn-text">Send Message</span>
+                                </button>
+                                <div class="form-status-msg" id="contact-status-msg"></div>
+                            </form>
+                        </div>
+                        
+                        <!-- Quick Contact Social Icons -->
+                        <div class="contact-links-grid">
+                            <a href="mailto:vaishnavvenu2007@gmail.com" class="contact-icon-card">
+                                <img class="icon-email" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/google/google-original.svg" alt="Email" />
+                                <span>Email</span>
+                            </a>
+                            <a href="https://github.com/S1Prime" class="contact-icon-card" target="_blank">
+                                <img class="icon-github" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" alt="GitHub" />
+                                <span>GitHub</span>
+                            </a>
+                            <a href="https://www.linkedin.com/in/vaishnav-venu-079a2a383/" class="contact-icon-card" target="_blank">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linkedin/linkedin-original.svg" alt="LinkedIn" />
+                                <span>LinkedIn</span>
+                            </a>
+                            <a href="mailto:am.sc.u4cse25057@am.students.amrita.edu" class="contact-icon-card" target="_blank">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/windows8/windows8-original.svg" alt="Outlook" />
+                                <span>Outlook</span>
+                            </a>
+                        </div>
+
+                    </div>
+                </section>
+            </main>
+
+            <!-- Footer -->
+            <footer>
+                <p>&copy; 2026 Vaishnav Venu | All Rights Reserved</p>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Scroll Back To Top Floating Action Button -->
+    <button id="scroll-top-btn" aria-label="Back to top" id="btn-scroll-top">&#8679;</button>
+
+    <!-- Page Logic -->
     <script src="portfolio.js"></script>
 </body>
 </html>
