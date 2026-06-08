@@ -1,10 +1,6 @@
 # 👋 Hi, I'm Vaishnav Venu
 
 <p align="center">
-  <img src="./vais.jpeg" width="180" alt="Vaishnav Venu">
-</p>
-
-<p align="center">
   <b>Computer Science Student | AI Enthusiast | Web Developer</b>
 </p>
 
@@ -86,7 +82,6 @@ Collection of MATLAB programs involving matrix operations, computational mathema
 
 - Artificial Intelligence
 - Machine Learning
-- Full Stack Development
 - Data Structures & Algorithms
 
 ---
@@ -94,8 +89,6 @@ Collection of MATLAB programs involving matrix operations, computational mathema
 ## 📫 Contact
 
 📧 Personal: vaishnavvenu2007@gmail.com
-
-📧 Academic: am.sc.u4cse25057@am.students.amrita.edu
 
 💼 LinkedIn:
 https://www.linkedin.com/in/vaishnav-venu-079a2a383/
