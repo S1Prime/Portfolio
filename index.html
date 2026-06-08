@@ -48,18 +48,13 @@
             </div>
             
             <div class="sidebar-footer">
-                <div class="theme-hub">
-                    <button class="theme-hub-btn" id="theme-hub-btn" aria-label="Switch Theme">
-                        <span>✦ Theme Hub</span>
-                        <span>▾</span>
-                    </button>
-                        <button data-theme="midnight" class="theme-hub-opt" id="theme-opt-midnight">
-                            <span class="swatch-hub midnight"></span> Midnight Onyx
-                        </button>
-                        <button data-theme="light" class="theme-hub-opt" id="theme-opt-light">
-                            <span class="swatch-hub light"></span> Corporate Light
-                        </button>
-                    </div>
+                <div class="theme-select-wrapper">
+                    <select id="theme-select" aria-label="Select Theme" class="theme-select">
+                        <option value="space">Slate Dark</option>
+                        <option value="midnight">Midnight Onyx</option>
+                        <option value="light">Corporate Light</option>
+                    </select>
+                    <span class="theme-select-arrow">▾</span>
                 </div>
             </div>
         </aside>

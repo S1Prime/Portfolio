@@ -43,24 +43,8 @@
 let currentTheme = 'space';
 
 (function () {
-  const hubBtn = document.getElementById('theme-hub-btn');
-  const dropdown = document.getElementById('theme-hub-dropdown');
-  const themeOpts = document.querySelectorAll('.theme-hub-opt');
-
-  if (!hubBtn || !dropdown) return;
-
-  // Toggle dropdown on button click
-  hubBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    dropdown.classList.toggle('show');
-  });
-
-  // Close dropdown when clicking outside
-  document.addEventListener('click', (e) => {
-    if (!dropdown.contains(e.target) && e.target !== hubBtn) {
-      dropdown.classList.remove('show');
-    }
-  });
+  const themeSelect = document.getElementById('theme-select');
+  if (!themeSelect) return;
 
   // Switch Theme function
   function applyTheme(theme) {
@@ -73,23 +57,16 @@ let currentTheme = 'space';
       document.documentElement.setAttribute('data-theme', theme);
     }
 
-    // Set active option in dropdown
-    themeOpts.forEach(opt => {
-      const active = opt.getAttribute('data-theme') === theme;
-      opt.classList.toggle('active', active);
-    });
+    // Sync select dropdown element value
+    themeSelect.value = theme;
 
     // Save to localStorage
     localStorage.setItem('portfolio-theme', theme);
   }
 
-  // Handle option click
-  themeOpts.forEach(opt => {
-    opt.addEventListener('click', () => {
-      const theme = opt.getAttribute('data-theme');
-      applyTheme(theme);
-      dropdown.classList.remove('show');
-    });
+  // Listen for dropdown select changes
+  themeSelect.addEventListener('change', (e) => {
+    applyTheme(e.target.value);
   });
 
   // Initialize from LocalStorage

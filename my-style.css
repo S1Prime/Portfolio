@@ -332,100 +332,55 @@ body {
     width: 100%;
 }
 
-/* Theme Selector Hub */
-.theme-hub {
+/* Theme Selector Dropdown */
+.theme-select-wrapper {
     position: relative;
     width: 100%;
 }
 
-.theme-hub-btn {
+.theme-select {
     width: 100%;
     background: var(--surface-hi);
     border: 1px solid var(--border);
     color: var(--text);
-    padding: 10px 16px;
+    padding: 10px 36px 10px 16px;
     border-radius: 10px;
     cursor: pointer;
     font-size: 0.82rem;
     font-family: 'Fira Code', monospace;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    outline: none;
+    box-shadow: var(--shadow);
     transition: all var(--transition);
 }
 
-.theme-hub-btn:hover {
+.theme-select:hover, .theme-select:focus {
     border-color: var(--border-hi);
     box-shadow: 0 0 14px var(--accent-glow);
 }
 
-.theme-hub-dropdown {
-    position: absolute;
-    bottom: calc(100% + 8px);
-    left: 0;
-    width: 100%;
-    background: var(--surface-hi);
-    border: 1px solid var(--border-hi);
-    border-radius: 12px;
-    padding: 8px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    opacity: 0;
-    transform: translateY(8px) scale(0.96);
-    pointer-events: none;
-    transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-    z-index: 100;
-}
-
-.theme-hub-dropdown.show {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    pointer-events: auto;
-}
-
-.theme-hub-opt {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    background: transparent;
-    border: none;
-    color: var(--muted);
-    padding: 8px 12px;
-    width: 100%;
-    text-align: left;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 0.8rem;
-    font-family: 'Fira Code', monospace;
-    transition: all var(--transition);
-}
-
-.theme-hub-opt:hover {
-    background: var(--tag-bg);
+/* Style options inside select */
+.theme-select option {
+    background: var(--bg-deep);
     color: var(--text);
 }
 
-.theme-hub-opt.active {
-    color: var(--accent);
-    background: var(--tag-bg);
-    font-weight: 600;
+.theme-select-arrow {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    font-size: 0.8rem;
+    color: var(--muted);
+    transition: color var(--transition);
 }
 
-.swatch-hub {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    border: 1px solid rgba(255,255,255,0.15);
-    flex-shrink: 0;
+.theme-select:hover + .theme-select-arrow {
+    color: var(--text);
 }
-.swatch-hub.space { background: #3b82f6; }
-.swatch-hub.midnight { background: #fafafa; }
-.swatch-hub.light { background: #2563eb; }
 
 /* ─── Right Content Column ─────────────────────────────────────────────── */
 .main-content {
