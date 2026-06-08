@@ -1,7 +1,7 @@
 # 👋 Hi, I'm Vaishnav Venu
 
 <p align="center">
-  <img src="./VV.jpeg" width="180" alt="Vaishnav Venu">
+  <img src="./vais.jpeg" width="180" alt="Vaishnav Venu">
 </p>
 
 <p align="center">
