@@ -220,15 +220,15 @@ let currentTheme = 'space';
 
   function initParticles() {
     particles = [];
-    let numberOfParticles = (window.innerWidth * window.innerHeight) / 11000;
-    if (numberOfParticles > 100) numberOfParticles = 100;
+    let numberOfParticles = (window.innerWidth * window.innerHeight) / 22000;
+    if (numberOfParticles > 50) numberOfParticles = 50;
     
     for (let i = 0; i < numberOfParticles; i++) {
-      let size = (Math.random() * 1.6) + 0.6;
+      let size = (Math.random() * 1.4) + 0.5;
       let x = Math.random() * window.innerWidth;
       let y = Math.random() * window.innerHeight;
-      let vx = (Math.random() - 0.5) * 1.0;
-      let vy = (Math.random() - 0.5) * 1.0;
+      let vx = (Math.random() - 0.5) * 0.45;
+      let vy = (Math.random() - 0.5) * 0.45;
       particles.push(new Particle(x, y, vx, vy, size));
     }
   }
@@ -368,9 +368,9 @@ let currentTheme = 'space';
       const px = x / rect.width;
       const py = y / rect.height;
       
-      // Tilt logic: maximum 15deg tilt
-      const tiltX = (0.5 - py) * 15;
-      const tiltY = (px - 0.5) * 15;
+      // Tilt logic: maximum 3deg tilt
+      const tiltX = (0.5 - py) * 3;
+      const tiltY = (px - 0.5) * 3;
       
       card.style.setProperty('--tilt-x', `${tiltX}deg`);
       card.style.setProperty('--tilt-y', `${tiltY}deg`);
