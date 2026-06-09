@@ -109,19 +109,14 @@ let currentTheme = 'space';
     initParticles();
   }
 
-  function getAccentColor() {
-    // Dynamically retrieve accent color computed by CSS variable
-    const accent = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim();
-    return accent || '#64ffda';
-  }
-
-  function parseColor(colorString) {
-    // Handles HSL values e.g. "hsl(166, 100%, 70%)"
-    if (colorString.startsWith('hsl')) {
-      const matches = colorString.match(/\d+/g);
-      if (matches && matches.length >= 3) {
-        return { h: parseInt(matches[0]), s: parseInt(matches[1]), l: parseInt(matches[2]) };
-      }
+  function getAccentColorHsl() {
+    // Dynamically retrieve accent color components computed by CSS variables
+    const styles = getComputedStyle(document.documentElement);
+    const h = styles.getPropertyValue('--h-accent').trim();
+    const s = styles.getPropertyValue('--s-accent').trim();
+    const l = styles.getPropertyValue('--l-accent').trim();
+    if (h && s && l) {
+      return { h: parseInt(h, 10), s: parseInt(s, 10), l: parseInt(l, 10) };
     }
     // Fallback space theme teal color
     return { h: 166, s: 100, l: 70 };
@@ -212,8 +207,7 @@ let currentTheme = 'space';
 
   function drawNetwork() {
     ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-    const accentColorStr = getAccentColor();
-    const hsl = parseColor(accentColorStr);
+    const hsl = getAccentColorHsl();
     const rgb = hslToRgb(hsl.h, hsl.s, hsl.l);
 
     // Update and draw particles

@@ -665,6 +665,7 @@ strong {
     overflow: hidden;
     will-change: transform;
     transform-style: preserve-3d;
+    transform: perspective(1000px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
     transition: transform 0.22s cubic-bezier(0.25, 1, 0.5, 1), border-color var(--transition), box-shadow var(--transition);
 }
 
@@ -802,13 +803,16 @@ strong {
     text-decoration: none;
     color: var(--text);
     box-shadow: var(--shadow);
-    transition: all var(--transition);
+    will-change: transform;
+    transform-style: preserve-3d;
+    transform: perspective(1000px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) translateY(0);
+    transition: transform 0.22s cubic-bezier(0.25, 1, 0.5, 1), border-color var(--transition), box-shadow var(--transition);
 }
 
 .tool-item:hover {
     border-color: var(--border-hi);
     box-shadow: 0 6px 20px var(--accent-glow);
-    transform: translateY(-4px);
+    transform: perspective(1000px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) translateY(-4px);
 }
 
 .tool-item img {
@@ -974,13 +978,16 @@ strong {
     text-decoration: none;
     color: var(--text);
     gap: 8px;
-    transition: all var(--transition);
+    will-change: transform;
+    transform-style: preserve-3d;
+    transform: perspective(1000px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) translateY(0);
+    transition: transform 0.22s cubic-bezier(0.25, 1, 0.5, 1), border-color var(--transition), box-shadow var(--transition);
 }
 
 .contact-icon-card:hover {
     border-color: var(--border-hi);
     box-shadow: 0 6px 20px var(--accent-glow);
-    transform: translateY(-3px);
+    transform: perspective(1000px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) translateY(-3px);
 }
 
 .contact-icon-card img {
@@ -1122,7 +1129,7 @@ footer {
         gap: 16px;
     }
     
-    .theme-hub {
+    .theme-select-wrapper {
         width: 180px;
     }
     
@@ -1164,13 +1171,8 @@ footer {
         width: 100%;
     }
     
-    .theme-hub {
+    .theme-select-wrapper {
         width: 100%;
-    }
-    
-    .theme-hub-dropdown {
-        bottom: 100%;
-        top: auto;
     }
     
     nav {
