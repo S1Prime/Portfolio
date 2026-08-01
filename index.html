@@ -1,46 +1,83 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="arc">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Vaishnav Venu's professional portfolio showcasing Computer Science projects, skills in Python, Java, Web Development, and AI.">
-    <title>Vaishnav Venu | Portfolio</title>
+    <meta name="description" content="Vaishnav Venu | Computer Science & AI Student Portfolio showcasing AI projects, Java, Python, Web Engineering, and Data Science.">
+    <title>Vaishnav Venu | CS & AI Engineering Portfolio</title>
     <link rel="stylesheet" href="my-style.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Interactive Background Particle Canvas -->
+    <!-- Interactive Neural Core Background Canvas -->
     <canvas id="bg-canvas"></canvas>
+
+    <!-- Ambient Grid & Beam Overlay -->
+    <div class="bg-grid-overlay"></div>
+
+    <!-- Floating Sci-Fi Command Terminal Launcher -->
+    <button id="cli-trigger-btn" aria-label="Open CLI Terminal" title="Launch Command Terminal (Ctrl + K)">
+        <span class="cli-icon">&gt;_</span>
+        <span class="cli-btn-text">CLI TERMINAL</span>
+        <span class="cli-shortcut">Ctrl+K</span>
+    </button>
 
     <!-- Main Container supporting split screen -->
     <div class="portfolio-container">
         
-        <!-- Sticky Left Profile Sidebar -->
+        <!-- Sticky Left Command Profile Sidebar -->
         <aside class="sidebar">
             <div class="sidebar-top">
                 <div class="profile-card">
-                    <div class="profile-img-container">
-                        <img src="vais.jpeg" alt="Vaishnav Venu" class="profile-img">
+                    <!-- Arc Reactor Glowing Profile Container -->
+                    <div class="profile-img-wrapper">
+                        <div class="arc-reactor-ring outer-ring"></div>
+                        <div class="arc-reactor-ring middle-ring"></div>
+                        <div class="profile-img-container">
+                            <img src="vais.jpeg" alt="Vaishnav Venu" class="profile-img">
+                        </div>
                         <div class="status-badge" id="availability-status">
                             <span class="status-dot-pulse"></span>
-                            <span>Open to Role</span>
+                            <span class="status-text">CORE ONLINE • AVAILABLE</span>
                         </div>
                     </div>
+
                     <div class="sidebar-details">
-                        <h1>Vaishnav Venu</h1>
+                        <h1 class="hero-name">Vaishnav Venu</h1>
                         <div class="subtitle-container">
+                            <span class="tech-prompt-symbol">&gt;</span>
                             <span id="typing-subtitle">Computer Science Student</span>
                             <span class="typing-cursor">|</span>
                         </div>
+
+                        <!-- System Status HUD -->
+                        <div class="system-hud-badge">
+                            <span class="hud-label">PRIMARY FOCUS</span>
+                            <span class="hud-val">AI &amp; Neural Computing</span>
+                        </div>
+
                         <div class="divider"></div>
+
+                        <!-- Animated Stats Counter Dashboard -->
                         <div class="stats-dashboard">
-                            <div class="stat-item">
-                                <span class="stat-val">2029</span>
+                            <div class="stat-item" data-count="2029">
+                                <span class="stat-val"><span class="counter-num" data-target="2029">2029</span></span>
                                 <span class="stat-label">Graduation</span>
                             </div>
-                            <div class="stat-item">
-                                <span class="stat-val">6+</span>
+                            <div class="stat-item" data-count="6">
+                                <span class="stat-val"><span class="counter-num" data-target="6">6</span>+</span>
                                 <span class="stat-label">Projects</span>
+                            </div>
+                            <div class="stat-item" data-count="5">
+                                <span class="stat-val"><span class="counter-num" data-target="5">5</span>+</span>
+                                <span class="stat-label">Tech Stacks</span>
+                            </div>
+                            <div class="stat-item" data-count="100">
+                                <span class="stat-val"><span class="counter-num" data-target="100">100</span>%</span>
+                                <span class="stat-label">Passionate</span>
                             </div>
                         </div>
                     </div>
@@ -49,10 +86,11 @@
             
             <div class="sidebar-footer">
                 <div class="theme-select-wrapper">
+                    <label for="theme-select" class="theme-select-label">SYSTEM THEME</label>
                     <select id="theme-select" aria-label="Select Theme" class="theme-select">
-                        <option value="space">Slate Dark</option>
-                        <option value="midnight">Midnight Onyx</option>
-                        <option value="light">Corporate Light</option>
+                        <option value="arc">⚡ Arc AI Cyan (Default)</option>
+                        <option value="midnight">🕶️ Midnight Onyx</option>
+                        <option value="light">☀️ Corporate Light</option>
                     </select>
                     <span class="theme-select-arrow">▾</span>
                 </div>
@@ -62,15 +100,15 @@
         <!-- Right Content Area -->
         <div class="main-content">
             
-            <!-- Floating Navigation -->
+            <!-- Floating Sci-Fi Navigation HUD -->
             <nav id="main-nav">
                 <div class="nav-links">
-                    <a href="#About-Me" id="nav-link-about">About</a>
-                    <a href="#Education" id="nav-link-education">Education</a>
-                    <a href="#Skills" id="nav-link-skills">Skills</a>
-                    <a href="#Projects" id="nav-link-projects">Projects</a>
-                    <a href="#Tools" id="nav-link-tools">Tools</a>
-                    <a href="#Contact-Me" id="nav-link-contact">Contact</a>
+                    <a href="#About-Me" id="nav-link-about"><span class="nav-num">01</span> About</a>
+                    <a href="#Education" id="nav-link-education"><span class="nav-num">02</span> Education</a>
+                    <a href="#Skills" id="nav-link-skills"><span class="nav-num">03</span> Skills</a>
+                    <a href="#Projects" id="nav-link-projects"><span class="nav-num">04</span> Projects</a>
+                    <a href="#Tools" id="nav-link-tools"><span class="nav-num">05</span> Tools</a>
+                    <a href="#Contact-Me" id="nav-link-contact"><span class="nav-num">06</span> Contact</a>
                 </div>
             </nav>
 
@@ -78,37 +116,71 @@
             <main>
                 <!-- About Section -->
                 <section id="About-Me" class="reveal">
-                    <h2>About</h2>
-                    <p>
-                        Hi, I'm Vaishnav Venu, a Computer Science student at <strong>Amrita Vishwa Vidyapeetham</strong>. 
-                        I am deeply passionate about programming, modern web development, and the transformative power of Artificial Intelligence.
-                    </p>
-                    <p>
-                        Currently, I am focused on expanding my skill set in <strong>Artificial Intelligence</strong>. I enjoy tackling complex computational problems, building intuitive digital experiences, and continuously learning emerging technologies.
-                    </p>
-                    <p>
-                        Outside of academics, I love exploring <strong>Open-Source AI Models</strong> and contributing to local software projects.
-                    </p>
+                    <div class="section-tag">// 01 ARCHITECTURE</div>
+                    <h2>About Me</h2>
+                    <div class="about-hero-card">
+                        <p class="lead-text">
+                            Hello! I'm <strong>Vaishnav Venu</strong>, a Computer Science &amp; Engineering student at <strong>Amrita Vishwa Vidyapeetham</strong> (Amritapuri).
+                        </p>
+                        <p>
+                            Driven by a relentless curiosity for how computational systems learn, reason, and adapt, my current engineering focus lies in <strong>Artificial Intelligence, Machine Learning, Data Structures</strong>, and high-performance Web Applications.
+                        </p>
+                        <p>
+                            I specialize in translating mathematical models into clean, maintainable code — whether crafting desktop software in <strong>Python</strong>, building enterprise examination backends with <strong>Java &amp; SQL</strong>, or deploying modern web tools.
+                        </p>
+                    </div>
+
+                    <!-- Highlight Highlights Grid -->
+                    <div class="highlights-grid">
+                        <div class="highlight-card">
+                            <div class="hl-icon">🤖</div>
+                            <div class="hl-title">AI &amp; ML Focus</div>
+                            <div class="hl-desc">Exploring open-source neural architectures, LLMs, and predictive modelling.</div>
+                        </div>
+                        <div class="highlight-card">
+                            <div class="hl-icon">⚡</div>
+                            <div class="hl-title">Full-Stack Development</div>
+                            <div class="hl-desc">Crafting high-speed, glassmorphic interfaces &amp; RESTful JDBC service APIs.</div>
+                        </div>
+                        <div class="highlight-card">
+                            <div class="hl-icon">🧩</div>
+                            <div class="hl-title">Algorithmic Problem Solving</div>
+                            <div class="hl-desc">Optimizing data structures and matrix algebra for complex analytical problem sets.</div>
+                        </div>
+                    </div>
                 </section>
 
                 <!-- Education Section -->
                 <section id="Education" class="reveal">
-                    <h2>Education</h2>
+                    <div class="section-tag">// 02 ACADEMICS</div>
+                    <h2>Education Timeline</h2>
                     <div class="timeline">
                         <div class="timeline-item">
                             <div class="timeline-dot"></div>
                             <div class="timeline-content">
+                                <div class="timeline-badge">CURRENT DEGREE</div>
                                 <div class="timeline-date">2025 - 2029</div>
-                                <h3>B.Tech in Computer Science</h3>
+                                <h3>B.Tech in Computer Science &amp; Engineering</h3>
                                 <p class="timeline-school">Amrita Vishwa Vidyapeetham, Amritapuri, Kollam, Kerala</p>
+                                <div class="timeline-tags">
+                                    <span>Algorithms</span>
+                                    <span>AI / ML</span>
+                                    <span>Data Structures</span>
+                                    <span>OOP Java</span>
+                                </div>
                             </div>
                         </div>
                         <div class="timeline-item">
                             <div class="timeline-dot"></div>
                             <div class="timeline-content">
                                 <div class="timeline-date">2023 - 2025</div>
-                                <h3>Higher Secondary Education</h3>
+                                <h3>Higher Secondary Education (Science &amp; CS)</h3>
                                 <p class="timeline-school">Chinmaya Vidyalaya, Alappuzha, Kerala</p>
+                                <div class="timeline-tags">
+                                    <span>Physics</span>
+                                    <span>Mathematics</span>
+                                    <span>Computer Science</span>
+                                </div>
                             </div>
                         </div>
                         <div class="timeline-item">
@@ -117,184 +189,295 @@
                                 <div class="timeline-date">2021 - 2023</div>
                                 <h3>Secondary Education</h3>
                                 <p class="timeline-school">St. Thomas Residential School, Naharlagun, Arunachal Pradesh</p>
+                                <div class="timeline-tags">
+                                    <span>Foundational Sciences</span>
+                                    <span>Mathematics</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </section>
 
-                <!-- Skills Section -->
+                <!-- Skills & Technical Matrix Section -->
                 <section id="Skills" class="reveal">
-                    <h2>Skills</h2>
+                    <div class="section-tag">// 03 TECHNICAL MATRIX</div>
+                    <h2>Skills &amp; Competencies</h2>
+                    
+                    <!-- Proficiency Meter Grid -->
+                    <div class="proficiency-container">
+                        <div class="skills-cat-title">Tech Proficiency Core</div>
+                        <div class="proficiency-grid">
+                            <div class="prof-item">
+                                <div class="prof-header">
+                                    <span class="prof-name"><i class="devicon-python-plain colored"></i> Python</span>
+                                    <span class="prof-pct">92%</span>
+                                </div>
+                                <div class="prof-bar-bg"><div class="prof-bar-fill" style="width: 92%;"></div></div>
+                            </div>
+                            <div class="prof-item">
+                                <div class="prof-header">
+                                    <span class="prof-name"><i class="devicon-java-plain colored"></i> Java &amp; SQL</span>
+                                    <span class="prof-pct">88%</span>
+                                </div>
+                                <div class="prof-bar-bg"><div class="prof-bar-fill" style="width: 88%;"></div></div>
+                            </div>
+                            <div class="prof-item">
+                                <div class="prof-header">
+                                    <span class="prof-name"><i class="devicon-javascript-plain colored"></i> JavaScript (ES6+)</span>
+                                    <span class="prof-pct">85%</span>
+                                </div>
+                                <div class="prof-bar-bg"><div class="prof-bar-fill" style="width: 85%;"></div></div>
+                            </div>
+                            <div class="prof-item">
+                                <div class="prof-header">
+                                    <span class="prof-name"><i class="devicon-html5-plain colored"></i> HTML5 / CSS3</span>
+                                    <span class="prof-pct">95%</span>
+                                </div>
+                                <div class="prof-bar-bg"><div class="prof-bar-fill" style="width: 95%;"></div></div>
+                            </div>
+                            <div class="prof-item">
+                                <div class="prof-header">
+                                    <span class="prof-name"><i class="devicon-matlab-plain colored"></i> MATLAB Computational</span>
+                                    <span class="prof-pct">80%</span>
+                                </div>
+                                <div class="prof-bar-bg"><div class="prof-bar-fill" style="width: 80%;"></div></div>
+                            </div>
+                            <div class="prof-item">
+                                <div class="prof-header">
+                                    <span class="prof-name">🤖 Artificial Intelligence / ML</span>
+                                    <span class="prof-pct">82%</span>
+                                </div>
+                                <div class="prof-bar-bg"><div class="prof-bar-fill" style="width: 82%;"></div></div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="skills-categories">
-                        
                         <div class="skills-cat-group">
-                            <div class="skills-cat-title">Programming Languages</div>
+                            <div class="skills-cat-title">Languages &amp; Runtimes</div>
                             <div class="skills-tags-grid">
-                                <span class="skill-tag">Python</span>
-                                <span class="skill-tag">Java</span>
-                                <span class="skill-tag">JavaScript</span>
+                                <span class="skill-tag"><i class="devicon-python-plain"></i> Python 3.x</span>
+                                <span class="skill-tag"><i class="devicon-java-plain"></i> Java Standard Edition</span>
+                                <span class="skill-tag"><i class="devicon-javascript-plain"></i> JavaScript (ES6+)</span>
+                                <span class="skill-tag"><i class="devicon-c-plain"></i> C / C++</span>
                             </div>
                         </div>
 
                         <div class="skills-cat-group">
-                            <div class="skills-cat-title">Web & Problem Solving</div>
+                            <div class="skills-cat-title">Web, Databases &amp; Core CS</div>
                             <div class="skills-tags-grid">
-                                <span class="skill-tag">HTML & CSS</span>
-                                <span class="skill-tag">Problem Solving</span>
+                                <span class="skill-tag"><i class="devicon-html5-plain"></i> HTML5</span>
+                                <span class="skill-tag"><i class="devicon-css3-plain"></i> CSS3 Glassmorphism</span>
+                                <span class="skill-tag"><i class="devicon-mysql-plain"></i> SQL &amp; JDBC</span>
+                                <span class="skill-tag">Data Structures &amp; Algorithms</span>
+                                <span class="skill-tag">Object-Oriented Programming</span>
+                                <span class="skill-tag">RESTful Logic</span>
                             </div>
                         </div>
 
+                        <div class="skills-cat-group">
+                            <div class="skills-cat-title">AI &amp; Analytical Frameworks</div>
+                            <div class="skills-tags-grid">
+                                <span class="skill-tag">Open-Source AI Models</span>
+                                <span class="skill-tag"><i class="devicon-matlab-plain"></i> MATLAB Matrix Algebra</span>
+                                <span class="skill-tag">Numerical Computing</span>
+                                <span class="skill-tag">Predictive Analytics</span>
+                            </div>
+                        </div>
                     </div>
                 </section>
 
                 <!-- Filterable Projects Section -->
                 <section id="Projects" class="reveal">
-                    <h2>Projects</h2>
+                    <div class="section-tag">// 04 REPOSITORY CORE</div>
+                    <h2>Featured Projects</h2>
                     
                     <div class="filter-tabs">
-                        <button class="filter-tab active" data-filter="all" id="filter-tab-all">All</button>
-                        <button class="filter-tab" data-filter="python" id="filter-tab-python">Python</button>
-                        <button class="filter-tab" data-filter="java" id="filter-tab-java">Java</button>
-                        <button class="filter-tab" data-filter="web" id="filter-tab-web">Web</button>
-                        <button class="filter-tab" data-filter="matlab" id="filter-tab-matlab">MATLAB</button>
+                        <button class="filter-tab active" data-filter="all" id="filter-tab-all">⚡ All Projects</button>
+                        <button class="filter-tab" data-filter="python" id="filter-tab-python">🐍 Python</button>
+                        <button class="filter-tab" data-filter="java" id="filter-tab-java">☕ Java / SQL</button>
+                        <button class="filter-tab" data-filter="web" id="filter-tab-web">🌐 Web Apps</button>
+                        <button class="filter-tab" data-filter="matlab" id="filter-tab-matlab">📐 MATLAB</button>
                     </div>
 
                     <div class="cards-grid">
+                        <!-- Card 1 -->
                         <a href="https://github.com/S1Prime/Calculator" class="card-item" target="_blank" rel="noopener noreferrer" id="project-card-calculator" data-category="python">
-                            <div class="card-icon-container">
-                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="Python" />
+                            <div class="card-glow-overlay"></div>
+                            <div class="card-top-row">
+                                <div class="card-icon-container">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="Python" />
+                                </div>
+                                <span class="card-category-badge">PYTHON CORE</span>
                             </div>
                             <span class="card-title">Desktop Arithmetic System</span>
-                            <p class="project-desc">A modular desktop calculator interface developed using Python. Implements parsing logic for mathematical expressions and provides standard arithmetic computation with high numerical precision.</p>
+                            <p class="project-desc">A modular desktop calculator application developed in Python. Features expression parsing algorithms, error handling, and high-precision arithmetic computation.</p>
                             <div class="card-meta">
-                                <span class="card-tag">Python</span>
-                                <span class="card-link-icon">↗</span>
+                                <span class="card-tag">Python 3</span>
+                                <span class="card-tag">GUI / Parsing</span>
+                                <span class="card-link-icon">Source Code ↗</span>
                             </div>
                         </a>
                         
+                        <!-- Card 2 -->
                         <a href="https://github.com/S1Prime/Personal-Budget-Tracker" class="card-item" target="_blank" rel="noopener noreferrer" id="project-card-budget" data-category="python">
-                            <div class="card-icon-container">
-                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="Python" />
+                            <div class="card-glow-overlay"></div>
+                            <div class="card-top-row">
+                                <div class="card-icon-container">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="Python" />
+                                </div>
+                                <span class="card-category-badge">PYTHON CORE</span>
                             </div>
                             <span class="card-title">Personal Budget Tracker</span>
-                            <p class="project-desc">a digital or physical tool designed to monitor your income and expenses, helping you control spending, avoid debt, and achieve your financial goals.</p>
+                            <p class="project-desc">Financial management software to record incoming cashflows and categorize expenditure items. Features analytical summary generation for tracking financial goals.</p>
                             <div class="card-meta">
                                 <span class="card-tag">Python</span>
-                                <span class="card-link-icon">↗</span>
+                                <span class="card-tag">Data Persistence</span>
+                                <span class="card-link-icon">Source Code ↗</span>
                             </div>
                         </a>
 
+                        <!-- Card 3 -->
                         <a href="https://online-quiz-cqaw.onrender.com" target="_blank" rel="noopener noreferrer" id="project-card-quiz" class="card-item" data-category="java">
-                            <div class="card-icon-container">
-                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/eclipse/eclipse-original.svg" alt="Eclipse" />
+                            <div class="card-glow-overlay"></div>
+                            <div class="card-top-row">
+                                <div class="card-icon-container">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" alt="Java" />
+                                </div>
+                                <span class="card-category-badge">FULL-STACK JAVA</span>
                             </div>
                             <span class="card-title">Online Quiz Management System</span>
-                            <p class="project-desc">A full-stack online examination system developed in Java. Built using servlet architecture, JDBC, and SQL databases to handle user session states and track exam statistics.</p>
+                            <p class="project-desc">An enterprise online examination system. Engineered with Java Servlet architecture, JDBC persistent connections, and SQL database schemas to handle user authentication and exam metrics.</p>
                             <div class="card-meta">
-                                <span class="card-tag">Java / SQL</span>
-                                <span class="card-link-icon">↗</span>
+                                <span class="card-tag">Java Servlets</span>
+                                <span class="card-tag">JDBC / SQL</span>
+                                <span class="card-link-icon">Live Demo ↗</span>
                             </div>
                         </a>
                         
+                        <!-- Card 4 -->
                         <a href="https://s1prime.github.io/Student-Task-Manager/" class="card-item" target="_blank" rel="noopener noreferrer" id="project-card-task-manager" data-category="web">
-                            <div class="card-icon-container">
-                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" alt="HTML/CSS" />
+                            <div class="card-glow-overlay"></div>
+                            <div class="card-top-row">
+                                <div class="card-icon-container">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" alt="HTML/CSS" />
+                                </div>
+                                <span class="card-category-badge">WEB APP</span>
                             </div>
-                            <span class="card-title">Student-Task-Manager</span>
-                            <p class="project-desc">A Student Task Manager is a productivity tool designed to help students organize their academics. It tracks assignments, exams, projects, and deadlines, ensuring students stay on top of their studies.</p>
+                            <span class="card-title">Student Task Manager</span>
+                            <p class="project-desc">Productivity management dashboard tailored for academic workflows. Tracks assignment deadlines, exam timetables, and project milestones with intuitive UI states.</p>
                             <div class="card-meta">
-                                <span class="card-tag">HTML & CSS</span>
-                                <span class="card-link-icon">↗</span>
+                                <span class="card-tag">HTML5 / CSS3</span>
+                                <span class="card-tag">JS Storage</span>
+                                <span class="card-link-icon">Live App ↗</span>
                             </div>
                         </a>
                         
+                        <!-- Card 5 -->
                         <a href="https://s1prime.github.io/Calculator-Using-Frontend/" class="card-item" target="_blank" rel="noopener noreferrer" id="project-card-calculator-web" data-category="web">
-                            <div class="card-icon-container">
-                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" alt="JavaScript" />
+                            <div class="card-glow-overlay"></div>
+                            <div class="card-top-row">
+                                <div class="card-icon-container">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" alt="JavaScript" />
+                                </div>
+                                <span class="card-category-badge">WEB ENGINE</span>
                             </div>
-                            <span class="card-title">Modern Calculator</span>
-                            <p class="project-desc">
-                                A modern responsive calculator built using HTML, CSS, and JavaScript.
-                                Features include Dark/Light theme switching, keyboard support,
-                                local storage persistence, smooth animations, and mobile-friendly design.
-                            </p>
+                            <span class="card-title">Modern Web Calculator Engine</span>
+                            <p class="project-desc">Responsive web calculator with real-time expression evaluation, dark/light dynamic theme switching, keyboard event hooks, and local history persistence.</p>
                             <div class="card-meta">
-                                <span class="card-tag">
-                                    HTML • CSS • JS
-                                </span>
-                                <span class="card-link-icon">↗</span>
+                                <span class="card-tag">JavaScript</span>
+                                <span class="card-tag">CSS Animations</span>
+                                <span class="card-link-icon">Live App ↗</span>
                             </div>
                         </a>
+
+                        <!-- Card 6 -->
                         <a href="https://github.com/S1Prime/Matlab" class="card-item" target="_blank" rel="noopener noreferrer" id="project-card-matlab" data-category="matlab">
-                            <div class="card-icon-container">
-                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/matlab/matlab-original.svg" alt="Matlab" />
+                            <div class="card-glow-overlay"></div>
+                            <div class="card-top-row">
+                                <div class="card-icon-container">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/matlab/matlab-original.svg" alt="MATLAB" />
+                                </div>
+                                <span class="card-category-badge">COMPUTATIONAL</span>
                             </div>
-                            <span class="card-title">MATLAB Analytical Problems</span>
-                            <p class="project-desc">A computational mathematics workspace created in MATLAB. Implements vector matrix algebra calculations and generates graphical plots to parse complex spatial datasets.</p>
+                            <span class="card-title">MATLAB Analytical Workspace</span>
+                            <p class="project-desc">A computational workspace executing linear algebra matrix routines, numerical solvers, and graphical data plots to analyze complex spatial and mathematical equations.</p>
                             <div class="card-meta">
                                 <span class="card-tag">MATLAB</span>
-                                <span class="card-link-icon">↗</span>
+                                <span class="card-tag">Matrix Algebra</span>
+                                <span class="card-link-icon">Repository ↗</span>
                             </div>
                         </a>
                     </div>
                 </section>
 
-                <!-- Tools Section -->
+                <!-- Tools & Developer Toolkit Section -->
                 <section id="Tools" class="reveal">
-                    <h2>Tools</h2>
+                    <div class="section-tag">// 05 TOOLKITS</div>
+                    <h2>Development Environment</h2>
                     <div class="tools-grid">
                         <a href="https://code.visualstudio.com/download" target="_blank" rel="noopener noreferrer" id="tool-link-vscode" class="tool-item">
+                            <div class="tool-glow"></div>
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg" alt="VS Code" />
                             <span>VS Code</span>
                         </a>
                         <a href="https://www.python.org/downloads/" target="_blank" rel="noopener noreferrer" id="tool-link-python" class="tool-item">
+                            <div class="tool-glow"></div>
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="Python IDLE" />
-                            <span>Python IDLE</span>
+                            <span>Python Environment</span>
                         </a>
                         <a href="https://desktop.github.com/download/" target="_blank" rel="noopener noreferrer" id="tool-link-git" class="tool-item">
+                            <div class="tool-glow"></div>
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" alt="GitHub" />
-                            <span>Git & GitHub</span>
+                            <span>Git &amp; GitHub</span>
                         </a>
                         <a href="https://eclipseide.org" target="_blank" rel="noopener noreferrer" id="tool-link-eclipse" class="tool-item">
+                            <div class="tool-glow"></div>
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/eclipse/eclipse-original.svg" alt="Eclipse" />
-                            <span>Eclipse</span>
+                            <span>Eclipse IDE</span>
                         </a>
                         <a href="https://www.jetbrains.com/idea/" target="_blank" rel="noopener noreferrer" id="tool-link-intellij" class="tool-item">
+                            <div class="tool-glow"></div>
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/intellij/intellij-original.svg" alt="IntelliJ" />
                             <span>IntelliJ IDEA</span>
                         </a>
                         <a href="https://antigravity.google/download" target="_blank" rel="noopener noreferrer" id="tool-link-antigravity" class="tool-item">
+                            <div class="tool-glow"></div>
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/google/google-original.svg" alt="Google Antigravity" />
-                            <span>Antigravity</span>
+                            <span>Google Antigravity</span>
                         </a>
                     </div>
                 </section>
 
                 <!-- Contact Form and Details Section -->
                 <section id="Contact-Me" class="reveal">
-                    <h2>Contact</h2>
+                    <div class="section-tag">// 06 TRANSMISSION</div>
+                    <h2>Initiate Contact</h2>
                     <div class="contact-container">
                         
                         <!-- Contact Glassmorphic Form Card -->
                         <div class="contact-card-glass">
+                            <div class="contact-header-badge">
+                                <span class="badge-dot"></span> SECURE MESSAGE LINK
+                            </div>
                             <form class="contact-form" id="portfolio-contact-form" novalidate>
                                 <div class="form-group-row">
                                     <div class="form-group">
-                                        <label for="contact-name">Name</label>
-                                        <input type="text" id="contact-name" name="name" placeholder="John Doe" required>
+                                        <label for="contact-name">FULL NAME</label>
+                                        <input type="text" id="contact-name" name="name" placeholder="e.g. Alex Mercer" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="contact-email">Email</label>
-                                        <input type="email" id="contact-email" name="email" placeholder="john@example.com" required>
+                                        <label for="contact-email">EMAIL ADDRESS</label>
+                                        <input type="email" id="contact-email" name="email" placeholder="alex@domain.com" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="contact-message">Message</label>
-                                    <textarea id="contact-message" name="message" placeholder="Type your message here..." required></textarea>
+                                    <label for="contact-message">MESSAGE BODY</label>
+                                    <textarea id="contact-message" name="message" placeholder="State your inquiry, collaboration project, or technical question..." required></textarea>
                                 </div>
                                 <button type="submit" class="btn-submit" id="btn-contact-submit">
                                     <span class="submit-spinner" id="contact-spinner"></span>
-                                    <span id="submit-btn-text">Send Message</span>
+                                    <span id="submit-btn-text">⚡ TRANSMIT MESSAGE</span>
                                 </button>
                                 <div class="form-status-msg" id="contact-status-msg"></div>
                             </form>
@@ -304,19 +487,23 @@
                         <div class="contact-links-grid">
                             <a href="mailto:vaishnavvenu2007@gmail.com" id="social-link-email" class="contact-icon-card">
                                 <img class="icon-email" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/google/google-original.svg" alt="Email" />
-                                <span>Email</span>
+                                <span>Personal Email</span>
+                                <small>vaishnavvenu2007@gmail.com</small>
                             </a>
                             <a href="https://github.com/S1Prime" id="social-link-github" class="contact-icon-card" target="_blank" rel="noopener noreferrer">
                                 <img class="icon-github" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" alt="GitHub" />
-                                <span>GitHub</span>
+                                <span>GitHub Profile</span>
+                                <small>@S1Prime</small>
                             </a>
                             <a href="https://www.linkedin.com/in/vaishnav-venu-079a2a383/" id="social-link-linkedin" class="contact-icon-card" target="_blank" rel="noopener noreferrer">
                                 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linkedin/linkedin-original.svg" alt="LinkedIn" />
-                                <span>LinkedIn</span>
+                                <span>LinkedIn Network</span>
+                                <small>Vaishnav Venu</small>
                             </a>
                             <a href="mailto:am.sc.u4cse25057@am.students.amrita.edu" id="social-link-outlook" class="contact-icon-card" target="_blank" rel="noopener noreferrer">
                                 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/windows8/windows8-original.svg" alt="Outlook" />
-                                <span>Outlook</span>
+                                <span>Academic Mail</span>
+                                <small>Amrita Student Portal</small>
                             </a>
                         </div>
 
@@ -324,15 +511,53 @@
                 </section>
             </main>
 
-            <!-- Footer -->
+            <!-- Sci-Fi Footer -->
             <footer>
-                <p>&copy; 2026 Vaishnav Venu | All Rights Reserved</p>
+                <div class="footer-content">
+                    <p>&copy; 2026 Vaishnav Venu | Computer Science &amp; AI Engineering</p>
+                    <p class="footer-subtext">Engineered with Vanilla HTML5, CSS Glassmorphism &amp; Neural Canvas JS</p>
+                </div>
             </footer>
         </div>
     </div>
 
+    <!-- Interactive Interactive Sci-Fi CLI Terminal Overlay -->
+    <div id="cli-modal" class="cli-modal-backdrop" aria-hidden="true">
+        <div class="cli-modal-window">
+            <div class="cli-header">
+                <div class="cli-controls">
+                    <span class="cli-dot red" id="cli-close-btn"></span>
+                    <span class="cli-dot yellow"></span>
+                    <span class="cli-dot green"></span>
+                </div>
+                <div class="cli-title">vaishnav@cyber-core:~ (bash)</div>
+            </div>
+            <div class="cli-body" id="cli-output">
+                <div class="cli-line banner">
+                    <span>=====================================================================</span>
+                    <span>  VAISHNAV VENU [CS &amp; AI ENGINEER] - SYSTEM CLI TERMINAL v2.0  </span>
+                    <span>=====================================================================</span>
+                    <span>Type <strong class="cli-highlight">'help'</strong> to list available system commands.</span>
+                </div>
+            </div>
+            <div class="cli-command-chips">
+                <button data-cmd="help">help</button>
+                <button data-cmd="about">about</button>
+                <button data-cmd="skills">skills</button>
+                <button data-cmd="projects">projects</button>
+                <button data-cmd="contact">contact</button>
+                <button data-cmd="theme arc">theme arc</button>
+                <button data-cmd="clear">clear</button>
+            </div>
+            <div class="cli-input-row">
+                <span class="cli-prompt">vaishnav@core:~$</span>
+                <input type="text" id="cli-input" placeholder="Enter command..." autocomplete="off" spellcheck="false">
+            </div>
+        </div>
+    </div>
+
     <!-- Scroll Back To Top Floating Action Button -->
-    <button id="scroll-top-btn" aria-label="Back to top">&#8679;</button>
+    <button id="scroll-top-btn" aria-label="Back to top" title="Scroll to Top">&#8679;</button>
 
     <!-- Page Logic -->
     <script src="portfolio.js"></script>
