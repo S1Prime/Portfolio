@@ -40,7 +40,7 @@
 
 
 /* ─── Premium Theme Switcher & Storage ───────────────────────────────────── */
-let currentTheme = 'space';
+let currentTheme = 'arc';
 
 (function () {
   const themeSelect = document.getElementById('theme-select');
@@ -51,8 +51,8 @@ let currentTheme = 'space';
     currentTheme = theme;
     
     // Apply data-theme attribute to html
-    if (theme === 'space') {
-      document.documentElement.removeAttribute('data-theme');
+    if (theme === 'arc') {
+      document.documentElement.setAttribute('data-theme', 'arc');
     } else {
       document.documentElement.setAttribute('data-theme', theme);
     }
@@ -64,6 +64,9 @@ let currentTheme = 'space';
     localStorage.setItem('portfolio-theme', theme);
   }
 
+  // Expose globally for CLI
+  window.applyPortfolioTheme = applyTheme;
+
   // Listen for dropdown select changes
   themeSelect.addEventListener('change', (e) => {
     applyTheme(e.target.value);
@@ -73,11 +76,13 @@ let currentTheme = 'space';
   const savedTheme = localStorage.getItem('portfolio-theme');
   if (savedTheme) {
     applyTheme(savedTheme);
+  } else {
+    applyTheme('arc');
   }
 })();
 
 
-/* ─── Neural Network Particle Background ────────────────────── */
+/* ─── Neural Network Canvas with Dynamic Interactive Waves ──────────────── */
 (function () {
   const canvas = document.getElementById('bg-canvas');
   if (!canvas) return;
@@ -85,7 +90,8 @@ let currentTheme = 'space';
   const ctx = canvas.getContext('2d');
   let animationFrameId;
   let particles = [];
-  const mouse = { x: null, y: null, radius: 160 };
+  let shockwaves = [];
+  const mouse = { x: null, y: null, radius: 180 };
 
   window.addEventListener('mousemove', (e) => {
     mouse.x = e.clientX;
@@ -95,6 +101,17 @@ let currentTheme = 'space';
   window.addEventListener('mouseleave', () => {
     mouse.x = null;
     mouse.y = null;
+  });
+
+  // Shockwave burst on click
+  window.addEventListener('click', (e) => {
+    shockwaves.push({
+      x: e.clientX,
+      y: e.clientY,
+      radius: 10,
+      maxRadius: 160,
+      alpha: 1
+    });
   });
 
   function resizeCanvas() {
@@ -110,44 +127,25 @@ let currentTheme = 'space';
   }
 
   function getAccentColorHsl() {
-    // Dynamically retrieve accent color components computed by CSS variables
     const styles = getComputedStyle(document.documentElement);
-    const h = styles.getPropertyValue('--h-accent').trim();
-    const s = styles.getPropertyValue('--s-accent').trim();
-    const l = styles.getPropertyValue('--l-accent').trim();
-    if (h && s && l) {
-      return { h: parseInt(h, 10), s: parseInt(s, 10), l: parseInt(l, 10) };
+    const accent = styles.getPropertyValue('--accent').trim();
+    
+    if (accent.startsWith('#')) {
+      return hexToRgb(accent);
     }
-    // Fallback space theme teal color
-    return { h: 166, s: 100, l: 70 };
+    return { r: 0, g: 240, b: 255 };
   }
 
-  function hslToRgb(h, s, l) {
-    s /= 100;
-    l /= 100;
-    let c = (1 - Math.abs(2 * l - 1)) * s;
-    let x = c * (1 - Math.abs((h / 60) % 2 - 1));
-    let m = l - c / 2;
-    let r = 0, g = 0, b = 0;
-
-    if (0 <= h && h < 60) {
-      r = c; g = x; b = 0;
-    } else if (60 <= h && h < 120) {
-      r = x; g = c; b = 0;
-    } else if (120 <= h && h < 180) {
-      r = 0; g = c; b = x;
-    } else if (180 <= h && h < 240) {
-      r = 0; g = x; b = c;
-    } else if (240 <= h && h < 300) {
-      r = x; g = 0; b = c;
-    } else if (300 <= h && h < 360) {
-      r = c; g = 0; b = x;
+  function hexToRgb(hex) {
+    hex = hex.replace('#', '');
+    if (hex.length === 3) {
+      hex = hex.split('').map(c => c + c).join('');
     }
-    
+    const num = parseInt(hex, 16);
     return {
-      r: Math.round((r + m) * 255),
-      g: Math.round((g + m) * 255),
-      b: Math.round((b + m) * 255)
+      r: (num >> 16) & 255,
+      g: (num >> 8) & 255,
+      b: num & 255
     };
   }
 
@@ -158,18 +156,21 @@ let currentTheme = 'space';
       this.vx = vx;
       this.vy = vy;
       this.size = size;
+      this.baseSize = size;
     }
+
     draw(rgb) {
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-      ctx.fillStyle = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`;
+      ctx.fillStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.8)`;
       ctx.fill();
     }
+
     update() {
       if (this.x > window.innerWidth || this.x < 0) this.vx = -this.vx;
       if (this.y > window.innerHeight || this.y < 0) this.vy = -this.vy;
 
-      // Mouse repulsion physics
+      // Mouse repulsion & magnetic attraction physics
       if (mouse.x !== null && mouse.y !== null) {
         let dx = mouse.x - this.x;
         let dy = mouse.y - this.y;
@@ -178,12 +179,24 @@ let currentTheme = 'space';
           const forceDirectionX = dx / distance;
           const forceDirectionY = dy / distance;
           const force = (mouse.radius - distance) / mouse.radius;
-          const directionX = forceDirectionX * force * 1.6;
-          const directionY = forceDirectionY * force * 1.6;
+          const directionX = forceDirectionX * force * 2.0;
+          const directionY = forceDirectionY * force * 2.0;
           this.x -= directionX;
           this.y -= directionY;
         }
       }
+
+      // Expand particle size when passing through active shockwave
+      shockwaves.forEach(sw => {
+        let dx = sw.x - this.x;
+        let dy = sw.y - this.y;
+        let dist = Math.sqrt(dx * dx + dy * dy);
+        if (Math.abs(dist - sw.radius) < 25) {
+          this.size = this.baseSize * 2.2;
+        } else {
+          this.size = Math.max(this.baseSize, this.size * 0.95);
+        }
+      });
 
       this.x += this.vx;
       this.y += this.vy;
@@ -192,23 +205,38 @@ let currentTheme = 'space';
 
   function initParticles() {
     particles = [];
-    let numberOfParticles = (window.innerWidth * window.innerHeight) / 22000;
-    if (numberOfParticles > 50) numberOfParticles = 50;
+    let numberOfParticles = Math.floor((window.innerWidth * window.innerHeight) / 18000);
+    if (numberOfParticles > 60) numberOfParticles = 60;
     
     for (let i = 0; i < numberOfParticles; i++) {
-      let size = (Math.random() * 1.4) + 0.5;
+      let size = (Math.random() * 1.8) + 0.6;
       let x = Math.random() * window.innerWidth;
       let y = Math.random() * window.innerHeight;
-      let vx = (Math.random() - 0.5) * 0.45;
-      let vy = (Math.random() - 0.5) * 0.45;
+      let vx = (Math.random() - 0.5) * 0.5;
+      let vy = (Math.random() - 0.5) * 0.5;
       particles.push(new Particle(x, y, vx, vy, size));
     }
   }
 
   function drawNetwork() {
     ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-    const hsl = getAccentColorHsl();
-    const rgb = hslToRgb(hsl.h, hsl.s, hsl.l);
+    const rgb = getAccentColorHsl();
+
+    // Draw shockwaves
+    for (let i = shockwaves.length - 1; i >= 0; i--) {
+      const sw = shockwaves[i];
+      sw.radius += 4;
+      sw.alpha -= 0.025;
+      if (sw.alpha <= 0 || sw.radius >= sw.maxRadius) {
+        shockwaves.splice(i, 1);
+        continue;
+      }
+      ctx.beginPath();
+      ctx.arc(sw.x, sw.y, sw.radius, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${sw.alpha * 0.6})`;
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
 
     // Update and draw particles
     for (let i = 0; i < particles.length; i++) {
@@ -221,11 +249,11 @@ let currentTheme = 'space';
         let dy = particles[i].y - particles[j].y;
         let distance = Math.sqrt(dx * dx + dy * dy);
 
-        if (distance < 115) {
-          let opacity = 1 - (distance / 115);
+        if (distance < 130) {
+          let opacity = 1 - (distance / 130);
           ctx.beginPath();
-          ctx.strokeStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${opacity * 0.35})`;
-          ctx.lineWidth = 0.9;
+          ctx.strokeStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${opacity * 0.45})`;
+          ctx.lineWidth = 1.0;
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(particles[j].x, particles[j].y);
           ctx.stroke();
@@ -237,11 +265,11 @@ let currentTheme = 'space';
         let dx = particles[i].x - mouse.x;
         let dy = particles[i].y - mouse.y;
         let distance = Math.sqrt(dx * dx + dy * dy);
-        if (distance < 140) {
-          let opacity = 1 - (distance / 140);
+        if (distance < 160) {
+          let opacity = 1 - (distance / 160);
           ctx.beginPath();
-          ctx.strokeStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${opacity * 0.5})`;
-          ctx.lineWidth = 1.1;
+          ctx.strokeStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${opacity * 0.75})`;
+          ctx.lineWidth = 1.4;
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(mouse.x, mouse.y);
           ctx.stroke();
@@ -265,8 +293,9 @@ let currentTheme = 'space';
 
   const titles = [
     'Computer Science Student',
-    'AI & Machine Learning Enthusiast',
-    'Problem Solver & Web Developer',
+    'AI & Neural Computing Focus',
+    'Java & Python Backend Developer',
+    'Full-Stack Web Engineering',
     'Open-Source AI Model Explorer'
   ];
 
@@ -280,17 +309,17 @@ let currentTheme = 'space';
     
     if (isDeleting) {
       charIndex--;
-      typingSpeed = 30; // fast deletion
+      typingSpeed = 25; // fast deletion
     } else {
       charIndex++;
-      typingSpeed = 65; // standard typing
+      typingSpeed = 60; // standard typing
     }
 
     subtitleEl.textContent = currentTitle.substring(0, charIndex);
 
     if (!isDeleting && charIndex === currentTitle.length) {
       isDeleting = true;
-      typingSpeed = 2000; // hold full phrase
+      typingSpeed = 2200; // hold full phrase
     } else if (isDeleting && charIndex === 0) {
       isDeleting = false;
       titleIndex = (titleIndex + 1) % titles.length;
@@ -300,7 +329,45 @@ let currentTheme = 'space';
     setTimeout(type, typingSpeed);
   }
 
-  setTimeout(type, 1000);
+  setTimeout(type, 800);
+})();
+
+
+/* ─── Stats Dashboard Animated Counter ─────────────────────────────────── */
+(function () {
+  const counterElements = document.querySelectorAll('.counter-num');
+  if (counterElements.length === 0) return;
+
+  let animated = false;
+
+  function runCounters() {
+    if (animated) return;
+    const statsSection = document.querySelector('.stats-dashboard');
+    if (!statsSection) return;
+
+    const rect = statsSection.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom >= 0) {
+      animated = true;
+      counterElements.forEach(el => {
+        const target = parseInt(el.getAttribute('data-target'), 10);
+        let count = 0;
+        const speed = Math.ceil(target / 40);
+        
+        const timer = setInterval(() => {
+          count += speed;
+          if (count >= target) {
+            el.textContent = target;
+            clearInterval(timer);
+          } else {
+            el.textContent = count;
+          }
+        }, 30);
+      });
+    }
+  }
+
+  window.addEventListener('scroll', runCounters, { passive: true });
+  runCounters();
 })();
 
 
@@ -327,7 +394,7 @@ let currentTheme = 'space';
 
 /* ─── 3D Card Hover Parallax Tilt & Sheen Reflect ─────────────────────── */
 (function () {
-  const cards = document.querySelectorAll('.card-item, .tool-item, .contact-icon-card');
+  const cards = document.querySelectorAll('.card-item, .tool-item, .contact-icon-card, .highlight-card');
   if (cards.length === 0) return;
 
   cards.forEach(card => {
@@ -339,26 +406,11 @@ let currentTheme = 'space';
       const px = x / rect.width;
       const py = y / rect.height;
       
-      // Tilt logic: maximum 3deg tilt
-      const tiltX = (0.5 - py) * 3;
-      const tiltY = (px - 0.5) * 3;
-      
-      card.style.setProperty('--tilt-x', `${tiltX}deg`);
-      card.style.setProperty('--tilt-y', `${tiltY}deg`);
       card.style.setProperty('--glow-x', `${px * 100}%`);
       card.style.setProperty('--glow-y', `${py * 100}%`);
     });
-
-    card.addEventListener('mouseleave', () => {
-      // Smooth reset properties on leave
-      card.style.setProperty('--tilt-x', `0deg`);
-      card.style.setProperty('--tilt-y', `0deg`);
-      card.style.setProperty('--glow-x', `50%`);
-      card.style.setProperty('--glow-y', `50%`);
-    });
   });
 })();
-
 
 
 /* ─── Filterable Projects Grid ─────────────────────────────────────────── */
@@ -370,22 +422,18 @@ let currentTheme = 'space';
 
   filterTabs.forEach(tab => {
     tab.addEventListener('click', () => {
-      // Set active tab styling
       filterTabs.forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
 
       const filterVal = tab.getAttribute('data-filter');
 
-      // Filter cards
       projectCards.forEach(card => {
         const category = card.getAttribute('data-category');
         
-        // Hide card first to trigger animation
         card.classList.remove('fade-in');
         card.classList.add('hide');
 
         if (filterVal === 'all' || category === filterVal) {
-          // Wrap in a tiny timeout to allow display layout recalculation before fading in
           setTimeout(() => {
             card.classList.remove('hide');
             card.classList.add('fade-in');
@@ -394,6 +442,162 @@ let currentTheme = 'space';
       });
     });
   });
+})();
+
+
+/* ─── Interactive Sci-Fi CLI Terminal Modal ────────────────────────────── */
+(function () {
+  const triggerBtn = document.getElementById('cli-trigger-btn');
+  const modal = document.getElementById('cli-modal');
+  const closeBtn = document.getElementById('cli-close-btn');
+  const cliInput = document.getElementById('cli-input');
+  const cliOutput = document.getElementById('cli-output');
+  const chipBtns = document.querySelectorAll('.cli-command-chips button');
+
+  if (!modal || !cliInput || !cliOutput) return;
+
+  function toggleModal(open) {
+    if (open) {
+      modal.classList.add('active');
+      modal.setAttribute('aria-hidden', 'false');
+      cliInput.focus();
+    } else {
+      modal.classList.remove('active');
+      modal.setAttribute('aria-hidden', 'true');
+    }
+  }
+
+  if (triggerBtn) triggerBtn.addEventListener('click', () => toggleModal(true));
+  if (closeBtn) closeBtn.addEventListener('click', () => toggleModal(false));
+
+  // Keyboard shortcut Ctrl + K
+  window.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+      e.preventDefault();
+      const isActive = modal.classList.contains('active');
+      toggleModal(!isActive);
+    } else if (e.key === 'Escape' && modal.classList.contains('active')) {
+      toggleModal(false);
+    }
+  });
+
+  // Handle CLI input commands
+  cliInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      const cmd = cliInput.value.trim();
+      if (cmd) {
+        processCommand(cmd);
+        cliInput.value = '';
+      }
+    }
+  });
+
+  // Handle Chip buttons
+  chipBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const cmd = btn.getAttribute('data-cmd');
+      processCommand(cmd);
+    });
+  });
+
+  function appendOutput(text, isCommand = false) {
+    const line = document.createElement('div');
+    line.className = isCommand ? 'cli-line command-entered' : 'cli-line response';
+    if (isCommand) {
+      line.innerHTML = `<span style="color:var(--accent); font-weight:bold;">vaishnav@core:~$</span> ${escapeHtml(text)}`;
+    } else {
+      line.innerHTML = text;
+    }
+    cliOutput.appendChild(line);
+    cliOutput.scrollTop = cliOutput.scrollHeight;
+  }
+
+  function escapeHtml(str) {
+    return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
+  function processCommand(rawCmd) {
+    appendOutput(rawCmd, true);
+    const parts = rawCmd.trim().toLowerCase().split(' ');
+    const command = parts[0];
+    const arg = parts[1];
+
+    switch (command) {
+      case 'help':
+        appendOutput(`
+          <div><strong>SYSTEM COMMAND REGISTRY:</strong></div>
+          <div><strong style="color:var(--accent)">about</strong>     - View background &amp; engineering core</div>
+          <div><strong style="color:var(--accent)">skills</strong>    - List technical stack &amp; languages</div>
+          <div><strong style="color:var(--accent)">projects</strong>  - Display repository highlights</div>
+          <div><strong style="color:var(--accent)">contact</strong>   - Display direct communication channels</div>
+          <div><strong style="color:var(--accent)">theme</strong>     - Switch theme (usage: theme arc|midnight|light)</div>
+          <div><strong style="color:var(--accent)">time</strong>      - Output active server time</div>
+          <div><strong style="color:var(--accent)">clear</strong>     - Clear terminal buffer</div>
+        `);
+        break;
+
+      case 'about':
+        appendOutput(`
+          <div><strong>VAISHNAV VENU</strong> // CS &amp; AI Engineering Student at Amrita Vishwa Vidyapeetham. Focused on AI algorithms, Java JDBC enterprise backends, and full-stack web software.</div>
+        `);
+        break;
+
+      case 'skills':
+        appendOutput(`
+          <div><strong>PRIMARY TECH MATRIX:</strong></div>
+          <div>• Languages: Python 3.x, Java Standard Edition, JavaScript (ES6+), C/C++</div>
+          <div>• Web &amp; Backend: HTML5, CSS Glassmorphism, SQL &amp; JDBC API</div>
+          <div>• AI &amp; Math: Open-Source Models, MATLAB Matrix Algebra, Data Structures</div>
+        `);
+        break;
+
+      case 'projects':
+        appendOutput(`
+          <div><strong>FEATURED REPOSITORIES:</strong></div>
+          <div>1. Desktop Arithmetic System [Python]</div>
+          <div>2. Personal Budget Tracker [Python]</div>
+          <div>3. Online Quiz Management System [Java / SQL Servlets]</div>
+          <div>4. Student Task Manager [HTML5 / JS]</div>
+          <div>5. Modern Web Calculator Engine [JavaScript]</div>
+          <div>6. MATLAB Analytical Workspace [MATLAB]</div>
+        `);
+        break;
+
+      case 'contact':
+        appendOutput(`
+          <div><strong>DIRECT CHANNELS:</strong></div>
+          <div>• Email: vaishnavvenu2007@gmail.com</div>
+          <div>• GitHub: https://github.com/S1Prime</div>
+          <div>• LinkedIn: https://www.linkedin.com/in/vaishnav-venu-079a2a383/</div>
+        `);
+        break;
+
+      case 'theme':
+        if (['arc', 'midnight', 'light'].includes(arg)) {
+          if (window.applyPortfolioTheme) window.applyPortfolioTheme(arg);
+          appendOutput(`<div style="color:var(--accent)">Theme successfully set to: <strong>${arg}</strong></div>`);
+        } else {
+          appendOutput(`<div>Usage: theme [arc | midnight | light]</div>`);
+        }
+        break;
+
+      case 'time':
+        appendOutput(`<div>CURRENT SYSTEM TIME: ${new Date().toLocaleString()}</div>`);
+        break;
+
+      case 'clear':
+        cliOutput.innerHTML = '';
+        break;
+
+      case 'sudo':
+        appendOutput(`<div style="color:#ef4444">Permission denied: You already have maximum root access to this portfolio.</div>`);
+        break;
+
+      default:
+        appendOutput(`<div>Command not recognized: '<span style="color:#ef4444">${escapeHtml(rawCmd)}</span>'. Type <strong style="color:var(--accent)">'help'</strong> for commands.</div>`);
+        break;
+    }
+  }
 })();
 
 
@@ -410,12 +614,10 @@ let currentTheme = 'space';
   form.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    // Reset status message
     statusMsg.className = 'form-status-msg';
     statusMsg.textContent = '';
     statusMsg.style.display = 'none';
 
-    // Retrieve input values
     const nameEl = document.getElementById('contact-name');
     const emailEl = document.getElementById('contact-email');
     const messageEl = document.getElementById('contact-message');
@@ -424,7 +626,6 @@ let currentTheme = 'space';
     const email = emailEl.value.trim();
     const message = messageEl.value.trim();
 
-    // Simple validation checks
     if (!name || !email || !message) {
       showStatus('Please fill in all the input fields.', 'error');
       return;
@@ -436,33 +637,30 @@ let currentTheme = 'space';
       return;
     }
 
-    // Set sending UI State
     setLoadingState(true);
 
-    // Mock API request cycle (1.8 seconds)
     setTimeout(() => {
       setLoadingState(false);
-      showStatus('Thanks! Your message has been sent successfully.', 'success');
+      showStatus('⚡ Message transmitted successfully! Vaishnav will get back to you shortly.', 'success');
       form.reset();
 
-      // Clear success state after 4 seconds
       setTimeout(() => {
         statusMsg.style.display = 'none';
         statusMsg.textContent = '';
-      }, 4000);
-    }, 1800);
+      }, 5000);
+    }, 1600);
   });
 
   function setLoadingState(isLoading) {
     if (isLoading) {
       btnSubmit.disabled = true;
       spinner.style.display = 'inline-block';
-      btnText.textContent = 'Sending...';
+      btnText.textContent = 'TRANSMITTING...';
       form.querySelectorAll('input, textarea').forEach(input => input.disabled = true);
     } else {
       btnSubmit.disabled = false;
       spinner.style.display = 'none';
-      btnText.textContent = 'Send Message';
+      btnText.textContent = '⚡ TRANSMIT MESSAGE';
       form.querySelectorAll('input, textarea').forEach(input => input.disabled = false);
     }
   }
