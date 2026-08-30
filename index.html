@@ -5,668 +5,692 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="Vaishnav Venu | Computer Science & AI Student Portfolio showcasing AI projects, Java, Python, Web Engineering, and Data Science.">
-    <title>Vaishnav Venu | CS & AI Engineering Portfolio</title>
+        content="Vaishnav Venu — Computer Science & Artificial Intelligence Engineering student portfolio showcasing AI/ML projects, full-stack systems, algorithms, and computational tools.">
+    <meta name="keywords" content="Vaishnav Venu, Computer Science, AI Engineering, Portfolio, Python, Java, Web Development, Machine Learning">
+    <meta name="author" content="Vaishnav Venu">
+    <title>Vaishnav Venu | AI × Software Engineering Portfolio</title>
+    
+    <!-- Design System Stylesheet -->
     <link rel="stylesheet" href="my-style.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+    
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- DevIcons -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
 </head>
 
 <body>
-    <!-- Interactive Neural Core Background Canvas -->
+    <!-- Interactive Neural Network Particle Canvas -->
     <canvas id="bg-canvas"></canvas>
+    <div class="bg-noise"></div>
+    <div class="bg-grid"></div>
+    <div class="ambient-glow-top"></div>
+    <div class="ambient-glow-bottom"></div>
 
-    <!-- Ambient Grid & Beam Overlay -->
-    <div class="bg-grid-overlay"></div>
+    <!-- Floating Navigation Bar -->
+    <header class="navbar">
+        <a class="nav-brand" href="#hero">
+            <span class="brand-dot"></span>
+            <span>VAISHNAV<span>./</span><b class="accent">CORE</b></span>
+        </a>
 
-    <!-- Floating Sci-Fi Command Terminal Launcher -->
-    <button id="cli-trigger-btn" aria-label="Open CLI Terminal" title="Launch Command Terminal (Ctrl + K)">
-        <span class="cli-icon">&gt;_</span>
-        <span class="cli-btn-text">CLI TERMINAL</span>
-        <span class="cli-shortcut">Ctrl+K</span>
+        <nav class="nav-links" id="navLinks">
+            <a href="#about" class="nav-link">About</a>
+            <a href="#education" class="nav-link">Education</a>
+            <a href="#skills" class="nav-link">Skills</a>
+            <a href="#projects" class="nav-link">Projects</a>
+            <a href="#contact" class="nav-link">Contact</a>
+        </nav>
+
+        <div class="nav-actions">
+            <!-- Quick CLI Terminal Trigger -->
+            <button class="btn-terminal-nav" id="navTerminalBtn" title="Launch Developer Terminal (Ctrl + K)">
+                <span>&gt;_</span>
+                <span>CLI</span>
+            </button>
+
+            <!-- Theme Switcher Dropdown -->
+            <div class="theme-dropdown">
+                <button class="theme-btn" id="themeDropdownBtn" aria-label="Switch Theme" title="Theme Selector">
+                    <span>✦</span>
+                </button>
+                <div class="theme-menu" id="themeMenu">
+                    <button class="theme-opt active" data-theme-val="arc">⚡ Arc Cyan</button>
+                    <button class="theme-opt" data-theme-val="purple">🔮 Purple</button>
+                    <button class="theme-opt" data-theme-val="lime">🟢 Lime Neon</button>
+                    <button class="theme-opt" data-theme-val="light">☀️ Light</button>
+                </div>
+            </div>
+
+            <!-- Mobile Hamburger Toggle -->
+            <button class="nav-menu-btn" id="mobileMenuBtn" aria-label="Toggle navigation menu">
+                <span>☰</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- =========================================================
+             HERO SECTION
+        ========================================================= -->
+        <section class="hero-section" id="hero">
+            <div class="hero-grid">
+                <div class="hero-intro">
+                    <div class="eyebrow-badge">
+                        <span class="pulse-dot"></span>
+                        <span>CS &amp; Artificial Intelligence Engineering</span>
+                    </div>
+
+                    <h1 class="hero-title">
+                        Building systems that <span class="gradient-text">feel alive.</span>
+                    </h1>
+
+                    <p class="hero-tagline">
+                        I'm <strong>Vaishnav Venu</strong>, a Computer Science & Engineering student focused on neural computing, full-stack systems, algorithms, and high-performance software.
+                    </p>
+
+                    <div class="typewriter-wrapper">
+                        <span>&gt; focus:</span>
+                        <span id="typewriterText">AI & Machine Learning</span>
+                        <span class="typewriter-cursor">_</span>
+                    </div>
+
+                    <div class="hero-actions">
+                        <a class="btn btn-primary" href="#projects">
+                            <span>Explore Projects</span>
+                            <span>↗</span>
+                        </a>
+                        <a class="btn btn-secondary" href="https://github.com/S1Prime" target="_blank" rel="noreferrer">
+                            <span>GitHub</span>
+                            <span>↗</span>
+                        </a>
+                        <a class="btn btn-secondary" href="https://www.linkedin.com/in/vaishnav-venu-079a2a383/" target="_blank" rel="noreferrer">
+                            <span>LinkedIn</span>
+                            <span>↗</span>
+                        </a>
+                    </div>
+
+                    <div class="hero-social-links">
+                        <span>● Amrita Vishwa Vidyapeetham</span>
+                        <span>·</span>
+                        <span>B.Tech 2025–2029</span>
+                    </div>
+                </div>
+
+                <!-- Profile & Live HUD Status Card -->
+                <div class="hero-hud-card reveal">
+                    <div class="hud-profile-header">
+                        <div class="profile-avatar-wrap">
+                            <div class="avatar-ring"></div>
+                            <img src="vais.jpeg" alt="Vaishnav Venu" class="profile-avatar" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80'">
+                        </div>
+                        <div class="hud-profile-info">
+                            <h3>Vaishnav Venu</h3>
+                            <div class="hud-role">// Student &amp; Software Developer</div>
+                            <div style="margin-top: 6px; display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 0.68rem; color: var(--accent);">
+                                <span class="pulse-dot" style="width: 5px; height: 5px;"></span>
+                                <span>STATUS: ONLINE &amp; SHIPPING</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hud-terminal-preview">
+                        <div><span class="terminal-status-ok">● SYSTEM</span> vaishnav@core:~$</div>
+                        <div class="terminal-dim">-------------------------------------</div>
+                        <div>$ whoami <span style="color:var(--text);">&rarr; CS &amp; AI Engineer</span></div>
+                        <div>$ core_stack <span style="color:var(--text);">&rarr; Python · Java · SQL · Web</span></div>
+                        <div>$ current_status <span class="terminal-status-ok">&rarr; Building &amp; Experimenting</span></div>
+                    </div>
+
+                    <div class="hud-stats-grid">
+                        <div class="hud-stat-box">
+                            <strong class="stat-counter" data-target="2029">2029</strong>
+                            <span>Graduation</span>
+                        </div>
+                        <div class="hud-stat-box">
+                            <strong class="stat-counter" data-target="7">7+</strong>
+                            <span>Projects</span>
+                        </div>
+                        <div class="hud-stat-box">
+                            <strong class="stat-counter" data-target="6">6+</strong>
+                            <span>Tech Stacks</span>
+                        </div>
+                        <div class="hud-stat-box">
+                            <strong class="stat-counter" data-target="100">100%</strong>
+                            <span>Curiosity</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================================
+             ABOUT SECTION
+        ========================================================= -->
+        <section id="about">
+            <div class="section-head reveal">
+                <div>
+                    <div class="section-num">01 / Profile &amp; Philosophy</div>
+                    <h2 class="section-title">Curious by default.</h2>
+                </div>
+                <p class="section-desc">
+                    Bridging mathematical foundations, neural architectures, and pragmatic software engineering to build intuitive applications.
+                </p>
+            </div>
+
+            <div class="about-grid">
+                <div class="glass-panel about-main-text reveal">
+                    <p>
+                        Currently pursuing <strong>B.Tech in Computer Science &amp; Engineering</strong> at <strong>Amrita Vishwa Vidyapeetham, Amritapuri</strong>. My work spans AI/ML exploratory models, Java/JDBC database backends, desktop application software, and responsive web systems.
+                    </p>
+                    <p>
+                        I love taking messy problems, understanding the low-level mechanics, and transforming them into elegant, clean-architecture software that is reliable and lightning fast.
+                    </p>
+                    <div class="about-highlight-box">
+                        "The goal is simple: understand the core system, build the thing, then continuously make it better."
+                    </div>
+                </div>
+
+                <div class="about-pillars">
+                    <div class="pillar-card reveal">
+                        <div class="pillar-icon">✦</div>
+                        <div>
+                            <h4>Artificial Intelligence &amp; ML</h4>
+                            <p>Neural networks, predictive modeling, data processing, and open-source model integration.</p>
+                        </div>
+                    </div>
+
+                    <div class="pillar-card reveal">
+                        <div class="pillar-icon">⌁</div>
+                        <div>
+                            <h4>Systems &amp; Full-Stack</h4>
+                            <p>Java/JDBC architectures, robust SQL schemas, REST workflows, and modern web interfaces.</p>
+                        </div>
+                    </div>
+
+                    <div class="pillar-card reveal">
+                        <div class="pillar-icon">◈</div>
+                        <div>
+                            <h4>Algorithms &amp; Math</h4>
+                            <p>Data structures, computational mathematics, matrix algebra, and MATLAB simulations.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================================
+             EDUCATION SECTION
+        ========================================================= -->
+        <section id="education">
+            <div class="section-head reveal">
+                <div>
+                    <div class="section-num">02 / Academic Background</div>
+                    <h2 class="section-title">Education Timeline.</h2>
+                </div>
+                <p class="section-desc">
+                    A trajectory of continuous learning, foundational computer science, and practical engineering.
+                </p>
+            </div>
+
+            <div class="timeline-list">
+                <article class="timeline-card reveal">
+                    <div class="timeline-date">2025 — 2029</div>
+                    <div class="timeline-content">
+                        <h3>B.Tech · Computer Science &amp; Engineering</h3>
+                        <div class="timeline-institution">Amrita Vishwa Vidyapeetham, Amritapuri, Kollam, Kerala</div>
+                        <div class="timeline-tags">
+                            <span class="tag-pill">Artificial Intelligence</span>
+                            <span class="tag-pill">Data Structures</span>
+                            <span class="tag-pill">Algorithms</span>
+                            <span class="tag-pill">OOP Java</span>
+                            <span class="tag-pill">Database Systems</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="timeline-card reveal">
+                    <div class="timeline-date">2023 — 2025</div>
+                    <div class="timeline-content">
+                        <h3>Higher Secondary Education · Science &amp; CS</h3>
+                        <div class="timeline-institution">Chinmaya Vidyalaya, Alappuzha, Kerala</div>
+                        <div class="timeline-tags">
+                            <span class="tag-pill">Physics</span>
+                            <span class="tag-pill">Mathematics</span>
+                            <span class="tag-pill">Computer Science</span>
+                            <span class="tag-pill">Python</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="timeline-card reveal">
+                    <div class="timeline-date">2021 — 2023</div>
+                    <div class="timeline-content">
+                        <h3>Secondary School Education</h3>
+                        <div class="timeline-institution">St. Thomas Residential School, Naharlagun, Arunachal Pradesh</div>
+                        <div class="timeline-tags">
+                            <span class="tag-pill">Foundational Sciences</span>
+                            <span class="tag-pill">Analytical Thinking</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- =========================================================
+             TECHNICAL SKILLS SECTION
+        ========================================================= -->
+        <section id="skills">
+            <div class="section-head reveal">
+                <div>
+                    <div class="section-num">03 / Technical Matrix</div>
+                    <h2 class="section-title">Tools I build with.</h2>
+                </div>
+                <p class="section-desc">
+                    Core languages, frameworks, and technologies leveraged across software engineering and AI projects.
+                </p>
+            </div>
+
+            <div class="skills-grid">
+                <div class="glass-panel skill-bars-panel reveal">
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>Python &amp; Scientific Computing</span>
+                            <span>92%</span>
+                        </div>
+                        <div class="skill-bar-track">
+                            <div class="skill-bar-fill" style="width: 92%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>Java &amp; Object-Oriented Design</span>
+                            <span>88%</span>
+                        </div>
+                        <div class="skill-bar-track">
+                            <div class="skill-bar-fill" style="width: 88%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>SQL &amp; Database Management</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="skill-bar-track">
+                            <div class="skill-bar-fill" style="width: 85%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>HTML5, Modern CSS &amp; JavaScript</span>
+                            <span>94%</span>
+                        </div>
+                        <div class="skill-bar-track">
+                            <div class="skill-bar-fill" style="width: 94%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>Data Structures &amp; Algorithms</span>
+                            <span>86%</span>
+                        </div>
+                        <div class="skill-bar-track">
+                            <div class="skill-bar-fill" style="width: 86%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-panel tech-cloud-wrap reveal">
+                    <div class="tech-cloud-title">// Stack &amp; Development Toolkit</div>
+                    <div class="tech-chips">
+                        <span class="tech-chip"><i class="devicon-python-plain colored"></i> Python 3.x</span>
+                        <span class="tech-chip"><i class="devicon-java-plain colored"></i> Java SE</span>
+                        <span class="tech-chip"><i class="devicon-javascript-plain colored"></i> JavaScript ES6+</span>
+                        <span class="tech-chip"><i class="devicon-cplusplus-plain colored"></i> C / C++</span>
+                        <span class="tech-chip"><i class="devicon-html5-plain colored"></i> HTML5</span>
+                        <span class="tech-chip"><i class="devicon-css3-plain colored"></i> CSS3 / Responsive</span>
+                        <span class="tech-chip"><i class="devicon-mysql-original colored"></i> MySQL / SQL</span>
+                        <span class="tech-chip"><i class="devicon-git-plain colored"></i> Git &amp; GitHub</span>
+                        <span class="tech-chip"><i class="devicon-matlab-plain colored"></i> MATLAB</span>
+                        <span class="tech-chip"><i class="devicon-vscode-plain colored"></i> VS Code</span>
+                        <span class="tech-chip"><i class="devicon-intellij-plain colored"></i> IntelliJ IDEA</span>
+                        <span class="tech-chip"><i class="devicon-eclipse-plain colored"></i> Eclipse IDE</span>
+                        <span class="tech-chip">⚙️ JDBC Integration</span>
+                        <span class="tech-chip">🧠 Machine Learning Basics</span>
+                        <span class="tech-chip">📊 Computational Math</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================================
+             PROJECTS SECTION
+        ========================================================= -->
+        <section id="projects">
+            <div class="section-head reveal">
+                <div>
+                    <div class="section-num">04 / Project Registry</div>
+                    <h2 class="section-title">Things I've shipped.</h2>
+                </div>
+                <p class="section-desc">
+                    Featured open-source repositories, system backends, algorithms, and practical applications.
+                </p>
+            </div>
+
+            <!-- Project Filter Controls -->
+            <div class="project-filters reveal">
+                <button class="filter-btn active" data-filter="all">All Repositories</button>
+                <button class="filter-btn" data-filter="python">Python</button>
+                <button class="filter-btn" data-filter="java">Java / SQL</button>
+                <button class="filter-btn" data-filter="web">Web</button>
+                <button class="filter-btn" data-filter="matlab">MATLAB</button>
+            </div>
+
+            <!-- Projects Grid -->
+            <div class="projects-grid" id="projectsGrid">
+                <!-- Project 1: Desktop Arithmetic System -->
+                <article class="project-card reveal" data-category="python">
+                    <div class="project-card-top">
+                        <span class="project-badge">Python App</span>
+                        <span class="project-icon">🧮</span>
+                    </div>
+                    <h3 class="project-title">Desktop Arithmetic System</h3>
+                    <p class="project-desc">
+                        Python-based calculator and arithmetic engine with modular architecture, robust input validation, and mathematical expression handling.
+                    </p>
+                    <div class="project-bottom">
+                        <div class="project-tags">
+                            <span class="project-tag">#Python</span>
+                            <span class="project-tag">#GUI</span>
+                            <span class="project-tag">#Math</span>
+                        </div>
+                        <div class="project-links">
+                            <a class="project-action-link" href="https://github.com/S1Prime/Calculator" target="_blank" rel="noreferrer">
+                                <span>GitHub</span>
+                                <span>↗</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 2: Online Quiz Management System -->
+                <article class="project-card reveal" data-category="java">
+                    <div class="project-card-top">
+                        <span class="project-badge">Java / Full-Stack</span>
+                        <span class="project-icon">📝</span>
+                    </div>
+                    <h3 class="project-title">Online Quiz Management System</h3>
+                    <p class="project-desc">
+                        Robust examination and testing platform built using Java Servlets, JDBC, and SQL database integration with dynamic score evaluation.
+                    </p>
+                    <div class="project-bottom">
+                        <div class="project-tags">
+                            <span class="project-tag">#Java</span>
+                            <span class="project-tag">#JDBC</span>
+                            <span class="project-tag">#SQL</span>
+                        </div>
+                        <div class="project-links">
+                            <a class="project-action-link" href="https://online-quiz-cqaw.onrender.com" target="_blank" rel="noreferrer">
+                                <span>Live Demo</span>
+                                <span>↗</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 3: Student Task Manager -->
+                <article class="project-card reveal" data-category="web">
+                    <div class="project-card-top">
+                        <span class="project-badge">Web Application</span>
+                        <span class="project-icon">📚</span>
+                    </div>
+                    <h3 class="project-title">Student Task Manager</h3>
+                    <p class="project-desc">
+                        Modern responsive productivity web application engineered to help students track coursework, deadlines, priority tasks, and milestones.
+                    </p>
+                    <div class="project-bottom">
+                        <div class="project-tags">
+                            <span class="project-tag">#JavaScript</span>
+                            <span class="project-tag">#HTML5</span>
+                            <span class="project-tag">#CSS3</span>
+                        </div>
+                        <div class="project-links">
+                            <a class="project-action-link" href="https://s1prime.github.io/Student-Task-Manager/" target="_blank" rel="noreferrer">
+                                <span>Live App</span>
+                                <span>↗</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 4: MATLAB Analytical Workspace -->
+                <article class="project-card reveal" data-category="matlab">
+                    <div class="project-card-top">
+                        <span class="project-badge">Computational Math</span>
+                        <span class="project-icon">📊</span>
+                    </div>
+                    <h3 class="project-title">MATLAB Analytical Workspace</h3>
+                    <p class="project-desc">
+                        Comprehensive collection of MATLAB programs for linear algebra, matrix transformations, numerical methods, and mathematical visualization.
+                    </p>
+                    <div class="project-bottom">
+                        <div class="project-tags">
+                            <span class="project-tag">#MATLAB</span>
+                            <span class="project-tag">#MatrixMath</span>
+                            <span class="project-tag">#Algorithms</span>
+                        </div>
+                        <div class="project-links">
+                            <a class="project-action-link" href="https://github.com/S1Prime/Matlab" target="_blank" rel="noreferrer">
+                                <span>GitHub</span>
+                                <span>↗</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 5: Personal Budget Tracker -->
+                <article class="project-card reveal" data-category="python">
+                    <div class="project-card-top">
+                        <span class="project-badge">Python / Data</span>
+                        <span class="project-icon">💰</span>
+                    </div>
+                    <h3 class="project-title">Personal Budget Tracker</h3>
+                    <p class="project-desc">
+                        Financial tracking and data categorization utility for monitoring monthly expenses, income streams, and generating savings analytics.
+                    </p>
+                    <div class="project-bottom">
+                        <div class="project-tags">
+                            <span class="project-tag">#Python</span>
+                            <span class="project-tag">#Analytics</span>
+                            <span class="project-tag">#Finance</span>
+                        </div>
+                        <div class="project-links">
+                            <a class="project-action-link" href="https://github.com/S1Prime" target="_blank" rel="noreferrer">
+                                <span>GitHub</span>
+                                <span>↗</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 6: Hotel Management System -->
+                <article class="project-card reveal" data-category="java">
+                    <div class="project-card-top">
+                        <span class="project-badge">Java DBMS</span>
+                        <span class="project-icon">🏨</span>
+                    </div>
+                    <h3 class="project-title">Hotel Management System</h3>
+                    <p class="project-desc">
+                        Enterprise desktop database management system managing room reservations, customer records, billing lifecycle, and room occupancy.
+                    </p>
+                    <div class="project-bottom">
+                        <div class="project-tags">
+                            <span class="project-tag">#Java</span>
+                            <span class="project-tag">#DBMS</span>
+                            <span class="project-tag">#SQL</span>
+                        </div>
+                        <div class="project-links">
+                            <a class="project-action-link" href="https://github.com/S1Prime" target="_blank" rel="noreferrer">
+                                <span>GitHub</span>
+                                <span>↗</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- =========================================================
+             CONTACT SECTION
+        ========================================================= -->
+        <section id="contact">
+            <div class="section-head reveal">
+                <div>
+                    <div class="section-num">05 / Direct Communication</div>
+                    <h2 class="section-title">Let's build something.</h2>
+                </div>
+                <p class="section-desc">
+                    Open to discussing software projects, research, collaboration, internship opportunities, or interesting engineering ideas.
+                </p>
+            </div>
+
+            <div class="contact-grid">
+                <div class="glass-panel reveal">
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="formName">Your Name</label>
+                                <input type="text" id="formName" name="name" class="form-input" placeholder="e.g. Alex Morgan" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="formEmail">Email Address</label>
+                                <input type="email" id="formEmail" name="email" class="form-input" placeholder="e.g. alex@domain.com" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="formSubject">Subject</label>
+                            <input type="text" id="formSubject" name="subject" class="form-input" placeholder="Project Collaboration / Opportunity" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="formMessage">Message</label>
+                            <textarea id="formMessage" name="message" class="form-input" placeholder="Tell me about your project, idea, or problem to solve..." required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" id="formSubmitBtn">
+                            <span>Send Message</span>
+                            <span>↗</span>
+                        </button>
+                        <div class="form-status" id="formStatus"></div>
+                    </form>
+                </div>
+
+                <div class="contact-channels reveal">
+                    <a class="channel-card" href="mailto:vaishnavvenu2007@gmail.com">
+                        <div class="channel-left">
+                            <div class="channel-icon">✉</div>
+                            <div>
+                                <div class="channel-title">Direct Email</div>
+                                <div class="channel-handle">vaishnavvenu2007@gmail.com</div>
+                            </div>
+                        </div>
+                        <span class="channel-arrow">↗</span>
+                    </a>
+
+                    <a class="channel-card" href="https://github.com/S1Prime" target="_blank" rel="noreferrer">
+                        <div class="channel-left">
+                            <div class="channel-icon"><i class="devicon-github-original"></i></div>
+                            <div>
+                                <div class="channel-title">GitHub Profile</div>
+                                <div class="channel-handle">@S1Prime</div>
+                            </div>
+                        </div>
+                        <span class="channel-arrow">↗</span>
+                    </a>
+
+                    <a class="channel-card" href="https://www.linkedin.com/in/vaishnav-venu-079a2a383/" target="_blank" rel="noreferrer">
+                        <div class="channel-left">
+                            <div class="channel-icon"><i class="devicon-linkedin-plain"></i></div>
+                            <div>
+                                <div class="channel-title">LinkedIn Connection</div>
+                                <div class="channel-handle">Vaishnav Venu</div>
+                            </div>
+                        </div>
+                        <span class="channel-arrow">↗</span>
+                    </a>
+
+                    <div class="glass-panel" style="padding: 22px; margin-top: 4px;">
+                        <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent); margin-bottom: 8px;">// LOCATION &amp; BASE</div>
+                        <p style="font-size: 0.88rem; color: var(--text-dim); margin-bottom: 0;">
+                            Based in Kerala, India. Studying Computer Science &amp; AI Engineering at Amrita Vishwa Vidyapeetham.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================================
+             FOOTER
+        ========================================================= -->
+        <footer>
+            <div class="footer-inner">
+                <div>
+                    © <span id="currentYear">2026</span> Vaishnav Venu · Computer Science &amp; AI Engineering
+                </div>
+                <div class="footer-links">
+                    <a href="#hero">Back to Top ↑</a>
+                    <a href="https://github.com/S1Prime" target="_blank" rel="noreferrer">GitHub</a>
+                    <a href="https://www.linkedin.com/in/vaishnav-venu-079a2a383/" target="_blank" rel="noreferrer">LinkedIn</a>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <!-- Floating Scroll-To-Top Button -->
+    <button class="scroll-top-btn" id="scrollTopBtn" aria-label="Scroll to top" title="Scroll to top">
+        ↑
     </button>
 
-    <!-- Main Container supporting split screen -->
-    <div class="portfolio-container">
+    <!-- Floating CLI Terminal Trigger Button -->
+    <button class="terminal-float-btn" id="terminalFloatBtn" title="Developer Terminal (Ctrl + K)">
+        <span>&gt;_</span>
+        <span>TERMINAL</span>
+        <span style="opacity: 0.6; font-size: 0.65rem;">(Ctrl+K)</span>
+    </button>
 
-        <!-- Sticky Left Command Profile Sidebar -->
-        <aside class="sidebar">
-            <div class="sidebar-top">
-                <div class="profile-card">
-                    <!-- Arc Reactor Glowing Profile Container -->
-                    <div class="profile-img-wrapper">
-                        <div class="arc-reactor-ring outer-ring"></div>
-                        <div class="arc-reactor-ring middle-ring"></div>
-                        <div class="profile-img-container">
-                            <img src="vais.jpeg" alt="Vaishnav Venu" class="profile-img">
-                        </div>
-                        <div class="status-badge" id="availability-status">
-                            <span class="status-dot-pulse"></span>
-                            <span class="status-text">CORE ONLINE • AVAILABLE</span>
-                        </div>
-                    </div>
-
-                    <div class="sidebar-details">
-                        <h1 class="hero-name">Vaishnav Venu</h1>
-                        <div class="subtitle-container">
-                            <span class="tech-prompt-symbol">&gt;</span>
-                            <span id="typing-subtitle">Computer Science Student</span>
-                            <span class="typing-cursor">|</span>
-                        </div>
-
-                        <!-- System Status HUD -->
-                        <div class="system-hud-badge">
-                            <span class="hud-label">PRIMARY FOCUS</span>
-                            <span class="hud-val">AI &amp; Neural Computing</span>
-                        </div>
-
-                        <div class="divider"></div>
-
-                        <!-- Animated Stats Counter Dashboard -->
-                        <div class="stats-dashboard">
-                            <div class="stat-item" data-count="2029">
-                                <span class="stat-val"><span class="counter-num" data-target="2029">2029</span></span>
-                                <span class="stat-label">Graduation</span>
-                            </div>
-                            <div class="stat-item" data-count="6">
-                                <span class="stat-val"><span class="counter-num" data-target="6">6</span>+</span>
-                                <span class="stat-label">Projects</span>
-                            </div>
-                            <div class="stat-item" data-count="5">
-                                <span class="stat-val"><span class="counter-num" data-target="5">5</span>+</span>
-                                <span class="stat-label">Tech Stacks</span>
-                            </div>
-                            <div class="stat-item" data-count="100">
-                                <span class="stat-val"><span class="counter-num" data-target="100">100</span>%</span>
-                                <span class="stat-label">Passionate</span>
-                            </div>
-                        </div>
-                    </div>
+    <!-- CLI Terminal Modal -->
+    <div class="terminal-modal" id="terminalModal">
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <span class="dot dot-red"></span>
+                    <span class="dot dot-yellow"></span>
+                    <span class="dot dot-green"></span>
                 </div>
+                <div class="terminal-title">vaishnav@core: ~ (bash)</div>
+                <button class="terminal-close-btn" id="terminalCloseBtn">ESC / [X]</button>
             </div>
-
-            <div class="sidebar-footer">
-                <div class="theme-select-wrapper">
-                    <label for="theme-select" class="theme-select-label">SYSTEM THEME</label>
-                    <select id="theme-select" aria-label="Select Theme" class="theme-select">
-                        <option value="arc">⚡ Arc AI Cyan (Default)</option>
-                        <option value="midnight">🕶️ Midnight Onyx</option>
-                        <option value="light">☀️ Corporate Light</option>
-                    </select>
-                    <span class="theme-select-arrow">▾</span>
-                </div>
+            <div class="terminal-body" id="terminalBody">
+                <div class="terminal-line"><span class="cli-green">VAISHNAV CORE CLI v3.2</span> [System ready]</div>
+                <div class="terminal-line"><span class="cli-dim">Type </span><span class="cli-yellow">help</span><span class="cli-dim"> to view all available commands.</span></div>
+                <div class="terminal-line">&nbsp;</div>
             </div>
-        </aside>
-
-        <!-- Right Content Area -->
-        <div class="main-content">
-
-            <!-- Floating Sci-Fi Navigation HUD -->
-            <nav id="main-nav">
-                <div class="nav-links">
-                    <a href="#About-Me" id="nav-link-about"><span class="nav-num">01</span> About</a>
-                    <a href="#Education" id="nav-link-education"><span class="nav-num">02</span> Education</a>
-                    <a href="#Skills" id="nav-link-skills"><span class="nav-num">03</span> Skills</a>
-                    <a href="#Projects" id="nav-link-projects"><span class="nav-num">04</span> Projects</a>
-                    <a href="#Tools" id="nav-link-tools"><span class="nav-num">05</span> Tools</a>
-                    <a href="#Contact-Me" id="nav-link-contact"><span class="nav-num">06</span> Contact</a>
-                </div>
-            </nav>
-
-            <!-- Main Sections -->
-            <main>
-                <!-- About Section -->
-                <section id="About-Me" class="reveal">
-                    <div class="section-tag">// 01 ARCHITECTURE</div>
-                    <h2>About Me</h2>
-                    <div class="about-hero-card">
-                        <p class="lead-text">
-                            Hello! I'm <strong>Vaishnav Venu</strong>, a Computer Science &amp; Engineering student at
-                            <strong>Amrita Vishwa Vidyapeetham</strong> (Amritapuri).
-                        </p>
-                        <p>
-                            Driven by a relentless curiosity for how computational systems learn, reason, and adapt, my
-                            current engineering focus lies in <strong>Artificial Intelligence, Machine Learning, Data
-                                Structures</strong>, and high-performance Web Applications.
-                        </p>
-                        <p>
-                            I specialize in translating mathematical models into clean, maintainable code — whether
-                            crafting desktop software in <strong>Python</strong>, building enterprise examination
-                            backends with <strong>Java &amp; SQL</strong>, or deploying modern web tools.
-                        </p>
-                    </div>
-
-                    <!-- Highlight Highlights Grid -->
-                    <div class="highlights-grid">
-                        <div class="highlight-card">
-                            <div class="hl-icon">🤖</div>
-                            <div class="hl-title">AI &amp; ML Focus</div>
-                            <div class="hl-desc">Exploring open-source neural architectures, LLMs, and predictive
-                                modelling.</div>
-                        </div>
-                        <div class="highlight-card">
-                            <div class="hl-icon">⚡</div>
-                            <div class="hl-title">Full-Stack Development</div>
-                            <div class="hl-desc">Crafting high-speed, glassmorphic interfaces &amp; RESTful JDBC service
-                                APIs.</div>
-                        </div>
-                        <div class="highlight-card">
-                            <div class="hl-icon">🧩</div>
-                            <div class="hl-title">Algorithmic Problem Solving</div>
-                            <div class="hl-desc">Optimizing data structures and matrix algebra for complex analytical
-                                problem sets.</div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Education Section -->
-                <section id="Education" class="reveal">
-                    <div class="section-tag">// 02 ACADEMICS</div>
-                    <h2>Education Timeline</h2>
-                    <div class="timeline">
-                        <div class="timeline-item">
-                            <div class="timeline-dot"></div>
-                            <div class="timeline-content">
-                                <div class="timeline-badge">CURRENT DEGREE</div>
-                                <div class="timeline-date">2025 - 2029</div>
-                                <h3>B.Tech in Computer Science &amp; Engineering</h3>
-                                <p class="timeline-school">Amrita Vishwa Vidyapeetham, Amritapuri, Kollam, Kerala</p>
-                                <div class="timeline-tags">
-                                    <span>Algorithms</span>
-                                    <span>AI / ML</span>
-                                    <span>Data Structures</span>
-                                    <span>OOP Java</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-dot"></div>
-                            <div class="timeline-content">
-                                <div class="timeline-date">2023 - 2025</div>
-                                <h3>Higher Secondary Education (Science &amp; CS)</h3>
-                                <p class="timeline-school">Chinmaya Vidyalaya, Alappuzha, Kerala</p>
-                                <div class="timeline-tags">
-                                    <span>Physics</span>
-                                    <span>Mathematics</span>
-                                    <span>Computer Science</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-dot"></div>
-                            <div class="timeline-content">
-                                <div class="timeline-date">2021 - 2023</div>
-                                <h3>Secondary Education</h3>
-                                <p class="timeline-school">St. Thomas Residential School, Naharlagun, Arunachal Pradesh
-                                </p>
-                                <div class="timeline-tags">
-                                    <span>Foundational Sciences</span>
-                                    <span>Mathematics</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Skills & Technical Matrix Section -->
-                <section id="Skills" class="reveal">
-                    <div class="section-tag">// 03 TECHNICAL MATRIX</div>
-                    <h2>Skills &amp; Competencies</h2>
-
-                    <!-- Proficiency Meter Grid -->
-                    <div class="proficiency-container">
-                        <div class="skills-cat-title">Tech Proficiency Core</div>
-                        <div class="proficiency-grid">
-                            <div class="prof-item">
-                                <div class="prof-header">
-                                    <span class="prof-name"><i class="devicon-python-plain colored"></i> Python</span>
-                                    <span class="prof-pct">92%</span>
-                                </div>
-                                <div class="prof-bar-bg">
-                                    <div class="prof-bar-fill" style="width: 92%;"></div>
-                                </div>
-                            </div>
-                            <div class="prof-item">
-                                <div class="prof-header">
-                                    <span class="prof-name"><i class="devicon-java-plain colored"></i> Java &amp;
-                                        SQL</span>
-                                    <span class="prof-pct">88%</span>
-                                </div>
-                                <div class="prof-bar-bg">
-                                    <div class="prof-bar-fill" style="width: 88%;"></div>
-                                </div>
-                            </div>
-                            <div class="prof-item">
-                                <div class="prof-header">
-                                    <span class="prof-name"><i class="devicon-javascript-plain colored"></i> JavaScript
-                                        (ES6+)</span>
-                                    <span class="prof-pct">85%</span>
-                                </div>
-                                <div class="prof-bar-bg">
-                                    <div class="prof-bar-fill" style="width: 85%;"></div>
-                                </div>
-                            </div>
-                            <div class="prof-item">
-                                <div class="prof-header">
-                                    <span class="prof-name"><i class="devicon-html5-plain colored"></i> HTML5 /
-                                        CSS3</span>
-                                    <span class="prof-pct">95%</span>
-                                </div>
-                                <div class="prof-bar-bg">
-                                    <div class="prof-bar-fill" style="width: 95%;"></div>
-                                </div>
-                            </div>
-                            <div class="prof-item">
-                                <div class="prof-header">
-                                    <span class="prof-name"><i class="devicon-matlab-plain colored"></i> MATLAB
-                                        Computational</span>
-                                    <span class="prof-pct">80%</span>
-                                </div>
-                                <div class="prof-bar-bg">
-                                    <div class="prof-bar-fill" style="width: 80%;"></div>
-                                </div>
-                            </div>
-                            <div class="prof-item">
-                                <div class="prof-header">
-                                    <span class="prof-name">🤖 Artificial Intelligence / ML</span>
-                                    <span class="prof-pct">82%</span>
-                                </div>
-                                <div class="prof-bar-bg">
-                                    <div class="prof-bar-fill" style="width: 82%;"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="skills-categories">
-                        <div class="skills-cat-group">
-                            <div class="skills-cat-title">Languages &amp; Runtimes</div>
-                            <div class="skills-tags-grid">
-                                <span class="skill-tag"><i class="devicon-python-plain"></i> Python 3.x</span>
-                                <span class="skill-tag"><i class="devicon-java-plain"></i> Java Standard Edition</span>
-                                <span class="skill-tag"><i class="devicon-javascript-plain"></i> JavaScript
-                                    (ES6+)</span>
-                                <span class="skill-tag"><i class="devicon-c-plain"></i> C / C++</span>
-                            </div>
-                        </div>
-
-                        <div class="skills-cat-group">
-                            <div class="skills-cat-title">Web, Databases &amp; Core CS</div>
-                            <div class="skills-tags-grid">
-                                <span class="skill-tag"><i class="devicon-html5-plain"></i> HTML5</span>
-                                <span class="skill-tag"><i class="devicon-css3-plain"></i> CSS3 Glassmorphism</span>
-                                <span class="skill-tag"><i class="devicon-mysql-plain"></i> SQL &amp; JDBC</span>
-                                <span class="skill-tag">Data Structures &amp; Algorithms</span>
-                                <span class="skill-tag">Object-Oriented Programming</span>
-                                <span class="skill-tag">RESTful Logic</span>
-                            </div>
-                        </div>
-
-                        <div class="skills-cat-group">
-                            <div class="skills-cat-title">AI &amp; Analytical Frameworks</div>
-                            <div class="skills-tags-grid">
-                                <span class="skill-tag">Open-Source AI Models</span>
-                                <span class="skill-tag"><i class="devicon-matlab-plain"></i> MATLAB Matrix
-                                    Algebra</span>
-                                <span class="skill-tag">Numerical Computing</span>
-                                <span class="skill-tag">Predictive Analytics</span>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Filterable Projects Section -->
-                <section id="Projects" class="reveal">
-                    <div class="section-tag">// 04 REPOSITORY CORE</div>
-                    <h2>Featured Projects</h2>
-
-                    <div class="filter-tabs">
-                        <button class="filter-tab active" data-filter="all" id="filter-tab-all">⚡ All Projects</button>
-                        <button class="filter-tab" data-filter="python" id="filter-tab-python">🐍 Python</button>
-                        <button class="filter-tab" data-filter="java" id="filter-tab-java">☕ Java / SQL</button>
-                        <button class="filter-tab" data-filter="web" id="filter-tab-web">🌐 Web Apps</button>
-                        <button class="filter-tab" data-filter="matlab" id="filter-tab-matlab">📐 MATLAB</button>
-                    </div>
-
-                    <div class="cards-grid">
-                        <!-- Card 1 -->
-                        <a href="https://github.com/S1Prime/Calculator" class="card-item" target="_blank"
-                            rel="noopener noreferrer" id="project-card-calculator" data-category="python">
-                            <div class="card-glow-overlay"></div>
-                            <div class="card-top-row">
-                                <div class="card-icon-container">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg"
-                                        alt="Python" />
-                                </div>
-                                <span class="card-category-badge">PYTHON CORE</span>
-                            </div>
-                            <span class="card-title">Desktop Arithmetic System</span>
-                            <p class="project-desc">A modular desktop calculator application developed in Python.
-                                Features expression parsing algorithms, error handling, and high-precision arithmetic
-                                computation.</p>
-                            <div class="card-meta">
-                                <span class="card-tag">Python 3</span>
-                                <span class="card-tag">GUI / Parsing</span>
-                                <span class="card-link-icon">Source Code ↗</span>
-                            </div>
-                        </a>
-
-                        <!-- Card 2 -->
-                        <a href="https://github.com/S1Prime/Personal-Budget-Tracker" class="card-item" target="_blank"
-                            rel="noopener noreferrer" id="project-card-budget" data-category="python">
-                            <div class="card-glow-overlay"></div>
-                            <div class="card-top-row">
-                                <div class="card-icon-container">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg"
-                                        alt="Python" />
-                                </div>
-                                <span class="card-category-badge">PYTHON CORE</span>
-                            </div>
-                            <span class="card-title">Personal Budget Tracker</span>
-                            <p class="project-desc">Financial management software to record incoming cashflows and
-                                categorize expenditure items. Features analytical summary generation for tracking
-                                financial goals.</p>
-                            <div class="card-meta">
-                                <span class="card-tag">Python</span>
-                                <span class="card-tag">Data Persistence</span>
-                                <span class="card-link-icon">Source Code ↗</span>
-                            </div>
-                        </a>
-
-                        <!-- Card 3 -->
-                        <a href="https://online-quiz-cqaw.onrender.com" target="_blank" rel="noopener noreferrer"
-                            id="project-card-quiz" class="card-item" data-category="java">
-                            <div class="card-glow-overlay"></div>
-                            <div class="card-top-row">
-                                <div class="card-icon-container">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg"
-                                        alt="Java" />
-                                </div>
-                                <span class="card-category-badge">FULL-STACK JAVA</span>
-                            </div>
-                            <span class="card-title">Online Quiz Management System</span>
-                            <p class="project-desc">An enterprise online examination system. Engineered with Java
-                                Servlet architecture, JDBC persistent connections, and SQL database schemas to handle
-                                user authentication and exam metrics.</p>
-                            <div class="card-meta">
-                                <span class="card-tag">Java Servlets</span>
-                                <span class="card-tag">JDBC / SQL</span>
-                                <span class="card-link-icon">Live Demo ↗</span>
-                            </div>
-                        </a>
-
-                        <!-- Card 4 -->
-                        <a href="https://s1prime.github.io/Student-Task-Manager/" class="card-item" target="_blank"
-                            rel="noopener noreferrer" id="project-card-task-manager" data-category="web">
-                            <div class="card-glow-overlay"></div>
-                            <div class="card-top-row">
-                                <div class="card-icon-container">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg"
-                                        alt="HTML/CSS" />
-                                </div>
-                                <span class="card-category-badge">WEB APP</span>
-                            </div>
-                            <span class="card-title">Student Task Manager</span>
-                            <p class="project-desc">Productivity management dashboard tailored for academic workflows.
-                                Tracks assignment deadlines, exam timetables, and project milestones with intuitive UI
-                                states.</p>
-                            <div class="card-meta">
-                                <span class="card-tag">HTML5 / CSS3</span>
-                                <span class="card-tag">JS Storage</span>
-                                <span class="card-link-icon">Live App ↗</span>
-                            </div>
-                        </a>
-
-                        <!-- Card 5 -->
-                        <a href="https://s1prime.github.io/Calculator-Using-Frontend/" class="card-item" target="_blank"
-                            rel="noopener noreferrer" id="project-card-calculator-web" data-category="web">
-                            <div class="card-glow-overlay"></div>
-                            <div class="card-top-row">
-                                <div class="card-icon-container">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg"
-                                        alt="JavaScript" />
-                                </div>
-                                <span class="card-category-badge">WEB ENGINE</span>
-                            </div>
-                            <span class="card-title">Modern Web Calculator Engine</span>
-                            <p class="project-desc">Responsive web calculator with real-time expression evaluation,
-                                dark/light dynamic theme switching, keyboard event hooks, and local history persistence.
-                            </p>
-                            <div class="card-meta">
-                                <span class="card-tag">JavaScript</span>
-                                <span class="card-tag">CSS Animations</span>
-                                <span class="card-link-icon">Live App ↗</span>
-                            </div>
-                        </a>
-
-                        <!-- Card 6 -->
-                        <a href="https://github.com/S1Prime/Matlab" class="card-item" target="_blank"
-                            rel="noopener noreferrer" id="project-card-matlab" data-category="matlab">
-                            <div class="card-glow-overlay"></div>
-                            <div class="card-top-row">
-                                <div class="card-icon-container">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/matlab/matlab-original.svg"
-                                        alt="MATLAB" />
-                                </div>
-                                <span class="card-category-badge">COMPUTATIONAL</span>
-                            </div>
-                            <span class="card-title">MATLAB Analytical Workspace</span>
-                            <p class="project-desc">A computational workspace executing linear algebra matrix routines,
-                                numerical solvers, and graphical data plots to analyze complex spatial and mathematical
-                                equations.</p>
-                            <div class="card-meta">
-                                <span class="card-tag">MATLAB</span>
-                                <span class="card-tag">Matrix Algebra</span>
-                                <span class="card-link-icon">Repository ↗</span>
-                            </div>
-                        </a>
-
-                        <!-- Card 7 -->
-                        <a href="https://s1prime.github.io/Hotel-Management-System-DBMS/" class="card-item"
-                            target="_blank" rel="noopener noreferrer" id="project-card-dbms" data-category="dbms">
-                            <div class="card-glow-overlay"></div>
-                            <div class="card-top-row">
-                                <div class="card-icon-container">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg"
-                                        alt="DBMS" />
-                                </div>
-                                <span class="card-category-badge">COMPUTATIONAL</span>
-                            </div>
-                            <span class="card-title">Hotel Management System</span>
-                            <p class="project-desc">The Hotel Management System is designed to simplify hotel management
-                                by integrating a modern frontend with a relational database.
-                                It enables customers to search and book rooms while allowing receptionists to
-                                efficiently manage
-                                reservations, guests, room availability, billing, and hotel services.</p>
-                            <div class="card-meta">
-                                <span class="card-tag">DBMS</span>
-                                <span class="card-tag">DataBase</span>
-                                <span class="card-link-icon">Repository ↗</span>
-                            </div>
-                        </a>
-                    </div>
-                </section>
-
-                <!-- Tools & Developer Toolkit Section -->
-                <section id="Tools" class="reveal">
-                    <div class="section-tag">// 05 TOOLKITS</div>
-                    <h2>Development Environment</h2>
-                    <div class="tools-grid">
-                        <a href="https://code.visualstudio.com/download" target="_blank" rel="noopener noreferrer"
-                            id="tool-link-vscode" class="tool-item">
-                            <div class="tool-glow"></div>
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg"
-                                alt="VS Code" />
-                            <span>VS Code</span>
-                        </a>
-                        <a href="https://www.python.org/downloads/" target="_blank" rel="noopener noreferrer"
-                            id="tool-link-python" class="tool-item">
-                            <div class="tool-glow"></div>
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg"
-                                alt="Python IDLE" />
-                            <span>Python Environment</span>
-                        </a>
-                        <a href="https://desktop.github.com/download/" target="_blank" rel="noopener noreferrer"
-                            id="tool-link-git" class="tool-item">
-                            <div class="tool-glow"></div>
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg"
-                                alt="GitHub" />
-                            <span>Git &amp; GitHub</span>
-                        </a>
-                        <a href="https://eclipseide.org" target="_blank" rel="noopener noreferrer"
-                            id="tool-link-eclipse" class="tool-item">
-                            <div class="tool-glow"></div>
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/eclipse/eclipse-original.svg"
-                                alt="Eclipse" />
-                            <span>Eclipse IDE</span>
-                        </a>
-                        <a href="https://www.jetbrains.com/idea/" target="_blank" rel="noopener noreferrer"
-                            id="tool-link-intellij" class="tool-item">
-                            <div class="tool-glow"></div>
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/intellij/intellij-original.svg"
-                                alt="IntelliJ" />
-                            <span>IntelliJ IDEA</span>
-                        </a>
-                        <a href="https://antigravity.google/download" target="_blank" rel="noopener noreferrer"
-                            id="tool-link-antigravity" class="tool-item">
-                            <div class="tool-glow"></div>
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/google/google-original.svg"
-                                alt="Google Antigravity" />
-                            <span>Google Antigravity</span>
-                        </a>
-                    </div>
-                </section>
-
-                <!-- Contact Form and Details Section -->
-                <section id="Contact-Me" class="reveal">
-                    <div class="section-tag">// 06 TRANSMISSION</div>
-                    <h2>Initiate Contact</h2>
-                    <div class="contact-container">
-
-                        <!-- Contact Glassmorphic Form Card -->
-                        <div class="contact-card-glass">
-                            <div class="contact-header-badge">
-                                <span class="badge-dot"></span> SECURE MESSAGE LINK
-                            </div>
-                            <form class="contact-form" id="portfolio-contact-form" novalidate>
-                                <div class="form-group-row">
-                                    <div class="form-group">
-                                        <label for="contact-name">FULL NAME</label>
-                                        <input type="text" id="contact-name" name="name" placeholder="e.g. Alex Mercer"
-                                            required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="contact-email">EMAIL ADDRESS</label>
-                                        <input type="email" id="contact-email" name="email"
-                                            placeholder="alex@domain.com" required>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="contact-message">MESSAGE BODY</label>
-                                    <textarea id="contact-message" name="message"
-                                        placeholder="State your inquiry, collaboration project, or technical question..."
-                                        required></textarea>
-                                </div>
-                                <button type="submit" class="btn-submit" id="btn-contact-submit">
-                                    <span class="submit-spinner" id="contact-spinner"></span>
-                                    <span id="submit-btn-text">⚡ TRANSMIT MESSAGE</span>
-                                </button>
-                                <div class="form-status-msg" id="contact-status-msg"></div>
-                            </form>
-                        </div>
-
-                        <!-- Quick Contact Social Icons -->
-                        <div class="contact-links-grid">
-                            <a href="mailto:vaishnavvenu2007@gmail.com" id="social-link-email"
-                                class="contact-icon-card">
-                                <img class="icon-email"
-                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/google/google-original.svg"
-                                    alt="Email" />
-                                <span>Personal Email</span>
-                                <small>vaishnavvenu2007@gmail.com</small>
-                            </a>
-                            <a href="https://github.com/S1Prime" id="social-link-github" class="contact-icon-card"
-                                target="_blank" rel="noopener noreferrer">
-                                <img class="icon-github"
-                                    src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg"
-                                    alt="GitHub" />
-                                <span>GitHub Profile</span>
-                                <small>@S1Prime</small>
-                            </a>
-                            <a href="https://www.linkedin.com/in/vaishnav-venu-079a2a383/" id="social-link-linkedin"
-                                class="contact-icon-card" target="_blank" rel="noopener noreferrer">
-                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linkedin/linkedin-original.svg"
-                                    alt="LinkedIn" />
-                                <span>LinkedIn Network</span>
-                                <small>Vaishnav Venu</small>
-                            </a>
-                            <a href="mailto:am.sc.u4cse25057@am.students.amrita.edu" id="social-link-outlook"
-                                class="contact-icon-card" target="_blank" rel="noopener noreferrer">
-                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/windows8/windows8-original.svg"
-                                    alt="Outlook" />
-                                <span>Academic Mail</span>
-                                <small>Amrita Student Portal</small>
-                            </a>
-                        </div>
-
-                    </div>
-                </section>
-            </main>
-
-            <!-- Sci-Fi Footer -->
-            <footer>
-                <div class="footer-content">
-                    <p>&copy; 2026 Vaishnav Venu | Computer Science &amp; AI Engineering</p>
-                    <p class="footer-subtext">Engineered with Vanilla HTML5, CSS Glassmorphism &amp; Neural Canvas JS
-                    </p>
-                </div>
-            </footer>
-        </div>
-    </div>
-
-    <!-- Interactive Interactive Sci-Fi CLI Terminal Overlay -->
-    <div id="cli-modal" class="cli-modal-backdrop" aria-hidden="true">
-        <div class="cli-modal-window">
-            <div class="cli-header">
-                <div class="cli-controls">
-                    <span class="cli-dot red" id="cli-close-btn"></span>
-                    <span class="cli-dot yellow"></span>
-                    <span class="cli-dot green"></span>
-                </div>
-                <div class="cli-title">vaishnav@cyber-core:~ (bash)</div>
-            </div>
-            <div class="cli-body" id="cli-output">
-                <div class="cli-line banner">
-                    <span>=====================================================================</span>
-                    <span> VAISHNAV VENU [CS &amp; AI ENGINEER] - SYSTEM CLI TERMINAL v2.0 </span>
-                    <span>=====================================================================</span>
-                    <span>Type <strong class="cli-highlight">'help'</strong> to list available system commands.</span>
-                </div>
-            </div>
-            <div class="cli-command-chips">
-                <button data-cmd="help">help</button>
-                <button data-cmd="about">about</button>
-                <button data-cmd="skills">skills</button>
-                <button data-cmd="projects">projects</button>
-                <button data-cmd="contact">contact</button>
-                <button data-cmd="theme arc">theme arc</button>
-                <button data-cmd="clear">clear</button>
-            </div>
-            <div class="cli-input-row">
-                <span class="cli-prompt">vaishnav@core:~$</span>
-                <input type="text" id="cli-input" placeholder="Enter command..." autocomplete="off" spellcheck="false">
+            <div class="terminal-input-bar">
+                <span class="terminal-prompt-symbol">&gt;</span>
+                <input type="text" class="terminal-input" id="terminalInput" placeholder="Type a command (e.g., 'help', 'skills', 'projects')..." autocomplete="off" spellcheck="false">
             </div>
         </div>
     </div>
 
-    <!-- Scroll Back To Top Floating Action Button -->
-    <button id="scroll-top-btn" aria-label="Back to top" title="Scroll to Top">&#8679;</button>
-
-    <!-- Page Logic -->
+    <!-- Application Script -->
     <script src="portfolio.js"></script>
 </body>
 

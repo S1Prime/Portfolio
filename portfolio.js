@@ -1,673 +1,650 @@
-/* ─── Active Nav Link on Scroll ──────────────────────────────────────────── */
-(function () {
-  const navLinks = document.querySelectorAll('#main-nav .nav-links a');
-  const sections = document.querySelectorAll('main section[id]');
+/**
+ * Vaishnav Venu — Portfolio Core Engine
+ * Interactive Neural Canvas, CLI Terminal, 3D Tilt, Theme Switcher & System HUD
+ */
 
-  function setActive() {
-    let current = '';
-    const scrollPos = window.scrollY + 140; // offset for sticky nav header
-    
-    sections.forEach(sec => {
-      if (scrollPos >= sec.offsetTop) {
-        current = sec.id;
-      }
-    });
+document.addEventListener("DOMContentLoaded", () => {
 
-    navLinks.forEach(a => {
-      const href = a.getAttribute('href');
-      a.classList.toggle('active', href === `#${current}`);
-    });
-  }
+    /* =========================================================
+       1. NEURAL PARTICLE CANVAS
+    ========================================================= */
+    const canvas = document.getElementById("bg-canvas");
+    let ctx = null;
+    let width = 0;
+    let height = 0;
+    let particles = [];
+    let waves = [];
 
-  window.addEventListener('scroll', setActive, { passive: true });
-  setActive();
-})();
-
-
-/* ─── Scroll-to-top Button ───────────────────────────────────────────────── */
-(function () {
-  const btn = document.getElementById('scroll-top-btn');
-  if (!btn) return;
-
-  window.addEventListener('scroll', () => {
-    btn.classList.toggle('show', window.scrollY > 400);
-  }, { passive: true });
-
-  btn.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-})();
-
-
-/* ─── Premium Theme Switcher & Storage ───────────────────────────────────── */
-let currentTheme = 'arc';
-
-(function () {
-  const themeSelect = document.getElementById('theme-select');
-  if (!themeSelect) return;
-
-  // Switch Theme function
-  function applyTheme(theme) {
-    currentTheme = theme;
-    
-    // Apply data-theme attribute to html
-    if (theme === 'arc') {
-      document.documentElement.setAttribute('data-theme', 'arc');
-    } else {
-      document.documentElement.setAttribute('data-theme', theme);
-    }
-
-    // Sync select dropdown element value
-    themeSelect.value = theme;
-
-    // Save to localStorage
-    localStorage.setItem('portfolio-theme', theme);
-  }
-
-  // Expose globally for CLI
-  window.applyPortfolioTheme = applyTheme;
-
-  // Listen for dropdown select changes
-  themeSelect.addEventListener('change', (e) => {
-    applyTheme(e.target.value);
-  });
-
-  // Initialize from LocalStorage
-  const savedTheme = localStorage.getItem('portfolio-theme');
-  if (savedTheme) {
-    applyTheme(savedTheme);
-  } else {
-    applyTheme('arc');
-  }
-})();
-
-
-/* ─── Neural Network Canvas with Dynamic Interactive Waves ──────────────── */
-(function () {
-  const canvas = document.getElementById('bg-canvas');
-  if (!canvas) return;
-
-  const ctx = canvas.getContext('2d');
-  let animationFrameId;
-  let particles = [];
-  let shockwaves = [];
-  const mouse = { x: null, y: null, radius: 180 };
-
-  window.addEventListener('mousemove', (e) => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
-  });
-
-  window.addEventListener('mouseleave', () => {
-    mouse.x = null;
-    mouse.y = null;
-  });
-
-  // Shockwave burst on click
-  window.addEventListener('click', (e) => {
-    shockwaves.push({
-      x: e.clientX,
-      y: e.clientY,
-      radius: 10,
-      maxRadius: 160,
-      alpha: 1
-    });
-  });
-
-  function resizeCanvas() {
-    const dpr = window.devicePixelRatio || 1;
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-    canvas.width = width * dpr;
-    canvas.height = height * dpr;
-    ctx.scale(dpr, dpr);
-    canvas.style.width = `${width}px`;
-    canvas.style.height = `${height}px`;
-    initParticles();
-  }
-
-  function getAccentColorHsl() {
-    const styles = getComputedStyle(document.documentElement);
-    const accent = styles.getPropertyValue('--accent').trim();
-    
-    if (accent.startsWith('#')) {
-      return hexToRgb(accent);
-    }
-    return { r: 0, g: 240, b: 255 };
-  }
-
-  function hexToRgb(hex) {
-    hex = hex.replace('#', '');
-    if (hex.length === 3) {
-      hex = hex.split('').map(c => c + c).join('');
-    }
-    const num = parseInt(hex, 16);
-    return {
-      r: (num >> 16) & 255,
-      g: (num >> 8) & 255,
-      b: num & 255
+    const mouse = {
+        x: null,
+        y: null,
+        radius: 160
     };
-  }
 
-  class Particle {
-    constructor(x, y, vx, vy, size) {
-      this.x = x;
-      this.y = y;
-      this.vx = vx;
-      this.vy = vy;
-      this.size = size;
-      this.baseSize = size;
-    }
+    if (canvas) {
+        ctx = canvas.getContext("2d");
 
-    draw(rgb) {
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.8)`;
-      ctx.fill();
-    }
+        function resizeCanvas() {
+            const dpr = window.devicePixelRatio || 1;
+            width = window.innerWidth;
+            height = window.innerHeight;
 
-    update() {
-      if (this.x > window.innerWidth || this.x < 0) this.vx = -this.vx;
-      if (this.y > window.innerHeight || this.y < 0) this.vy = -this.vy;
+            canvas.width = width * dpr;
+            canvas.height = height * dpr;
+            canvas.style.width = `${width}px`;
+            canvas.style.height = `${height}px`;
 
-      // Mouse repulsion & magnetic attraction physics
-      if (mouse.x !== null && mouse.y !== null) {
-        let dx = mouse.x - this.x;
-        let dy = mouse.y - this.y;
-        let distance = Math.sqrt(dx * dx + dy * dy);
-        if (distance < mouse.radius) {
-          const forceDirectionX = dx / distance;
-          const forceDirectionY = dy / distance;
-          const force = (mouse.radius - distance) / mouse.radius;
-          const directionX = forceDirectionX * force * 2.0;
-          const directionY = forceDirectionY * force * 2.0;
-          this.x -= directionX;
-          this.y -= directionY;
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            initParticles();
         }
-      }
 
-      // Expand particle size when passing through active shockwave
-      shockwaves.forEach(sw => {
-        let dx = sw.x - this.x;
-        let dy = sw.y - this.y;
-        let dist = Math.sqrt(dx * dx + dy * dy);
-        if (Math.abs(dist - sw.radius) < 25) {
-          this.size = this.baseSize * 2.2;
-        } else {
-          this.size = Math.max(this.baseSize, this.size * 0.95);
+        function initParticles() {
+            particles = [];
+            const count = Math.min(85, Math.floor((width * height) / 16000));
+
+            for (let i = 0; i < count; i++) {
+                particles.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    vx: (Math.random() - 0.5) * 0.45,
+                    vy: (Math.random() - 0.5) * 0.45,
+                    radius: Math.random() * 1.6 + 0.6,
+                    baseAlpha: Math.random() * 0.5 + 0.3
+                });
+            }
         }
-      });
 
-      this.x += this.vx;
-      this.y += this.vy;
-    }
-  }
+        function getThemeAccentRGB() {
+            const style = getComputedStyle(document.documentElement);
+            const accent = style.getPropertyValue("--accent").trim();
 
-  function initParticles() {
-    particles = [];
-    let numberOfParticles = Math.floor((window.innerWidth * window.innerHeight) / 18000);
-    if (numberOfParticles > 60) numberOfParticles = 60;
-    
-    for (let i = 0; i < numberOfParticles; i++) {
-      let size = (Math.random() * 1.8) + 0.6;
-      let x = Math.random() * window.innerWidth;
-      let y = Math.random() * window.innerHeight;
-      let vx = (Math.random() - 0.5) * 0.5;
-      let vy = (Math.random() - 0.5) * 0.5;
-      particles.push(new Particle(x, y, vx, vy, size));
-    }
-  }
-
-  function drawNetwork() {
-    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-    const rgb = getAccentColorHsl();
-
-    // Draw shockwaves
-    for (let i = shockwaves.length - 1; i >= 0; i--) {
-      const sw = shockwaves[i];
-      sw.radius += 4;
-      sw.alpha -= 0.025;
-      if (sw.alpha <= 0 || sw.radius >= sw.maxRadius) {
-        shockwaves.splice(i, 1);
-        continue;
-      }
-      ctx.beginPath();
-      ctx.arc(sw.x, sw.y, sw.radius, 0, Math.PI * 2);
-      ctx.strokeStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${sw.alpha * 0.6})`;
-      ctx.lineWidth = 2;
-      ctx.stroke();
-    }
-
-    // Update and draw particles
-    for (let i = 0; i < particles.length; i++) {
-      particles[i].update();
-      particles[i].draw(rgb);
-
-      // Connect particles
-      for (let j = i + 1; j < particles.length; j++) {
-        let dx = particles[i].x - particles[j].x;
-        let dy = particles[i].y - particles[j].y;
-        let distance = Math.sqrt(dx * dx + dy * dy);
-
-        if (distance < 130) {
-          let opacity = 1 - (distance / 130);
-          ctx.beginPath();
-          ctx.strokeStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${opacity * 0.45})`;
-          ctx.lineWidth = 1.0;
-          ctx.moveTo(particles[i].x, particles[i].y);
-          ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.stroke();
+            if (accent.startsWith("#")) {
+                let hex = accent.substring(1);
+                if (hex.length === 3) {
+                    hex = hex.split("").map(c => c + c).join("");
+                }
+                const num = parseInt(hex, 16);
+                return {
+                    r: (num >> 16) & 255,
+                    g: (num >> 8) & 255,
+                    b: num & 255
+                };
+            }
+            return { r: 101, g: 247, b: 255 }; // Default Cyan
         }
-      }
-      
-      // Connect particles to mouse pointer
-      if (mouse.x !== null && mouse.y !== null) {
-        let dx = particles[i].x - mouse.x;
-        let dy = particles[i].y - mouse.y;
-        let distance = Math.sqrt(dx * dx + dy * dy);
-        if (distance < 160) {
-          let opacity = 1 - (distance / 160);
-          ctx.beginPath();
-          ctx.strokeStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${opacity * 0.75})`;
-          ctx.lineWidth = 1.4;
-          ctx.moveTo(particles[i].x, particles[i].y);
-          ctx.lineTo(mouse.x, mouse.y);
-          ctx.stroke();
+
+        function renderCanvas() {
+            ctx.clearRect(0, 0, width, height);
+            const rgb = getThemeAccentRGB();
+
+            // Update and draw particles
+            for (let i = 0; i < particles.length; i++) {
+                const p = particles[i];
+
+                p.x += p.vx;
+                p.y += p.vy;
+
+                // Screen Wrap
+                if (p.x < 0) p.x = width;
+                if (p.x > width) p.x = 0;
+                if (p.y < 0) p.y = height;
+                if (p.y > height) p.y = 0;
+
+                // Mouse Repulsion / Attraction
+                if (mouse.x !== null && mouse.y !== null) {
+                    const dx = p.x - mouse.x;
+                    const dy = p.y - mouse.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < mouse.radius) {
+                        const force = (mouse.radius - dist) / mouse.radius;
+                        p.x += (dx / dist) * force * 1.5;
+                        p.y += (dy / dist) * force * 1.5;
+                    }
+                }
+
+                // Draw Particle
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${p.baseAlpha})`;
+                ctx.fill();
+
+                // Connect nearby particles
+                for (let j = i + 1; j < particles.length; j++) {
+                    const p2 = particles[j];
+                    const dx = p.x - p2.x;
+                    const dy = p.y - p2.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < 120) {
+                        const alpha = (1 - dist / 120) * 0.15;
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.strokeStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${alpha})`;
+                        ctx.lineWidth = 0.8;
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            // Draw Shockwaves
+            for (let i = waves.length - 1; i >= 0; i--) {
+                const w = waves[i];
+                w.radius += 3.5;
+                w.alpha -= 0.02;
+
+                if (w.alpha <= 0) {
+                    waves.splice(i, 1);
+                } else {
+                    ctx.beginPath();
+                    ctx.arc(w.x, w.y, w.radius, 0, Math.PI * 2);
+                    ctx.strokeStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${w.alpha})`;
+                    ctx.lineWidth = 1.2;
+                    ctx.stroke();
+                }
+            }
+
+            requestAnimationFrame(renderCanvas);
         }
-      }
+
+        window.addEventListener("resize", resizeCanvas);
+        window.addEventListener("mousemove", (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+        window.addEventListener("mouseleave", () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
+        window.addEventListener("click", (e) => {
+            waves.push({
+                x: e.clientX,
+                y: e.clientY,
+                radius: 4,
+                alpha: 0.7
+            });
+        });
+
+        resizeCanvas();
+        renderCanvas();
     }
 
-    animationFrameId = requestAnimationFrame(drawNetwork);
-  }
+    /* =========================================================
+       2. TYPEWRITER SUBTITLE EFFECT
+    ========================================================= */
+    const typewriterEl = document.getElementById("typewriterText");
+    if (typewriterEl) {
+        const phrases = [
+            "AI & Machine Learning",
+            "Full-Stack Java & Python",
+            "Algorithmic Problem Solving",
+            "High-Performance Web Systems",
+            "Neural Architecture Exploration"
+        ];
+        let phraseIdx = 0;
+        let charIdx = 0;
+        let isDeleting = false;
+        let typeSpeed = 80;
 
-  window.addEventListener('resize', resizeCanvas);
-  resizeCanvas();
-  drawNetwork();
-})();
+        function typeLoop() {
+            const currentPhrase = phrases[phraseIdx];
 
+            if (isDeleting) {
+                typewriterEl.textContent = currentPhrase.substring(0, charIdx - 1);
+                charIdx--;
+                typeSpeed = 40;
+            } else {
+                typewriterEl.textContent = currentPhrase.substring(0, charIdx + 1);
+                charIdx++;
+                typeSpeed = 80;
+            }
 
-/* ─── Header Subtitle Typing Animation ──────────────────────────────────── */
-(function () {
-  const subtitleEl = document.getElementById('typing-subtitle');
-  if (!subtitleEl) return;
+            if (!isDeleting && charIdx === currentPhrase.length) {
+                typeSpeed = 1800; // Pause at end of phrase
+                isDeleting = true;
+            } else if (isDeleting && charIdx === 0) {
+                isDeleting = false;
+                phraseIdx = (phraseIdx + 1) % phrases.length;
+                typeSpeed = 400; // Pause before typing new phrase
+            }
 
-  const titles = [
-    'Computer Science Student',
-    'AI & Neural Computing Focus',
-    'Java & Python Backend Developer',
-    'Full-Stack Web Engineering',
-    'Open-Source AI Model Explorer'
-  ];
+            setTimeout(typeLoop, typeSpeed);
+        }
 
-  let titleIndex = 0;
-  let charIndex = 0;
-  let isDeleting = false;
-  let typingSpeed = 65;
-
-  function type() {
-    const currentTitle = titles[titleIndex];
-    
-    if (isDeleting) {
-      charIndex--;
-      typingSpeed = 25; // fast deletion
-    } else {
-      charIndex++;
-      typingSpeed = 60; // standard typing
+        typeLoop();
     }
 
-    subtitleEl.textContent = currentTitle.substring(0, charIndex);
+    /* =========================================================
+       3. NAVIGATION & ACTIVE SCROLL SPY
+    ========================================================= */
+    const navbar = document.querySelector(".navbar");
+    const navLinks = document.querySelectorAll(".nav-link");
+    const sections = document.querySelectorAll("section[id]");
+    const scrollTopBtn = document.getElementById("scrollTopBtn");
+    const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+    const navLinksContainer = document.getElementById("navLinks");
 
-    if (!isDeleting && charIndex === currentTitle.length) {
-      isDeleting = true;
-      typingSpeed = 2200; // hold full phrase
-    } else if (isDeleting && charIndex === 0) {
-      isDeleting = false;
-      titleIndex = (titleIndex + 1) % titles.length;
-      typingSpeed = 350; // pause before next typing loop
+    function handleScroll() {
+        const scrollY = window.scrollY;
+
+        // Navbar background intensity
+        if (navbar) {
+            navbar.classList.toggle("scrolled", scrollY > 40);
+        }
+
+        // Scroll-to-top visibility
+        if (scrollTopBtn) {
+            scrollTopBtn.classList.toggle("show", scrollY > 400);
+        }
+
+        // Active link detection
+        let currentSectionId = "";
+        sections.forEach((section) => {
+            const sectionTop = section.offsetTop - 180;
+            const sectionHeight = section.offsetHeight;
+            if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+                currentSectionId = section.getAttribute("id");
+            }
+        });
+
+        navLinks.forEach((link) => {
+            link.classList.remove("active");
+            if (link.getAttribute("href") === `#${currentSectionId}`) {
+                link.classList.add("active");
+            }
+        });
     }
 
-    setTimeout(type, typingSpeed);
-  }
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
 
-  setTimeout(type, 800);
-})();
-
-
-/* ─── Stats Dashboard Animated Counter ─────────────────────────────────── */
-(function () {
-  const counterElements = document.querySelectorAll('.counter-num');
-  if (counterElements.length === 0) return;
-
-  let animated = false;
-
-  function runCounters() {
-    if (animated) return;
-    const statsSection = document.querySelector('.stats-dashboard');
-    if (!statsSection) return;
-
-    const rect = statsSection.getBoundingClientRect();
-    if (rect.top < window.innerHeight && rect.bottom >= 0) {
-      animated = true;
-      counterElements.forEach(el => {
-        const target = parseInt(el.getAttribute('data-target'), 10);
-        let count = 0;
-        const speed = Math.ceil(target / 40);
-        
-        const timer = setInterval(() => {
-          count += speed;
-          if (count >= target) {
-            el.textContent = target;
-            clearInterval(timer);
-          } else {
-            el.textContent = count;
-          }
-        }, 30);
-      });
+    if (scrollTopBtn) {
+        scrollTopBtn.addEventListener("click", () => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
     }
-  }
 
-  window.addEventListener('scroll', runCounters, { passive: true });
-  runCounters();
-})();
+    // Mobile Menu Toggle
+    if (mobileMenuBtn && navLinksContainer) {
+        mobileMenuBtn.addEventListener("click", () => {
+            navLinksContainer.classList.toggle("mobile-menu-open");
+        });
 
+        navLinks.forEach((link) => {
+            link.addEventListener("click", () => {
+                navLinksContainer.classList.remove("mobile-menu-open");
+            });
+        });
+    }
 
-/* ─── Scroll Reveal Observer ────────────────────────────────────────────── */
-(function () {
-  const revealElements = document.querySelectorAll('.reveal');
-  if (revealElements.length === 0) return;
+    /* =========================================================
+       4. SCROLL REVEAL & STATS COUNTER ANIMATION
+    ========================================================= */
+    const revealElements = document.querySelectorAll(".reveal");
+    const statCounters = document.querySelectorAll(".stat-counter");
+    let countersAnimated = false;
 
-  const observer = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('reveal-active');
-        observer.unobserve(entry.target);
-      }
+    function animateCounters() {
+        if (countersAnimated) return;
+        countersAnimated = true;
+
+        statCounters.forEach((counter) => {
+            const target = parseInt(counter.getAttribute("data-target"), 10);
+            const isPercent = counter.textContent.includes("%");
+            const isPlus = counter.textContent.includes("+");
+            let current = 0;
+            const step = Math.max(1, Math.floor(target / 45));
+            const duration = 1200;
+            const interval = Math.floor(duration / (target / step));
+
+            const timer = setInterval(() => {
+                current += step;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                counter.textContent = current + (isPercent ? "%" : isPlus ? "+" : "");
+            }, interval);
+        });
+    }
+
+    const revealObserver = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("visible");
+                    if (entry.target.classList.contains("hero-hud-card")) {
+                        animateCounters();
+                    }
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        },
+        { threshold: 0.12 }
+    );
+
+    revealElements.forEach((el) => revealObserver.observe(el));
+
+    /* =========================================================
+       5. PROJECT FILTERING SYSTEM
+    ========================================================= */
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    const projectCards = document.querySelectorAll(".project-card");
+
+    filterButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+            const filter = btn.getAttribute("data-filter");
+
+            filterButtons.forEach((b) => b.classList.remove("active"));
+            btn.classList.add("active");
+
+            projectCards.forEach((card) => {
+                const category = card.getAttribute("data-category");
+                if (filter === "all" || category === filter) {
+                    card.classList.remove("hide");
+                    card.classList.add("show");
+                } else {
+                    card.classList.remove("show");
+                    card.classList.add("hide");
+                }
+            });
+        });
     });
-  }, {
-    threshold: 0.08,
-    rootMargin: '0px 0px -40px 0px'
-  });
 
-  revealElements.forEach(el => observer.observe(el));
-})();
+    /* =========================================================
+       6. 3D CARD TILT ON MOUSE MOVE
+    ========================================================= */
+    projectCards.forEach((card) => {
+        card.addEventListener("mousemove", (e) => {
+            if (window.innerWidth < 900) return;
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
 
+            const rotateX = ((y - centerY) / centerY) * -5;
+            const rotateY = ((x - centerX) / centerX) * 5;
 
-/* ─── 3D Card Hover Parallax Tilt & Sheen Reflect ─────────────────────── */
-(function () {
-  const cards = document.querySelectorAll('.card-item, .tool-item, .contact-icon-card, .highlight-card');
-  if (cards.length === 0) return;
+            card.style.transform = `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
+        });
 
-  cards.forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      
-      const px = x / rect.width;
-      const py = y / rect.height;
-      
-      card.style.setProperty('--glow-x', `${px * 100}%`);
-      card.style.setProperty('--glow-y', `${py * 100}%`);
+        card.addEventListener("mouseleave", () => {
+            card.style.transform = "";
+        });
     });
-  });
-})();
 
+    /* =========================================================
+       7. THEME SWITCHING SYSTEM
+    ========================================================= */
+    const themeDropdownBtn = document.getElementById("themeDropdownBtn");
+    const themeMenu = document.getElementById("themeMenu");
+    const themeOptions = document.querySelectorAll(".theme-opt");
 
-/* ─── Filterable Projects Grid ─────────────────────────────────────────── */
-(function () {
-  const filterTabs = document.querySelectorAll('.filter-tab');
-  const projectCards = document.querySelectorAll('.cards-grid .card-item');
+    function applyTheme(themeName) {
+        document.documentElement.setAttribute("data-theme", themeName);
+        localStorage.setItem("portfolio-theme", themeName);
 
-  if (filterTabs.length === 0 || projectCards.length === 0) return;
+        themeOptions.forEach((opt) => {
+            opt.classList.toggle("active", opt.getAttribute("data-theme-val") === themeName);
+        });
+    }
 
-  filterTabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      filterTabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
+    if (themeDropdownBtn && themeMenu) {
+        themeDropdownBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            themeMenu.classList.toggle("show");
+        });
 
-      const filterVal = tab.getAttribute('data-filter');
+        document.addEventListener("click", () => {
+            themeMenu.classList.remove("show");
+        });
 
-      projectCards.forEach(card => {
-        const category = card.getAttribute('data-category');
-        
-        card.classList.remove('fade-in');
-        card.classList.add('hide');
+        themeOptions.forEach((opt) => {
+            opt.addEventListener("click", () => {
+                const themeVal = opt.getAttribute("data-theme-val");
+                applyTheme(themeVal);
+                themeMenu.classList.remove("show");
+            });
+        });
+    }
 
-        if (filterVal === 'all' || category === filterVal) {
-          setTimeout(() => {
-            card.classList.remove('hide');
-            card.classList.add('fade-in');
-          }, 20);
+    // Load Saved Theme
+    const savedTheme = localStorage.getItem("portfolio-theme") || "arc";
+    applyTheme(savedTheme);
+
+    /* =========================================================
+       8. CLI TERMINAL SYSTEM (CTRL + K)
+    ========================================================= */
+    const terminalModal = document.getElementById("terminalModal");
+    const terminalCloseBtn = document.getElementById("terminalCloseBtn");
+    const terminalBody = document.getElementById("terminalBody");
+    const terminalInput = document.getElementById("terminalInput");
+    const navTerminalBtn = document.getElementById("navTerminalBtn");
+    const terminalFloatBtn = document.getElementById("terminalFloatBtn");
+
+    function openTerminal() {
+        if (!terminalModal) return;
+        terminalModal.classList.add("open");
+        setTimeout(() => {
+            if (terminalInput) terminalInput.focus();
+        }, 100);
+    }
+
+    function closeTerminal() {
+        if (!terminalModal) return;
+        terminalModal.classList.remove("open");
+    }
+
+    if (navTerminalBtn) navTerminalBtn.addEventListener("click", openTerminal);
+    if (terminalFloatBtn) terminalFloatBtn.addEventListener("click", openTerminal);
+    if (terminalCloseBtn) terminalCloseBtn.addEventListener("click", closeTerminal);
+
+    if (terminalModal) {
+        terminalModal.addEventListener("click", (e) => {
+            if (e.target === terminalModal) closeTerminal();
+        });
+    }
+
+    document.addEventListener("keydown", (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
+            e.preventDefault();
+            if (terminalModal.classList.contains("open")) {
+                closeTerminal();
+            } else {
+                openTerminal();
+            }
         }
-      });
-    });
-  });
-})();
-
-
-/* ─── Interactive Sci-Fi CLI Terminal Modal ────────────────────────────── */
-(function () {
-  const triggerBtn = document.getElementById('cli-trigger-btn');
-  const modal = document.getElementById('cli-modal');
-  const closeBtn = document.getElementById('cli-close-btn');
-  const cliInput = document.getElementById('cli-input');
-  const cliOutput = document.getElementById('cli-output');
-  const chipBtns = document.querySelectorAll('.cli-command-chips button');
-
-  if (!modal || !cliInput || !cliOutput) return;
-
-  function toggleModal(open) {
-    if (open) {
-      modal.classList.add('active');
-      modal.setAttribute('aria-hidden', 'false');
-      cliInput.focus();
-    } else {
-      modal.classList.remove('active');
-      modal.setAttribute('aria-hidden', 'true');
-    }
-  }
-
-  if (triggerBtn) triggerBtn.addEventListener('click', () => toggleModal(true));
-  if (closeBtn) closeBtn.addEventListener('click', () => toggleModal(false));
-
-  // Keyboard shortcut Ctrl + K
-  window.addEventListener('keydown', (e) => {
-    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
-      e.preventDefault();
-      const isActive = modal.classList.contains('active');
-      toggleModal(!isActive);
-    } else if (e.key === 'Escape' && modal.classList.contains('active')) {
-      toggleModal(false);
-    }
-  });
-
-  // Handle CLI input commands
-  cliInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-      const cmd = cliInput.value.trim();
-      if (cmd) {
-        processCommand(cmd);
-        cliInput.value = '';
-      }
-    }
-  });
-
-  // Handle Chip buttons
-  chipBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const cmd = btn.getAttribute('data-cmd');
-      processCommand(cmd);
-    });
-  });
-
-  function appendOutput(text, isCommand = false) {
-    const line = document.createElement('div');
-    line.className = isCommand ? 'cli-line command-entered' : 'cli-line response';
-    if (isCommand) {
-      line.innerHTML = `<span style="color:var(--accent); font-weight:bold;">vaishnav@core:~$</span> ${escapeHtml(text)}`;
-    } else {
-      line.innerHTML = text;
-    }
-    cliOutput.appendChild(line);
-    cliOutput.scrollTop = cliOutput.scrollHeight;
-  }
-
-  function escapeHtml(str) {
-    return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-  }
-
-  function processCommand(rawCmd) {
-    appendOutput(rawCmd, true);
-    const parts = rawCmd.trim().toLowerCase().split(' ');
-    const command = parts[0];
-    const arg = parts[1];
-
-    switch (command) {
-      case 'help':
-        appendOutput(`
-          <div><strong>SYSTEM COMMAND REGISTRY:</strong></div>
-          <div><strong style="color:var(--accent)">about</strong>     - View background &amp; engineering core</div>
-          <div><strong style="color:var(--accent)">skills</strong>    - List technical stack &amp; languages</div>
-          <div><strong style="color:var(--accent)">projects</strong>  - Display repository highlights</div>
-          <div><strong style="color:var(--accent)">contact</strong>   - Display direct communication channels</div>
-          <div><strong style="color:var(--accent)">theme</strong>     - Switch theme (usage: theme arc|midnight|light)</div>
-          <div><strong style="color:var(--accent)">time</strong>      - Output active server time</div>
-          <div><strong style="color:var(--accent)">clear</strong>     - Clear terminal buffer</div>
-        `);
-        break;
-
-      case 'about':
-        appendOutput(`
-          <div><strong>VAISHNAV VENU</strong> // CS &amp; AI Engineering Student at Amrita Vishwa Vidyapeetham. Focused on AI algorithms, Java JDBC enterprise backends, and full-stack web software.</div>
-        `);
-        break;
-
-      case 'skills':
-        appendOutput(`
-          <div><strong>PRIMARY TECH MATRIX:</strong></div>
-          <div>• Languages: Python 3.x, Java Standard Edition, JavaScript (ES6+), C/C++</div>
-          <div>• Web &amp; Backend: HTML5, CSS Glassmorphism, SQL &amp; JDBC API</div>
-          <div>• AI &amp; Math: Open-Source Models, MATLAB Matrix Algebra, Data Structures</div>
-        `);
-        break;
-
-      case 'projects':
-        appendOutput(`
-          <div><strong>FEATURED REPOSITORIES:</strong></div>
-          <div>1. Desktop Arithmetic System [Python]</div>
-          <div>2. Personal Budget Tracker [Python]</div>
-          <div>3. Online Quiz Management System [Java / SQL Servlets]</div>
-          <div>4. Student Task Manager [HTML5 / JS]</div>
-          <div>5. Modern Web Calculator Engine [JavaScript]</div>
-          <div>6. MATLAB Analytical Workspace [MATLAB]</div>
-        `);
-        break;
-
-      case 'contact':
-        appendOutput(`
-          <div><strong>DIRECT CHANNELS:</strong></div>
-          <div>• Email: vaishnavvenu2007@gmail.com</div>
-          <div>• GitHub: https://github.com/S1Prime</div>
-          <div>• LinkedIn: https://www.linkedin.com/in/vaishnav-venu-079a2a383/</div>
-        `);
-        break;
-
-      case 'theme':
-        if (['arc', 'midnight', 'light'].includes(arg)) {
-          if (window.applyPortfolioTheme) window.applyPortfolioTheme(arg);
-          appendOutput(`<div style="color:var(--accent)">Theme successfully set to: <strong>${arg}</strong></div>`);
-        } else {
-          appendOutput(`<div>Usage: theme [arc | midnight | light]</div>`);
+        if (e.key === "Escape" && terminalModal && terminalModal.classList.contains("open")) {
+            closeTerminal();
         }
-        break;
+    });
 
-      case 'time':
-        appendOutput(`<div>CURRENT SYSTEM TIME: ${new Date().toLocaleString()}</div>`);
-        break;
-
-      case 'clear':
-        cliOutput.innerHTML = '';
-        break;
-
-      case 'sudo':
-        appendOutput(`<div style="color:#ef4444">Permission denied: You already have maximum root access to this portfolio.</div>`);
-        break;
-
-      default:
-        appendOutput(`<div>Command not recognized: '<span style="color:#ef4444">${escapeHtml(rawCmd)}</span>'. Type <strong style="color:var(--accent)">'help'</strong> for commands.</div>`);
-        break;
-    }
-  }
-})();
-
-
-/* ─── Interactive Contact Form Submission Lifecycle ─────────────────────── */
-(function () {
-  const form = document.getElementById('portfolio-contact-form');
-  if (!form) return;
-
-  const btnSubmit = document.getElementById('btn-contact-submit');
-  const btnText = document.getElementById('submit-btn-text');
-  const spinner = document.getElementById('contact-spinner');
-  const statusMsg = document.getElementById('contact-status-msg');
-
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    statusMsg.className = 'form-status-msg';
-    statusMsg.textContent = '';
-    statusMsg.style.display = 'none';
-
-    const nameEl = document.getElementById('contact-name');
-    const emailEl = document.getElementById('contact-email');
-    const messageEl = document.getElementById('contact-message');
-
-    const name = nameEl.value.trim();
-    const email = emailEl.value.trim();
-    const message = messageEl.value.trim();
-
-    if (!name || !email || !message) {
-      showStatus('Please fill in all the input fields.', 'error');
-      return;
+    function escapeHTML(str) {
+        return String(str)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;");
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      showStatus('Please enter a valid email address.', 'error');
-      return;
+    function printToTerminal(htmlContent) {
+        if (!terminalBody) return;
+        const line = document.createElement("div");
+        line.className = "terminal-line";
+        line.innerHTML = htmlContent;
+        terminalBody.appendChild(line);
+        terminalBody.scrollTop = terminalBody.scrollHeight;
     }
 
-    setLoadingState(true);
+    function executeCommand(inputCmd) {
+        const raw = inputCmd.trim();
+        if (!raw) return;
 
-    setTimeout(() => {
-      setLoadingState(false);
-      showStatus('⚡ Message transmitted successfully! Vaishnav will get back to you shortly.', 'success');
-      form.reset();
+        printToTerminal(`<span class="cli-green">vaishnav@core:~$</span> ${escapeHTML(raw)}`);
 
-      setTimeout(() => {
-        statusMsg.style.display = 'none';
-        statusMsg.textContent = '';
-      }, 5000);
-    }, 1600);
-  });
+        const parts = raw.toLowerCase().split(/\s+/);
+        const cmd = parts[0];
+        const arg = parts[1];
 
-  function setLoadingState(isLoading) {
-    if (isLoading) {
-      btnSubmit.disabled = true;
-      spinner.style.display = 'inline-block';
-      btnText.textContent = 'TRANSMITTING...';
-      form.querySelectorAll('input, textarea').forEach(input => input.disabled = true);
-    } else {
-      btnSubmit.disabled = false;
-      spinner.style.display = 'none';
-      btnText.textContent = '⚡ TRANSMIT MESSAGE';
-      form.querySelectorAll('input, textarea').forEach(input => input.disabled = false);
+        switch (cmd) {
+            case "help":
+                printToTerminal(`
+                    <div class="cli-green">=== VAISHNAV CORE COMMANDS ===</div>
+                    <div><span class="cli-yellow">about</span> &nbsp;&nbsp;&nbsp;&nbsp; → View bio, goals & education background</div>
+                    <div><span class="cli-yellow">skills</span> &nbsp;&nbsp;&nbsp; → Technical stack & competencies</div>
+                    <div><span class="cli-yellow">projects</span> &nbsp; → List featured software repositories</div>
+                    <div><span class="cli-yellow">contact</span> &nbsp;&nbsp; → Get direct contact channels & email</div>
+                    <div><span class="cli-yellow">github</span> &nbsp;&nbsp;&nbsp; → Open GitHub profile in new tab</div>
+                    <div><span class="cli-yellow">linkedin</span> &nbsp; → Open LinkedIn profile in new tab</div>
+                    <div><span class="cli-yellow">theme [arc|purple|lime|light]</span> → Switch system theme</div>
+                    <div><span class="cli-yellow">time</span> &nbsp;&nbsp;&nbsp;&nbsp; → Display current system timestamp</div>
+                    <div><span class="cli-yellow">clear</span> &nbsp;&nbsp;&nbsp; → Clear terminal buffer</div>
+                `);
+                break;
+
+            case "about":
+                printToTerminal(`
+                    <div class="cli-green">IDENTITY &amp; PROFILE:</div>
+                    <div>Name: <strong>Vaishnav Venu</strong></div>
+                    <div>Major: B.Tech Computer Science &amp; Engineering (2025–2029)</div>
+                    <div>Institution: Amrita Vishwa Vidyapeetham, Amritapuri</div>
+                    <div>Specialization: Artificial Intelligence, Neural Computing &amp; Systems</div>
+                `);
+                break;
+
+            case "skills":
+                printToTerminal(`
+                    <div class="cli-green">TECHNICAL COMPETENCIES:</div>
+                    <div>├─ <strong>Languages:</strong> Python, Java, JavaScript, C, C++</div>
+                    <div>├─ <strong>Web & Backend:</strong> HTML5, CSS3, REST, SQL, JDBC</div>
+                    <div>├─ <strong>Computing & AI:</strong> Neural Networks, Data Structures, MATLAB</div>
+                    <div>└─ <strong>Developer Tools:</strong> Git/GitHub, VS Code, IntelliJ, Eclipse</div>
+                `);
+                break;
+
+            case "projects":
+                printToTerminal(`
+                    <div class="cli-green">FEATURED REPOSITORIES:</div>
+                    <div>1. <strong>Desktop Arithmetic System</strong> (Python / GUI)</div>
+                    <div>2. <strong>Online Quiz Management System</strong> (Java / Servlets / SQL)</div>
+                    <div>3. <strong>Student Task Manager</strong> (Web App / JavaScript)</div>
+                    <div>4. <strong>MATLAB Analytical Workspace</strong> (Matrix Math / Algorithms)</div>
+                    <div>5. <strong>Personal Budget Tracker</strong> (Python / Data Analytics)</div>
+                    <div>6. <strong>Hotel Management System</strong> (Java / DBMS)</div>
+                `);
+                break;
+
+            case "contact":
+                printToTerminal(`
+                    <div class="cli-green">COMMUNICATION CHANNELS:</div>
+                    <div>Email: <a href="mailto:vaishnavvenu2007@gmail.com" class="cli-yellow">vaishnavvenu2007@gmail.com</a></div>
+                    <div>GitHub: <a href="https://github.com/S1Prime" target="_blank" class="cli-yellow">https://github.com/S1Prime</a></div>
+                    <div>LinkedIn: <a href="https://www.linkedin.com/in/vaishnav-venu-079a2a383/" target="_blank" class="cli-yellow">Vaishnav Venu</a></div>
+                `);
+                break;
+
+            case "github":
+                printToTerminal(`<span class="cli-dim">Opening GitHub profile...</span>`);
+                setTimeout(() => window.open("https://github.com/S1Prime", "_blank"), 400);
+                break;
+
+            case "linkedin":
+                printToTerminal(`<span class="cli-dim">Opening LinkedIn profile...</span>`);
+                setTimeout(() => window.open("https://www.linkedin.com/in/vaishnav-venu-079a2a383/", "_blank"), 400);
+                break;
+
+            case "theme":
+                if (["arc", "purple", "lime", "light"].includes(arg)) {
+                    applyTheme(arg);
+                    printToTerminal(`<span class="cli-green">✓ System theme set to ${arg.toUpperCase()}</span>`);
+                } else {
+                    printToTerminal(`<span class="cli-red">Usage: theme [arc | purple | lime | light]</span>`);
+                }
+                break;
+
+            case "time":
+                printToTerminal(`<span class="cli-green">Current System Time:</span> ${new Date().toString()}`);
+                break;
+
+            case "clear":
+                if (terminalBody) terminalBody.innerHTML = "";
+                break;
+
+            case "sudo":
+                printToTerminal(`<span class="cli-red">Permission granted: You are operating with root access.</span>`);
+                break;
+
+            default:
+                printToTerminal(`<span class="cli-red">Command not recognized: "${escapeHTML(cmd)}". Type <span class="cli-yellow">help</span> for a list of commands.</span>`);
+        }
     }
-  }
 
-  function showStatus(text, type) {
-    statusMsg.textContent = text;
-    statusMsg.className = `form-status-msg ${type}`;
-    statusMsg.style.display = 'block';
-  }
-})();
+    if (terminalInput) {
+        terminalInput.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+                const cmd = terminalInput.value;
+                terminalInput.value = "";
+                executeCommand(cmd);
+            }
+        });
+    }
+
+    /* =========================================================
+       9. CONTACT FORM VALIDATION & INTERACTIVE STATUS
+    ========================================================= */
+    const contactForm = document.getElementById("contactForm");
+    const formStatus = document.getElementById("formStatus");
+    const formSubmitBtn = document.getElementById("formSubmitBtn");
+
+    if (contactForm) {
+        contactForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            const name = document.getElementById("formName").value.trim();
+            const email = document.getElementById("formEmail").value.trim();
+            const message = document.getElementById("formMessage").value.trim();
+
+            if (!name || !email || !message) {
+                if (formStatus) {
+                    formStatus.innerHTML = `<span style="color: var(--error);">Please complete all required fields.</span>`;
+                }
+                return;
+            }
+
+            if (formSubmitBtn) {
+                formSubmitBtn.disabled = true;
+                formSubmitBtn.innerHTML = `<span>Transmitting Message...</span>`;
+            }
+
+            if (formStatus) {
+                formStatus.innerHTML = `<span style="color: var(--accent);">Transmitting payload to core mailbox...</span>`;
+            }
+
+            // Simulate immediate transmission with realistic UX
+            setTimeout(() => {
+                if (formStatus) {
+                    formStatus.innerHTML = `<span style="color: var(--success);">✓ Message dispatched successfully! Vaishnav will review shortly.</span>`;
+                }
+                contactForm.reset();
+
+                if (formSubmitBtn) {
+                    formSubmitBtn.disabled = false;
+                    formSubmitBtn.innerHTML = `<span>Send Message</span> <span>↗</span>`;
+                }
+
+                setTimeout(() => {
+                    if (formStatus) formStatus.innerHTML = "";
+                }, 5000);
+            }, 1000);
+        });
+    }
+
+    /* =========================================================
+       10. DYNAMIC YEAR
+    ========================================================= */
+    const yearEl = document.getElementById("currentYear");
+    if (yearEl) {
+        yearEl.textContent = new Date().getFullYear();
+    }
+});
