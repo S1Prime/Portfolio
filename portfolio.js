@@ -1,12 +1,67 @@
 /**
  * Vaishnav Venu — Portfolio Core Engine
- * Interactive Neural Canvas, CLI Terminal, 3D Tilt, Theme Switcher & System HUD
+ * Custom Glow Cursor, Interactive Neural Canvas, 3D Tilt, Theme Switcher & System HUD
  */
 
 document.addEventListener("DOMContentLoaded", () => {
 
     /* =========================================================
-       1. NEURAL PARTICLE CANVAS
+       1. CUSTOM CYBER GLOW CURSOR
+    ========================================================= */
+    const cursorDot = document.getElementById("cursorDot");
+    const cursorFollower = document.getElementById("cursorFollower");
+
+    if (cursorDot && cursorFollower && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+        let mouseX = window.innerWidth / 2;
+        let mouseY = window.innerHeight / 2;
+        let followerX = mouseX;
+        let followerY = mouseY;
+
+        window.addEventListener("mousemove", (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+
+            // Dot moves instantly
+            cursorDot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+        });
+
+        // Smooth follower easing with RAF
+        function animateCursorFollower() {
+            followerX += (mouseX - followerX) * 0.18;
+            followerY += (mouseY - followerY) * 0.18;
+
+            cursorFollower.style.transform = `translate(${followerX - 18}px, ${followerY - 18}px)`;
+            requestAnimationFrame(animateCursorFollower);
+        }
+        animateCursorFollower();
+
+        // Enlarge follower on interactive elements
+        const interactiveTargets = document.querySelectorAll(
+            'a, button, input, textarea, select, .project-card, .pillar-card, .channel-card, .timeline-card'
+        );
+
+        interactiveTargets.forEach((target) => {
+            target.addEventListener("mouseenter", () => {
+                cursorFollower.classList.add("hover-active");
+            });
+            target.addEventListener("mouseleave", () => {
+                cursorFollower.classList.remove("hover-active");
+            });
+        });
+
+        document.addEventListener("mouseleave", () => {
+            cursorDot.style.opacity = "0";
+            cursorFollower.style.opacity = "0";
+        });
+
+        document.addEventListener("mouseenter", () => {
+            cursorDot.style.opacity = "1";
+            cursorFollower.style.opacity = "1";
+        });
+    }
+
+    /* =========================================================
+       2. NEURAL PARTICLE CANVAS
     ========================================================= */
     const canvas = document.getElementById("bg-canvas");
     let ctx = null;
@@ -171,7 +226,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* =========================================================
-       2. TYPEWRITER SUBTITLE EFFECT
+       3. TYPEWRITER SUBTITLE EFFECT
     ========================================================= */
     const typewriterEl = document.getElementById("typewriterText");
     if (typewriterEl) {
@@ -216,7 +271,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* =========================================================
-       3. NAVIGATION & ACTIVE SCROLL SPY
+       4. NAVIGATION & ACTIVE SCROLL SPY
     ========================================================= */
     const navbar = document.querySelector(".navbar");
     const navLinks = document.querySelectorAll(".nav-link");
@@ -279,7 +334,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* =========================================================
-       4. SCROLL REVEAL & STATS COUNTER ANIMATION
+       5. SCROLL REVEAL & STATS COUNTER ANIMATION
     ========================================================= */
     const revealElements = document.querySelectorAll(".reveal");
     const statCounters = document.querySelectorAll(".stat-counter");
@@ -327,7 +382,7 @@ document.addEventListener("DOMContentLoaded", () => {
     revealElements.forEach((el) => revealObserver.observe(el));
 
     /* =========================================================
-       5. PROJECT FILTERING SYSTEM
+       6. PROJECT FILTERING SYSTEM
     ========================================================= */
     const filterButtons = document.querySelectorAll(".filter-btn");
     const projectCards = document.querySelectorAll(".project-card");
@@ -353,7 +408,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     /* =========================================================
-       6. 3D CARD TILT ON MOUSE MOVE
+       7. 3D CARD TILT ON MOUSE MOVE
     ========================================================= */
     projectCards.forEach((card) => {
         card.addEventListener("mousemove", (e) => {
@@ -376,7 +431,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     /* =========================================================
-       7. THEME SWITCHING SYSTEM
+       8. THEME SWITCHING SYSTEM
     ========================================================= */
     const themeDropdownBtn = document.getElementById("themeDropdownBtn");
     const themeMenu = document.getElementById("themeMenu");
@@ -413,182 +468,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // Load Saved Theme
     const savedTheme = localStorage.getItem("portfolio-theme") || "arc";
     applyTheme(savedTheme);
-
-    /* =========================================================
-       8. CLI TERMINAL SYSTEM (CTRL + K)
-    ========================================================= */
-    const terminalModal = document.getElementById("terminalModal");
-    const terminalCloseBtn = document.getElementById("terminalCloseBtn");
-    const terminalBody = document.getElementById("terminalBody");
-    const terminalInput = document.getElementById("terminalInput");
-    const navTerminalBtn = document.getElementById("navTerminalBtn");
-    const terminalFloatBtn = document.getElementById("terminalFloatBtn");
-
-    function openTerminal() {
-        if (!terminalModal) return;
-        terminalModal.classList.add("open");
-        setTimeout(() => {
-            if (terminalInput) terminalInput.focus();
-        }, 100);
-    }
-
-    function closeTerminal() {
-        if (!terminalModal) return;
-        terminalModal.classList.remove("open");
-    }
-
-    if (navTerminalBtn) navTerminalBtn.addEventListener("click", openTerminal);
-    if (terminalFloatBtn) terminalFloatBtn.addEventListener("click", openTerminal);
-    if (terminalCloseBtn) terminalCloseBtn.addEventListener("click", closeTerminal);
-
-    if (terminalModal) {
-        terminalModal.addEventListener("click", (e) => {
-            if (e.target === terminalModal) closeTerminal();
-        });
-    }
-
-    document.addEventListener("keydown", (e) => {
-        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
-            e.preventDefault();
-            if (terminalModal.classList.contains("open")) {
-                closeTerminal();
-            } else {
-                openTerminal();
-            }
-        }
-        if (e.key === "Escape" && terminalModal && terminalModal.classList.contains("open")) {
-            closeTerminal();
-        }
-    });
-
-    function escapeHTML(str) {
-        return String(str)
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;");
-    }
-
-    function printToTerminal(htmlContent) {
-        if (!terminalBody) return;
-        const line = document.createElement("div");
-        line.className = "terminal-line";
-        line.innerHTML = htmlContent;
-        terminalBody.appendChild(line);
-        terminalBody.scrollTop = terminalBody.scrollHeight;
-    }
-
-    function executeCommand(inputCmd) {
-        const raw = inputCmd.trim();
-        if (!raw) return;
-
-        printToTerminal(`<span class="cli-green">vaishnav@core:~$</span> ${escapeHTML(raw)}`);
-
-        const parts = raw.toLowerCase().split(/\s+/);
-        const cmd = parts[0];
-        const arg = parts[1];
-
-        switch (cmd) {
-            case "help":
-                printToTerminal(`
-                    <div class="cli-green">=== VAISHNAV CORE COMMANDS ===</div>
-                    <div><span class="cli-yellow">about</span> &nbsp;&nbsp;&nbsp;&nbsp; → View bio, goals & education background</div>
-                    <div><span class="cli-yellow">skills</span> &nbsp;&nbsp;&nbsp; → Technical stack & competencies</div>
-                    <div><span class="cli-yellow">projects</span> &nbsp; → List featured software repositories</div>
-                    <div><span class="cli-yellow">contact</span> &nbsp;&nbsp; → Get direct contact channels & email</div>
-                    <div><span class="cli-yellow">github</span> &nbsp;&nbsp;&nbsp; → Open GitHub profile in new tab</div>
-                    <div><span class="cli-yellow">linkedin</span> &nbsp; → Open LinkedIn profile in new tab</div>
-                    <div><span class="cli-yellow">theme [arc|purple|lime|light]</span> → Switch system theme</div>
-                    <div><span class="cli-yellow">time</span> &nbsp;&nbsp;&nbsp;&nbsp; → Display current system timestamp</div>
-                    <div><span class="cli-yellow">clear</span> &nbsp;&nbsp;&nbsp; → Clear terminal buffer</div>
-                `);
-                break;
-
-            case "about":
-                printToTerminal(`
-                    <div class="cli-green">IDENTITY &amp; PROFILE:</div>
-                    <div>Name: <strong>Vaishnav Venu</strong></div>
-                    <div>Major: B.Tech Computer Science &amp; Engineering (2025–2029)</div>
-                    <div>Institution: Amrita Vishwa Vidyapeetham, Amritapuri</div>
-                    <div>Specialization: Artificial Intelligence, Neural Computing &amp; Systems</div>
-                `);
-                break;
-
-            case "skills":
-                printToTerminal(`
-                    <div class="cli-green">TECHNICAL COMPETENCIES:</div>
-                    <div>├─ <strong>Languages:</strong> Python, Java, JavaScript, C, C++</div>
-                    <div>├─ <strong>Web & Backend:</strong> HTML5, CSS3, REST, SQL, JDBC</div>
-                    <div>├─ <strong>Computing & AI:</strong> Neural Networks, Data Structures, MATLAB</div>
-                    <div>└─ <strong>Developer Tools:</strong> Git/GitHub, VS Code, IntelliJ, Eclipse</div>
-                `);
-                break;
-
-            case "projects":
-                printToTerminal(`
-                    <div class="cli-green">FEATURED REPOSITORIES:</div>
-                    <div>1. <strong>Desktop Arithmetic System</strong> (Python / GUI)</div>
-                    <div>2. <strong>Online Quiz Management System</strong> (Java / Servlets / SQL)</div>
-                    <div>3. <strong>Student Task Manager</strong> (Web App / JavaScript)</div>
-                    <div>4. <strong>MATLAB Analytical Workspace</strong> (Matrix Math / Algorithms)</div>
-                    <div>5. <strong>Personal Budget Tracker</strong> (Python / Data Analytics)</div>
-                    <div>6. <strong>Hotel Management System</strong> (Java / DBMS)</div>
-                `);
-                break;
-
-            case "contact":
-                printToTerminal(`
-                    <div class="cli-green">COMMUNICATION CHANNELS:</div>
-                    <div>Email: <a href="mailto:vaishnavvenu2007@gmail.com" class="cli-yellow">vaishnavvenu2007@gmail.com</a></div>
-                    <div>GitHub: <a href="https://github.com/S1Prime" target="_blank" class="cli-yellow">https://github.com/S1Prime</a></div>
-                    <div>LinkedIn: <a href="https://www.linkedin.com/in/vaishnav-venu-079a2a383/" target="_blank" class="cli-yellow">Vaishnav Venu</a></div>
-                `);
-                break;
-
-            case "github":
-                printToTerminal(`<span class="cli-dim">Opening GitHub profile...</span>`);
-                setTimeout(() => window.open("https://github.com/S1Prime", "_blank"), 400);
-                break;
-
-            case "linkedin":
-                printToTerminal(`<span class="cli-dim">Opening LinkedIn profile...</span>`);
-                setTimeout(() => window.open("https://www.linkedin.com/in/vaishnav-venu-079a2a383/", "_blank"), 400);
-                break;
-
-            case "theme":
-                if (["arc", "purple", "lime", "light"].includes(arg)) {
-                    applyTheme(arg);
-                    printToTerminal(`<span class="cli-green">✓ System theme set to ${arg.toUpperCase()}</span>`);
-                } else {
-                    printToTerminal(`<span class="cli-red">Usage: theme [arc | purple | lime | light]</span>`);
-                }
-                break;
-
-            case "time":
-                printToTerminal(`<span class="cli-green">Current System Time:</span> ${new Date().toString()}`);
-                break;
-
-            case "clear":
-                if (terminalBody) terminalBody.innerHTML = "";
-                break;
-
-            case "sudo":
-                printToTerminal(`<span class="cli-red">Permission granted: You are operating with root access.</span>`);
-                break;
-
-            default:
-                printToTerminal(`<span class="cli-red">Command not recognized: "${escapeHTML(cmd)}". Type <span class="cli-yellow">help</span> for a list of commands.</span>`);
-        }
-    }
-
-    if (terminalInput) {
-        terminalInput.addEventListener("keydown", (e) => {
-            if (e.key === "Enter") {
-                const cmd = terminalInput.value;
-                terminalInput.value = "";
-                executeCommand(cmd);
-            }
-        });
-    }
 
     /* =========================================================
        9. CONTACT FORM VALIDATION & INTERACTIVE STATUS

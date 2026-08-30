@@ -157,6 +157,55 @@ img {
 }
 
 /* =========================================================
+   CUSTOM CYBER GLOW CURSOR
+========================================================= */
+
+.custom-cursor-dot {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease-out, background-color 0.3s ease;
+    box-shadow: 0 0 10px var(--accent);
+}
+
+.custom-cursor-follower {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 36px;
+    height: 36px;
+    border: 1.5px solid var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s var(--ease), height 0.3s var(--ease), border-color 0.3s var(--ease), background-color 0.3s var(--ease);
+    background: var(--accent-soft);
+    backdrop-filter: blur(1px);
+}
+
+.custom-cursor-follower.hover-active {
+    width: 58px;
+    height: 58px;
+    background: rgba(101, 247, 255, 0.15);
+    border-color: var(--accent);
+}
+
+@media (hover: none) or (pointer: coarse) {
+    .custom-cursor-dot,
+    .custom-cursor-follower {
+        display: none !important;
+    }
+}
+
+/* =========================================================
    BACKGROUND CANVAS & AMBIENT EFFECTS
 ========================================================= */
 
@@ -301,28 +350,26 @@ img {
 .nav-actions {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
 }
 
-.btn-terminal-nav {
+.btn-nav-cta {
     display: inline-flex;
     align-items: center;
     gap: 7px;
-    padding: 7px 14px;
+    padding: 7px 16px;
     border-radius: var(--radius-full);
-    border: 1px solid var(--border-hover);
-    background: var(--accent-soft);
-    color: var(--accent);
+    border: 1px solid var(--accent);
+    background: var(--accent);
+    color: #001017;
     font-family: var(--font-mono);
     font-size: 0.75rem;
-    font-weight: 500;
+    font-weight: 700;
     transition: all 0.25s var(--ease);
 }
 
-.btn-terminal-nav:hover {
-    background: var(--accent);
-    color: #001017;
-    transform: translateY(-1px);
+.btn-nav-cta:hover {
+    transform: translateY(-2px);
     box-shadow: 0 0 20px var(--accent-glow);
 }
 
@@ -331,14 +378,14 @@ img {
 }
 
 .theme-btn {
-    width: 34px;
-    height: 34px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     border: 1px solid var(--border);
     display: grid;
     place-items: center;
     color: var(--text-dim);
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     background: rgba(255, 255, 255, 0.04);
     transition: all 0.25s var(--ease);
 }
@@ -1257,178 +1304,28 @@ textarea.form-input {
 }
 
 /* =========================================================
-   CLI TERMINAL MODAL & TRIGGER
-========================================================= */
-
-.terminal-float-btn {
-    position: fixed;
-    right: 24px;
-    bottom: 24px;
-    z-index: 990;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 18px;
-    border-radius: var(--radius-full);
-    background: rgba(8, 14, 24, 0.9);
-    border: 1px solid var(--border-hover);
-    color: var(--accent);
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    font-weight: 600;
-    backdrop-filter: blur(16px);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-    transition: all 0.3s var(--ease);
-}
-
-.terminal-float-btn:hover {
-    background: var(--accent);
-    color: #001217;
-    transform: translateY(-4px);
-    box-shadow: 0 15px 40px var(--accent-glow);
-}
-
-.terminal-modal {
-    position: fixed;
-    inset: 0;
-    z-index: 2000;
-    display: none;
-    place-items: center;
-    padding: 20px;
-    background: rgba(0, 0, 0, 0.75);
-    backdrop-filter: blur(14px);
-}
-
-.terminal-modal.open {
-    display: grid;
-    animation: fadeIn 0.25s var(--ease);
-}
-
-.terminal-window {
-    width: min(780px, 100%);
-    background: #060911;
-    border: 1px solid var(--border-hover);
-    border-radius: 18px;
-    overflow: hidden;
-    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8), 0 0 40px var(--accent-soft);
-}
-
-[data-theme="light"] .terminal-window {
-    background: #0b1120;
-}
-
-.terminal-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 18px;
-    background: rgba(255, 255, 255, 0.03);
-    border-bottom: 1px solid var(--border);
-}
-
-.terminal-dots {
-    display: flex;
-    gap: 7px;
-}
-
-.dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-}
-
-.dot-red { background: #ff5f56; }
-.dot-yellow { background: #ffbd2e; }
-.dot-green { background: #27c93f; }
-
-.terminal-title {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    color: var(--muted);
-}
-
-.terminal-close-btn {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    color: var(--muted);
-    padding: 3px 8px;
-    border-radius: 6px;
-    transition: all 0.2s ease;
-}
-
-.terminal-close-btn:hover {
-    color: #ff5f56;
-    background: rgba(255, 95, 86, 0.1);
-}
-
-.terminal-body {
-    padding: 20px 22px;
-    height: 360px;
-    overflow-y: auto;
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    line-height: 1.8;
-    color: #cbd5e1;
-}
-
-.terminal-line {
-    margin-bottom: 4px;
-    word-break: break-word;
-}
-
-.cli-green { color: var(--accent); }
-.cli-yellow { color: #facc15; }
-.cli-dim { color: #64748b; }
-.cli-red { color: #f87171; }
-
-.terminal-input-bar {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 14px 20px;
-    border-top: 1px solid var(--border);
-    background: rgba(0, 0, 0, 0.3);
-}
-
-.terminal-prompt-symbol {
-    color: var(--accent);
-    font-family: var(--font-mono);
-    font-size: 0.85rem;
-    font-weight: 700;
-}
-
-.terminal-input {
-    flex: 1;
-    background: none;
-    border: none;
-    outline: none;
-    color: #ffffff;
-    font-family: var(--font-mono);
-    font-size: 0.82rem;
-}
-
-/* =========================================================
    SCROLL TO TOP BUTTON
 ========================================================= */
 
 .scroll-top-btn {
     position: fixed;
     right: 24px;
-    bottom: 84px;
-    width: 42px;
-    height: 42px;
+    bottom: 24px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     background: rgba(8, 14, 24, 0.85);
-    border: 1px solid var(--border);
-    color: var(--text);
+    border: 1px solid var(--border-hover);
+    color: var(--accent);
     display: grid;
     place-items: center;
-    font-size: 1rem;
+    font-size: 1.1rem;
     z-index: 980;
     opacity: 0;
     pointer-events: none;
     transform: translateY(10px);
     transition: all 0.3s var(--ease);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
 }
 
 .scroll-top-btn.show {
@@ -1441,6 +1338,7 @@ textarea.form-input {
     background: var(--accent);
     color: #001217;
     border-color: var(--accent);
+    box-shadow: 0 10px 30px var(--accent-glow);
 }
 
 /* =========================================================
@@ -1614,9 +1512,5 @@ footer {
         flex-direction: column;
         gap: 16px;
         align-items: flex-start;
-    }
-    
-    .terminal-float-btn span:last-child {
-        display: none;
     }
 }

@@ -9,7 +9,17 @@
     <meta name="keywords"
         content="Vaishnav Venu, Computer Science, AI Engineering, Portfolio, Python, Java, Web Development, Machine Learning">
     <meta name="author" content="Vaishnav Venu">
+    
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Vaishnav Venu | AI × Software Engineering Portfolio">
+    <meta property="og:description" content="Computer Science & AI student at Amrita Vishwa Vidyapeetham. Building high-performance systems, neural networks, and web engineering solutions.">
+    <meta property="og:url" content="https://github.com/S1Prime">
+    
     <title>Vaishnav Venu | AI × Software Engineering Portfolio</title>
+    
+    <!-- Favicon SVG Data URI -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='25' fill='%2305080f'/><text x='50%' y='65%' font-family='monospace' font-size='50' font-weight='bold' fill='%2365f7ff' text-anchor='middle'>V</text></svg>">
 
     <!-- Design System Stylesheet -->
     <link rel="stylesheet" href="my-style.css">
@@ -26,6 +36,10 @@
 </head>
 
 <body>
+    <!-- Custom Cyber Glow Cursor -->
+    <div class="custom-cursor-dot" id="cursorDot"></div>
+    <div class="custom-cursor-follower" id="cursorFollower"></div>
+
     <!-- Interactive Neural Network Particle Canvas -->
     <canvas id="bg-canvas"></canvas>
     <div class="bg-noise"></div>
@@ -49,11 +63,11 @@
         </nav>
 
         <div class="nav-actions">
-            <!-- Quick CLI Terminal Trigger -->
-            <button class="btn-terminal-nav" id="navTerminalBtn" title="Launch Developer Terminal (Ctrl + K)">
-                <span>&gt;_</span>
-                <span>CLI</span>
-            </button>
+            <!-- Direct CTA button -->
+            <a href="#contact" class="btn-nav-cta">
+                <span>Let's Talk</span>
+                <span>↗</span>
+            </a>
 
             <!-- Theme Switcher Dropdown -->
             <div class="theme-dropdown">
@@ -92,13 +106,13 @@
                     </h1>
 
                     <p class="hero-tagline">
-                        I'm <strong>Vaishnav Venu</strong>, a Computer Science & Engineering student focused on neural
+                        I'm <strong>Vaishnav Venu</strong>, a Computer Science &amp; Engineering student focused on neural
                         computing, full-stack systems, algorithms, and high-performance software.
                     </p>
 
                     <div class="typewriter-wrapper">
                         <span>&gt; focus:</span>
-                        <span id="typewriterText">AI & Machine Learning</span>
+                        <span id="typewriterText">AI &amp; Machine Learning</span>
                         <span class="typewriter-cursor">_</span>
                     </div>
 
@@ -147,11 +161,9 @@
                     <div class="hud-terminal-preview">
                         <div><span class="terminal-status-ok">● SYSTEM</span> vaishnav@core:~$</div>
                         <div class="terminal-dim">-------------------------------------</div>
-                        <div>$ whoami <span style="color:var(--text);">&rarr; Computer Science Engineering &amp;</span>
-                        </div>
+                        <div>$ whoami <span style="color:var(--text);">&rarr; Computer Science &amp; AI Engineering</span></div>
                         <div>$ core_stack <span style="color:var(--text);">&rarr; Python · Java · SQL · Web</span></div>
-                        <div>$ current_status <span class="terminal-status-ok">&rarr; Building &amp;
-                                Experimenting</span></div>
+                        <div>$ current_status <span class="terminal-status-ok">&rarr; Building &amp; Experimenting</span></div>
                     </div>
 
                     <div class="hud-stats-grid">
@@ -210,11 +222,18 @@
 
                 <div class="about-pillars">
                     <div class="pillar-card reveal">
+                        <div class="pillar-icon">✦</div>
+                        <div>
+                            <h4>Artificial Intelligence &amp; ML</h4>
+                            <p>Neural networks, predictive modeling, data processing, and open-source model integration.</p>
+                        </div>
+                    </div>
+
+                    <div class="pillar-card reveal">
                         <div class="pillar-icon">⌁</div>
                         <div>
                             <h4>Systems &amp; Full-Stack</h4>
-                            <p>Java/JDBC architectures, robust SQL schemas, REST workflows, and modern web interfaces.
-                            </p>
+                            <p>Java/JDBC architectures, robust SQL schemas, REST workflows, and modern web interfaces.</p>
                         </div>
                     </div>
 
@@ -277,8 +296,7 @@
                     <div class="timeline-date">2021 — 2023</div>
                     <div class="timeline-content">
                         <h3>Secondary School Education</h3>
-                        <div class="timeline-institution">St. Thomas Residential School, Naharlagun, Arunachal Pradesh
-                        </div>
+                        <div class="timeline-institution">St. Thomas Residential School, Naharlagun, Arunachal Pradesh</div>
                         <div class="timeline-tags">
                             <span class="tag-pill">Foundational Sciences</span>
                             <span class="tag-pill">Analytical Thinking</span>
@@ -689,40 +707,6 @@
     <button class="scroll-top-btn" id="scrollTopBtn" aria-label="Scroll to top" title="Scroll to top">
         ↑
     </button>
-
-    <!-- Floating CLI Terminal Trigger Button -->
-    <button class="terminal-float-btn" id="terminalFloatBtn" title="Developer Terminal (Ctrl + K)">
-        <span>&gt;_</span>
-        <span>TERMINAL</span>
-        <span style="opacity: 0.6; font-size: 0.65rem;">(Ctrl+K)</span>
-    </button>
-
-    <!-- CLI Terminal Modal -->
-    <div class="terminal-modal" id="terminalModal">
-        <div class="terminal-window">
-            <div class="terminal-header">
-                <div class="terminal-dots">
-                    <span class="dot dot-red"></span>
-                    <span class="dot dot-yellow"></span>
-                    <span class="dot dot-green"></span>
-                </div>
-                <div class="terminal-title">vaishnav@core: ~ (bash)</div>
-                <button class="terminal-close-btn" id="terminalCloseBtn">ESC / [X]</button>
-            </div>
-            <div class="terminal-body" id="terminalBody">
-                <div class="terminal-line"><span class="cli-green">VAISHNAV CORE CLI v3.2</span> [System ready]</div>
-                <div class="terminal-line"><span class="cli-dim">Type </span><span class="cli-yellow">help</span><span
-                        class="cli-dim"> to view all available commands.</span></div>
-                <div class="terminal-line">&nbsp;</div>
-            </div>
-            <div class="terminal-input-bar">
-                <span class="terminal-prompt-symbol">&gt;</span>
-                <input type="text" class="terminal-input" id="terminalInput"
-                    placeholder="Type a command (e.g., 'help', 'skills', 'projects')..." autocomplete="off"
-                    spellcheck="false">
-            </div>
-        </div>
-    </div>
 
     <!-- Application Script -->
     <script src="portfolio.js"></script>
