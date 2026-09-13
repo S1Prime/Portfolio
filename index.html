@@ -47,6 +47,15 @@
     <div class="ambient-glow-top"></div>
     <div class="ambient-glow-bottom"></div>
 
+    <!-- Floating Achievement Toast Banner -->
+    <div class="achievement-toast" id="achievementToast">
+        <div class="toast-icon">🏆</div>
+        <div class="toast-body">
+            <div class="toast-title" id="toastTitle">Achievement Unlocked!</div>
+            <div class="toast-desc" id="toastDesc">Explored system architecture.</div>
+        </div>
+    </div>
+
     <!-- Floating Navigation Bar -->
     <header class="navbar">
         <a class="nav-brand" href="#hero">
@@ -58,11 +67,23 @@
             <a href="#about" class="nav-link">About</a>
             <a href="#education" class="nav-link">Education</a>
             <a href="#skills" class="nav-link">Skills</a>
+            <a href="#sandbox" class="nav-link">Code Lab</a>
             <a href="#projects" class="nav-link">Projects</a>
             <a href="#contact" class="nav-link">Contact</a>
         </nav>
 
         <div class="nav-actions">
+            <!-- Gamified Achievement Counter Badge -->
+            <button class="achievement-badge-btn" id="btnAchievements" title="Click to view Unlocks">
+                <span>🏆</span>
+                <span id="achievementScore">0/5</span>
+            </button>
+
+            <!-- Sound FX Toggle -->
+            <button class="sound-toggle-btn" id="btnSoundToggle" title="Toggle Synthesized Audio FX">
+                <span id="soundIcon">🔊</span>
+            </button>
+
             <!-- Direct CTA button -->
             <a href="#contact" class="btn-nav-cta">
                 <span>Let's Talk</span>
@@ -121,6 +142,12 @@
                             <span>Explore Projects</span>
                             <span>↗</span>
                         </a>
+
+                        <!-- AI Voice Briefing Button -->
+                        <button class="btn btn-secondary btn-voice" id="btnVoiceBriefing" title="Listen to AI Voice Briefing">
+                            <span>🎙️ AI Voice Briefing</span>
+                        </button>
+
                         <a class="btn btn-secondary" href="https://github.com/S1Prime" target="_blank" rel="noreferrer">
                             <span>GitHub</span>
                             <span>↗</span>
@@ -254,11 +281,11 @@
         <section id="education">
             <div class="section-head reveal">
                 <div>
-                    <div class="section-num">02 / Academic Background</div>
-                    <h2 class="section-title">Education Timeline.</h2>
+                    <div class="section-num">02 / Academic Progression</div>
+                    <h2 class="section-title">Educational Foundation.</h2>
                 </div>
                 <p class="section-desc">
-                    A trajectory of continuous learning, foundational computer science, and practical engineering.
+                    Formal computer science degree coursework, mathematics specialization, and high school academic record.
                 </p>
             </div>
 
@@ -266,14 +293,17 @@
                 <article class="timeline-card reveal">
                     <div class="timeline-date">2025 — 2029</div>
                     <div class="timeline-content">
-                        <h3>B.Tech · Computer Science &amp; Engineering</h3>
-                        <div class="timeline-institution">Amrita Vishwa Vidyapeetham, Amritapuri, Kollam, Kerala</div>
+                        <h3>B.Tech in Computer Science &amp; Engineering</h3>
+                        <div class="timeline-institution">Amrita Vishwa Vidyapeetham · Amritapuri, Kollam, Kerala</div>
+                        <p>
+                            Core degree program covering Algorithms, Data Structures, Object-Oriented Programming (Java),
+                            Database Systems, Computer Networks, and Artificial Intelligence foundations.
+                        </p>
                         <div class="timeline-tags">
-                            <span class="tag-pill">Artificial Intelligence</span>
-                            <span class="tag-pill">Data Structures</span>
                             <span class="tag-pill">Algorithms</span>
-                            <span class="tag-pill">OOP Java</span>
-                            <span class="tag-pill">Database Systems</span>
+                            <span class="tag-pill">Java OOP</span>
+                            <span class="tag-pill">Database SQL</span>
+                            <span class="tag-pill">AI Foundations</span>
                         </div>
                     </div>
                 </article>
@@ -281,13 +311,16 @@
                 <article class="timeline-card reveal">
                     <div class="timeline-date">2023 — 2025</div>
                     <div class="timeline-content">
-                        <h3>Higher Secondary Education · Science &amp; CS</h3>
-                        <div class="timeline-institution">Chinmaya Vidyalaya, Alappuzha, Kerala</div>
+                        <h3>Higher Secondary Education (Science &amp; CS)</h3>
+                        <div class="timeline-institution">Chinmaya Vidyalaya · Alappuzha, Kerala</div>
+                        <p>
+                            Specialized secondary education focusing on Physics, Chemistry, Higher Mathematics, and introductory
+                            Computer Science.
+                        </p>
                         <div class="timeline-tags">
-                            <span class="tag-pill">Physics</span>
                             <span class="tag-pill">Mathematics</span>
+                            <span class="tag-pill">Physics</span>
                             <span class="tag-pill">Computer Science</span>
-                            <span class="tag-pill">Python</span>
                         </div>
                     </div>
                 </article>
@@ -295,8 +328,12 @@
                 <article class="timeline-card reveal">
                     <div class="timeline-date">2021 — 2023</div>
                     <div class="timeline-content">
-                        <h3>Secondary School Education</h3>
-                        <div class="timeline-institution">St. Thomas Residential School, Naharlagun, Arunachal Pradesh</div>
+                        <h3>Secondary Education</h3>
+                        <div class="timeline-institution">St. Thomas Residential School · Naharlagun, Arunachal Pradesh</div>
+                        <p>
+                            Foundational schooling establishing core quantitative reasoning, analytical thinking, and scientific
+                            aptitude.
+                        </p>
                         <div class="timeline-tags">
                             <span class="tag-pill">Foundational Sciences</span>
                             <span class="tag-pill">Analytical Thinking</span>
@@ -397,12 +434,73 @@
         </section>
 
         <!-- =========================================================
+             EXECUTABLE CODE LAB / SANDBOX SECTION
+        ========================================================= -->
+        <section id="sandbox">
+            <div class="section-head reveal">
+                <div>
+                    <div class="section-num">04 / Interactive Code Lab</div>
+                    <h2 class="section-title">Live Algorithm Benchmarks.</h2>
+                </div>
+                <p class="section-desc">
+                    Test computer science algorithms live in your browser. Select an algorithm preset and run real-time execution benchmarks.
+                </p>
+            </div>
+
+            <div class="glass-panel sandbox-card reveal">
+                <div class="sandbox-header">
+                    <div class="sandbox-tabs" id="sandboxTabs">
+                        <button class="sandbox-tab active" data-preset="matrix">Matrix Multiply</button>
+                        <button class="sandbox-tab" data-preset="neural">Neural ReLU</button>
+                        <button class="sandbox-tab" data-preset="binary">Binary Search</button>
+                        <button class="sandbox-tab" data-preset="fib">Fibonacci DP</button>
+                    </div>
+                    <button class="btn-run-code" id="btnRunSandbox">
+                        <span>▶ RUN BENCHMARK</span>
+                    </button>
+                </div>
+
+                <div class="sandbox-body">
+                    <div class="sandbox-code-view">
+                        <div class="code-view-header">
+                            <span>ALGORITHM SOURCE</span>
+                            <span class="code-lang-tag" id="sandboxLangTag">Python 3.x</span>
+                        </div>
+                        <pre class="code-editor-box"><code id="sandboxCodeDisplay"># Matrix Multiplication Benchmark (N x N)
+import time, random
+
+N = 100
+A = [[random.random() for _ in range(N)] for _ in range(N)]
+B = [[random.random() for _ in range(N)] for _ in range(N)]
+
+start = time.perf_counter()
+C = [[sum(A[i][k]*B[k][j] for k in range(N)) for j in range(N)] for i in range(N)]
+exec_time = (time.perf_counter() - start) * 1000
+
+print(f"Matrix Dimension: {N}x{N}")
+print(f"Computed Floating Point Ops: {2 * (N**3):,}")
+print(f"Execution Latency: {exec_time:.2f} ms")</code></pre>
+                    </div>
+                    <div class="sandbox-terminal-out">
+                        <div class="code-view-header">
+                            <span>LIVE RUNTIME CONSOLE</span>
+                            <span class="terminal-status-ok">● CORE READY</span>
+                        </div>
+                        <div class="terminal-output-box" id="sandboxConsoleOut">
+                            <div class="term-line prompt">&gt; System initialized. Click "RUN BENCHMARK" to execute code.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================================
              PROJECTS SECTION
         ========================================================= -->
         <section id="projects">
             <div class="section-head reveal">
                 <div>
-                    <div class="section-num">04 / Project Registry</div>
+                    <div class="section-num">05 / Project Registry</div>
                     <h2 class="section-title">Things I've shipped.</h2>
                 </div>
                 <p class="section-desc">
@@ -422,7 +520,7 @@
             <!-- Projects Grid -->
             <div class="projects-grid" id="projectsGrid">
                 <!-- Project 1: Desktop Arithmetic System -->
-                <article class="project-card reveal" data-category="python">
+                <article class="project-card reveal" data-category="python" data-project-id="calculator">
                     <div class="project-card-top">
                         <span class="project-badge">Python App</span>
                         <span class="project-icon">🧮</span>
@@ -439,6 +537,7 @@
                             <span class="project-tag">#Math</span>
                         </div>
                         <div class="project-links">
+                            <button class="btn-inspect-modal" data-inspect="calculator">Inspect 🔍</button>
                             <a class="project-action-link" href="https://github.com/S1Prime/Calculator" target="_blank"
                                 rel="noreferrer">
                                 <span>GitHub</span>
@@ -448,51 +547,81 @@
                     </div>
                 </article>
 
-                <!-- Project 2: Online Quiz Management System -->
-                <article class="project-card reveal" data-category="java">
+                <!-- Project 2: Personal Budget Tracker -->
+                <article class="project-card reveal" data-category="python" data-project-id="budget">
                     <div class="project-card-top">
-                        <span class="project-badge">Java / Full-Stack</span>
-                        <span class="project-icon">📝</span>
+                        <span class="project-badge">Python Core</span>
+                        <span class="project-icon">📊</span>
                     </div>
-                    <h3 class="project-title">Online Quiz Management System</h3>
+                    <h3 class="project-title">Personal Budget Tracker</h3>
                     <p class="project-desc">
-                        Robust examination and testing platform built using Java Servlets, JDBC, and SQL database
-                        integration with dynamic score evaluation.
+                        Financial tracking software for monitoring income, categorizing expenditures, controlling spending
+                        habits, and generating budgetary analytics.
                     </p>
                     <div class="project-bottom">
                         <div class="project-tags">
-                            <span class="project-tag">#Java</span>
-                            <span class="project-tag">#JDBC</span>
-                            <span class="project-tag">#SQL</span>
+                            <span class="project-tag">#Python</span>
+                            <span class="project-tag">#Finance</span>
+                            <span class="project-tag">#DataAnalytics</span>
                         </div>
                         <div class="project-links">
-                            <a class="project-action-link" href="https://online-quiz-cqaw.onrender.com" target="_blank"
-                                rel="noreferrer">
-                                <span>Live Demo</span>
+                            <button class="btn-inspect-modal" data-inspect="budget">Inspect 🔍</button>
+                            <a class="project-action-link" href="https://github.com/S1Prime/Personal-Budget-Tracker"
+                                target="_blank" rel="noreferrer">
+                                <span>GitHub</span>
                                 <span>↗</span>
                             </a>
                         </div>
                     </div>
                 </article>
 
-                <!-- Project 3: Student Task Manager -->
-                <article class="project-card reveal" data-category="web">
+                <!-- Project 3: Online Quiz Management System -->
+                <article class="project-card reveal" data-category="java" data-project-id="quiz">
+                    <div class="project-card-top">
+                        <span class="project-badge">Java Enterprise</span>
+                        <span class="project-icon">📝</span>
+                    </div>
+                    <h3 class="project-title">Online Quiz Management System</h3>
+                    <p class="project-desc">
+                        Full-stack online examination platform engineered in Java using Servlet architecture, JDBC persistent
+                        connections, and SQL database models.
+                    </p>
+                    <div class="project-bottom">
+                        <div class="project-tags">
+                            <span class="project-tag">#JavaServlets</span>
+                            <span class="project-tag">#JDBC</span>
+                            <span class="project-tag">#SQL</span>
+                        </div>
+                        <div class="project-links">
+                            <button class="btn-inspect-modal" data-inspect="quiz">Inspect 🔍</button>
+                            <a class="project-action-link" href="https://online-quiz-cqaw.onrender.com" target="_blank"
+                                rel="noreferrer">
+                                <span>Live App</span>
+                                <span>↗</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 4: Student Task Manager -->
+                <article class="project-card reveal" data-category="web" data-project-id="taskmanager">
                     <div class="project-card-top">
                         <span class="project-badge">Web Application</span>
                         <span class="project-icon">📚</span>
                     </div>
                     <h3 class="project-title">Student Task Manager</h3>
                     <p class="project-desc">
-                        Modern responsive productivity web application engineered to help students track coursework,
-                        deadlines, priority tasks, and milestones.
+                        Academic productivity web dashboard tailored to track assignment deadlines, exam schedules, and
+                        project milestones efficiently.
                     </p>
                     <div class="project-bottom">
                         <div class="project-tags">
-                            <span class="project-tag">#JavaScript</span>
                             <span class="project-tag">#HTML5</span>
                             <span class="project-tag">#CSS3</span>
+                            <span class="project-tag">#JavaScript</span>
                         </div>
                         <div class="project-links">
+                            <button class="btn-inspect-modal" data-inspect="taskmanager">Inspect 🔍</button>
                             <a class="project-action-link" href="https://s1prime.github.io/Student-Task-Manager/"
                                 target="_blank" rel="noreferrer">
                                 <span>Live App</span>
@@ -502,79 +631,54 @@
                     </div>
                 </article>
 
-                <!-- Project 4: MATLAB Analytical Workspace -->
-                <article class="project-card reveal" data-category="matlab">
+                <!-- Project 5: Modern Calculator Web Engine -->
+                <article class="project-card reveal" data-category="web" data-project-id="webcalc">
                     <div class="project-card-top">
-                        <span class="project-badge">Computational Math</span>
-                        <span class="project-icon">📊</span>
+                        <span class="project-badge">Frontend Engine</span>
+                        <span class="project-icon">⚡</span>
+                    </div>
+                    <h3 class="project-title">Modern Calculator Web Engine</h3>
+                    <p class="project-desc">
+                        Responsive web calculator featuring dynamic theme switching, keyboard shortcut support, local
+                        history persistence, and smooth UX animations.
+                    </p>
+                    <div class="project-bottom">
+                        <div class="project-tags">
+                            <span class="project-tag">#JavaScript</span>
+                            <span class="project-tag">#ThemeEngine</span>
+                            <span class="project-tag">#UI</span>
+                        </div>
+                        <div class="project-links">
+                            <button class="btn-inspect-modal" data-inspect="webcalc">Inspect 🔍</button>
+                            <a class="project-action-link" href="https://s1prime.github.io/Calculator-Using-Frontend/"
+                                target="_blank" rel="noreferrer">
+                                <span>Live App</span>
+                                <span>↗</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 6: MATLAB Analytical Problems -->
+                <article class="project-card reveal" data-category="matlab" data-project-id="matlab">
+                    <div class="project-card-top">
+                        <span class="project-badge">Computational</span>
+                        <span class="project-icon">📐</span>
                     </div>
                     <h3 class="project-title">MATLAB Analytical Workspace</h3>
                     <p class="project-desc">
-                        Comprehensive collection of MATLAB programs for linear algebra, matrix transformations,
-                        numerical methods, and mathematical visualization.
+                        Computational mathematics workspace built in MATLAB executing vector matrix operations, linear algebra
+                        solvers, and graphical dataset plots.
                     </p>
                     <div class="project-bottom">
                         <div class="project-tags">
                             <span class="project-tag">#MATLAB</span>
-                            <span class="project-tag">#MatrixMath</span>
-                            <span class="project-tag">#Algorithms</span>
+                            <span class="project-tag">#MatrixAlgebra</span>
+                            <span class="project-tag">#Math</span>
                         </div>
                         <div class="project-links">
+                            <button class="btn-inspect-modal" data-inspect="matlab">Inspect 🔍</button>
                             <a class="project-action-link" href="https://github.com/S1Prime/Matlab" target="_blank"
-                                rel="noreferrer">
-                                <span>GitHub</span>
-                                <span>↗</span>
-                            </a>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Project 5: Personal Budget Tracker -->
-                <article class="project-card reveal" data-category="python">
-                    <div class="project-card-top">
-                        <span class="project-badge">Python / Data</span>
-                        <span class="project-icon">💰</span>
-                    </div>
-                    <h3 class="project-title">Personal Budget Tracker</h3>
-                    <p class="project-desc">
-                        Financial tracking and data categorization utility for monitoring monthly expenses, income
-                        streams, and generating savings analytics.
-                    </p>
-                    <div class="project-bottom">
-                        <div class="project-tags">
-                            <span class="project-tag">#Python</span>
-                            <span class="project-tag">#Analytics</span>
-                            <span class="project-tag">#Finance</span>
-                        </div>
-                        <div class="project-links">
-                            <a class="project-action-link" href="https://github.com/S1Prime" target="_blank"
-                                rel="noreferrer">
-                                <span>GitHub</span>
-                                <span>↗</span>
-                            </a>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Project 6: Hotel Management System -->
-                <article class="project-card reveal" data-category="java">
-                    <div class="project-card-top">
-                        <span class="project-badge">Java DBMS</span>
-                        <span class="project-icon">🏨</span>
-                    </div>
-                    <h3 class="project-title">Hotel Management System</h3>
-                    <p class="project-desc">
-                        Enterprise desktop database management system managing room reservations, customer records,
-                        billing lifecycle, and room occupancy.
-                    </p>
-                    <div class="project-bottom">
-                        <div class="project-tags">
-                            <span class="project-tag">#Java</span>
-                            <span class="project-tag">#DBMS</span>
-                            <span class="project-tag">#SQL</span>
-                        </div>
-                        <div class="project-links">
-                            <a class="project-action-link" href="https://github.com/S1Prime" target="_blank"
                                 rel="noreferrer">
                                 <span>GitHub</span>
                                 <span>↗</span>
@@ -591,12 +695,11 @@
         <section id="contact">
             <div class="section-head reveal">
                 <div>
-                    <div class="section-num">05 / Direct Communication</div>
-                    <h2 class="section-title">Let's build something.</h2>
+                    <div class="section-num">06 / Initiation &amp; Connect</div>
+                    <h2 class="section-title">Let's build together.</h2>
                 </div>
                 <p class="section-desc">
-                    Open to discussing software projects, research, collaboration, internship opportunities, or
-                    interesting engineering ideas.
+                    Open for software engineering opportunities, AI research collaborations, open-source projects, or tech discussions.
                 </p>
             </div>
 
@@ -702,6 +805,45 @@
             </div>
         </footer>
     </main>
+
+    <!-- Project Architecture Inspector Glassmorphic Modal -->
+    <div class="project-modal-backdrop" id="projectModal">
+        <div class="project-modal-card">
+            <div class="project-modal-header">
+                <div class="modal-title-area">
+                    <span class="modal-badge" id="modalBadge">JAVA ENTERPRISE</span>
+                    <h3 id="modalTitle">Online Quiz Management System</h3>
+                </div>
+                <button class="btn-modal-close" id="btnCloseModal">✕</button>
+            </div>
+            <div class="project-modal-body">
+                <div class="modal-section">
+                    <div class="modal-sec-title">// ARCHITECTURE &amp; DESIGN</div>
+                    <p id="modalArchDesc">Engineered with Java Servlets, JDBC persistence layer, and relational SQL database schemas for multi-user session state tracking and score analytics.</p>
+                </div>
+                <div class="modal-section">
+                    <div class="modal-sec-title">// KEY HIGHLIGHTS</div>
+                    <ul class="modal-highlights-list" id="modalHighlights">
+                        <li>Servlet session authentication and encrypted parameters</li>
+                        <li>JDBC connection pooling for concurrent examination queries</li>
+                        <li>Automated stats calculation and report generation</li>
+                    </ul>
+                </div>
+                <div class="modal-section">
+                    <div class="modal-sec-title">// CODE SNIPPET PREVIEW</div>
+                    <pre class="modal-code-box"><code id="modalCodeSnippet">Class.forName("com.mysql.cj.jdbc.Driver");
+Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+PreparedStatement ps = conn.prepareStatement("SELECT * FROM exams WHERE id=?");</code></pre>
+                </div>
+            </div>
+            <div class="project-modal-footer">
+                <a class="btn btn-primary" id="modalRepoLink" href="#" target="_blank" rel="noreferrer">
+                    <span>View Repository</span>
+                    <span>↗</span>
+                </a>
+            </div>
+        </div>
+    </div>
 
     <!-- Floating Scroll-To-Top Button -->
     <button class="scroll-top-btn" id="scrollTopBtn" aria-label="Scroll to top" title="Scroll to top">
