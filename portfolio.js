@@ -88,7 +88,6 @@ document.addEventListener("DOMContentLoaded", () => {
     ========================================================= */
     const achievements = {
         explorer: { id: "explorer", title: "System Explorer 🏆", desc: "Explored academic and engineering sections.", unlocked: false },
-        sandbox: { id: "sandbox", title: "Algorithm Master 🧪", desc: "Executed live benchmark in Code Lab.", unlocked: false },
         voice: { id: "voice", title: "Voice Command Active 🎙️", desc: "Triggered AI Voice Briefing.", unlocked: false },
         theme: { id: "theme", title: "Theme Architect 🎨", desc: "Customized portfolio color theme.", unlocked: false },
         inspector: { id: "inspector", title: "Tech Inspector 🔍", desc: "Inspected project architecture details.", unlocked: false }
@@ -113,7 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function updateScoreBadge() {
-        if (scoreEl) scoreEl.textContent = `${unlockedCount}/5`;
+        if (scoreEl) scoreEl.textContent = `${unlockedCount}/4`;
     }
 
     function unlockAchievement(key) {
@@ -409,112 +408,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    /* =========================================================
-       7. EXECUTABLE ALGORITHM CODE LAB / SANDBOX
-    ========================================================= */
-    const sandboxPresets = {
-        matrix: {
-            lang: "Python 3.x",
-            code: `# Matrix Multiplication Benchmark (N x N)\nimport time, random\n\nN = 100\nA = [[random.random() for _ in range(N)] for _ in range(N)]\nB = [[random.random() for _ in range(N)] for _ in range(N)]\n\nstart = time.perf_counter()\nC = [[sum(A[i][k]*B[k][j] for k in range(N)) for j in range(N)] for i in range(N)]\nexec_time = (time.perf_counter() - start) * 1000\n\nprint(f"Matrix Dimension: {N}x{N}")\nprint(f"Computed Floating Point Ops: {2 * (N**3):,}")\nprint(f"Execution Latency: {exec_time:.2f} ms")`,
-            execute: () => [
-                "> Instantiating floating point matrices A and B (100x100)...",
-                "> Running 3-level nested loop vector computation...",
-                "Matrix Dimension: 100x100",
-                "Computed Floating Point Ops: 2,000,000 FLOPs",
-                `Execution Latency: ${(Math.random() * 8 + 14).toFixed(2)} ms`,
-                "> Status: Benchmark executed cleanly [0 Errors]"
-            ]
-        },
-        neural: {
-            lang: "Python 3.x",
-            code: `# Neural Activation Function (ReLU vs Sigmoid)\nimport math\n\ndef relu(x): return max(0.0, x)\ndef sigmoid(x): return 1.0 / (1.0 + math.exp(-x))\n\ninputs = [-2.5, -0.5, 0.0, 1.2, 3.8]\nprint("Inputs:", inputs)\nprint("ReLU Out:", [relu(x) for x in inputs])\nprint("Sigmoid Out:", [round(sigmoid(x), 4) for x in inputs])`,
-            execute: () => [
-                "> Inputs vector: [-2.5, -0.5, 0.0, 1.2, 3.8]",
-                "> Computing Rectified Linear Unit activation...",
-                "ReLU Output:   [0.0, 0.0, 0.0, 1.2, 3.8]",
-                "> Computing Sigmoid logistic curve...",
-                "Sigmoid Out:   [0.0759, 0.3775, 0.5000, 0.7685, 0.9781]",
-                "> Status: Activation tensor parsed successfully."
-            ]
-        },
-        binary: {
-            lang: "Java SE",
-            code: `// Binary Search Efficiency O(log N)\npublic class BinarySearchTest {\n    public static int search(int[] arr, int target) {\n        int low = 0, high = arr.length - 1;\n        while (low <= high) {\n            int mid = (low + high) >>> 1;\n            if (arr[mid] == target) return mid;\n            else if (arr[mid] < target) low = mid + 1;\n            else high = mid - 1;\n        }\n        return -1;\n    }\n}`,
-            execute: () => [
-                "> Compiled BinarySearchTest.class via javac",
-                "> Input Dataset Size: N = 1,000,000 elements",
-                "> Target Search Key: 849,201",
-                "Array Comparisons Required: 19 ops",
-                "Theoretical Bound O(log2 N): 20 ops",
-                "Execution Time: 0.042 ms",
-                "> Status: Target located at index 849,201"
-            ]
-        },
-        fib: {
-            lang: "Python 3.x",
-            code: `# Fibonacci Dynamic Programming (Tabulation)\ndef fib_dp(n):\n    dp = [0] * (n + 1)\n    dp[1] = 1\n    for i in range(2, n + 1):\n        dp[i] = dp[i-1] + dp[i-2]\n    return dp[n]\n\nN = 50\nprint(f"Fibonacci({N}) =", fib_dp(N))`,
-            execute: () => [
-                "> Executing DP Memoization table allocation...",
-                "Computing Fibonacci sequence for N = 50...",
-                "Fibonacci(50) = 12,586,269,025",
-                "Time Complexity: O(N) [Linear]",
-                "Space Complexity: O(N) [Tabular Array]",
-                "> Status: Computed in 0.018 ms"
-            ]
-        }
-    };
-
-    let activePresetKey = "matrix";
-    const sandboxTabs = document.querySelectorAll(".sandbox-tab");
-    const sandboxCodeDisplay = document.getElementById("sandboxCodeDisplay");
-    const sandboxLangTag = document.getElementById("sandboxLangTag");
-    const sandboxConsoleOut = document.getElementById("sandboxConsoleOut");
-    const btnRunSandbox = document.getElementById("btnRunSandbox");
-
-    if (sandboxTabs.length && sandboxCodeDisplay) {
-        sandboxTabs.forEach(tab => {
-            tab.addEventListener("click", () => {
-                const key = tab.getAttribute("data-preset");
-                activePresetKey = key;
-
-                sandboxTabs.forEach(t => t.classList.remove("active"));
-                tab.classList.add("active");
-
-                const preset = sandboxPresets[key];
-                if (preset) {
-                    sandboxCodeDisplay.textContent = preset.code;
-                    if (sandboxLangTag) sandboxLangTag.textContent = preset.lang;
-                    if (sandboxConsoleOut) {
-                        sandboxConsoleOut.innerHTML = `<div class="term-line prompt">&gt; Loaded algorithm [${key.toUpperCase()}]. Click "RUN BENCHMARK" to execute.</div>`;
-                    }
-                }
-            });
-        });
-
-        if (btnRunSandbox) {
-            btnRunSandbox.addEventListener("click", () => {
-                const preset = sandboxPresets[activePresetKey];
-                if (!preset || !sandboxConsoleOut) return;
-
-                sandboxConsoleOut.innerHTML = `<div class="term-line prompt">&gt; Executing algorithm source...</div>`;
-                playAudioTone(750, 'sine', 0.08, 0.05);
-
-                const lines = preset.execute();
-                lines.forEach((line, idx) => {
-                    setTimeout(() => {
-                        const lineEl = document.createElement("div");
-                        lineEl.className = line.includes("Status:") ? "term-line stat" : "term-line out";
-                        lineEl.textContent = line;
-                        sandboxConsoleOut.appendChild(lineEl);
-                        sandboxConsoleOut.scrollTop = sandboxConsoleOut.scrollHeight;
-                        playAudioTone(400 + idx * 50, 'sine', 0.03, 0.02);
-                    }, idx * 180);
-                });
-
-                unlockAchievement("sandbox");
-            });
-        }
-    }
 
     /* =========================================================
        8. PROJECT ARCHITECTURE INSPECTOR MODAL
@@ -552,6 +445,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 "Automated statistics computation and candidate report generation"
             ],
             code: `Class.forName("com.mysql.cj.jdbc.Driver");\nConnection conn = DriverManager.getConnection(DB_URL, USER, PASS);\nPreparedStatement ps = conn.prepareStatement("SELECT * FROM exams WHERE id=?");`
+        },
+        hoteldbms: {
+            title: "Hotel Management System DBMS",
+            badge: "DBMS / SQL",
+            arch: "Designed relational SQL database tables, foreign key constraints, primary key indexing, and transaction workflows for hotel management operations.",
+            highlights: [
+                "SQL table normalization (3NF) for room and guest records",
+                "Automated bill generation and checkout transaction procedures",
+                "Web frontend interface integrated with relational DBMS endpoints"
+            ],
+            code: `CREATE TABLE Rooms (room_id INT PRIMARY KEY, room_type VARCHAR(50), status VARCHAR(20));\nSELECT * FROM Bookings WHERE check_in_date <= CURRENT_DATE();`
         },
         taskmanager: {
             title: "Student Task Manager",

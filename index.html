@@ -67,7 +67,6 @@
             <a href="#about" class="nav-link">About</a>
             <a href="#education" class="nav-link">Education</a>
             <a href="#skills" class="nav-link">Skills</a>
-            <a href="#sandbox" class="nav-link">Code Lab</a>
             <a href="#projects" class="nav-link">Projects</a>
             <a href="#contact" class="nav-link">Contact</a>
         </nav>
@@ -434,73 +433,12 @@
         </section>
 
         <!-- =========================================================
-             EXECUTABLE CODE LAB / SANDBOX SECTION
-        ========================================================= -->
-        <section id="sandbox">
-            <div class="section-head reveal">
-                <div>
-                    <div class="section-num">04 / Interactive Code Lab</div>
-                    <h2 class="section-title">Live Algorithm Benchmarks.</h2>
-                </div>
-                <p class="section-desc">
-                    Test computer science algorithms live in your browser. Select an algorithm preset and run real-time execution benchmarks.
-                </p>
-            </div>
-
-            <div class="glass-panel sandbox-card reveal">
-                <div class="sandbox-header">
-                    <div class="sandbox-tabs" id="sandboxTabs">
-                        <button class="sandbox-tab active" data-preset="matrix">Matrix Multiply</button>
-                        <button class="sandbox-tab" data-preset="neural">Neural ReLU</button>
-                        <button class="sandbox-tab" data-preset="binary">Binary Search</button>
-                        <button class="sandbox-tab" data-preset="fib">Fibonacci DP</button>
-                    </div>
-                    <button class="btn-run-code" id="btnRunSandbox">
-                        <span>▶ RUN BENCHMARK</span>
-                    </button>
-                </div>
-
-                <div class="sandbox-body">
-                    <div class="sandbox-code-view">
-                        <div class="code-view-header">
-                            <span>ALGORITHM SOURCE</span>
-                            <span class="code-lang-tag" id="sandboxLangTag">Python 3.x</span>
-                        </div>
-                        <pre class="code-editor-box"><code id="sandboxCodeDisplay"># Matrix Multiplication Benchmark (N x N)
-import time, random
-
-N = 100
-A = [[random.random() for _ in range(N)] for _ in range(N)]
-B = [[random.random() for _ in range(N)] for _ in range(N)]
-
-start = time.perf_counter()
-C = [[sum(A[i][k]*B[k][j] for k in range(N)) for j in range(N)] for i in range(N)]
-exec_time = (time.perf_counter() - start) * 1000
-
-print(f"Matrix Dimension: {N}x{N}")
-print(f"Computed Floating Point Ops: {2 * (N**3):,}")
-print(f"Execution Latency: {exec_time:.2f} ms")</code></pre>
-                    </div>
-                    <div class="sandbox-terminal-out">
-                        <div class="code-view-header">
-                            <span>LIVE RUNTIME CONSOLE</span>
-                            <span class="terminal-status-ok">● CORE READY</span>
-                        </div>
-                        <div class="terminal-output-box" id="sandboxConsoleOut">
-                            <div class="term-line prompt">&gt; System initialized. Click "RUN BENCHMARK" to execute code.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- =========================================================
              PROJECTS SECTION
         ========================================================= -->
         <section id="projects">
             <div class="section-head reveal">
                 <div>
-                    <div class="section-num">05 / Project Registry</div>
+                    <div class="section-num">04 / Project Registry</div>
                     <h2 class="section-title">Things I've shipped.</h2>
                 </div>
                 <p class="section-desc">
@@ -603,6 +541,33 @@ print(f"Execution Latency: {exec_time:.2f} ms")</code></pre>
                     </div>
                 </article>
 
+                <!-- Project: Hotel Management System DBMS -->
+                <article class="project-card reveal" data-category="java" data-project-id="hoteldbms">
+                    <div class="project-card-top">
+                        <span class="project-badge">DBMS / SQL</span>
+                        <span class="project-icon">🏨</span>
+                    </div>
+                    <h3 class="project-title">Hotel Management System DBMS</h3>
+                    <p class="project-desc">
+                        Relational database management platform for hotel room reservations, guest check-in tracking, billing calculations, and SQL query optimizations.
+                    </p>
+                    <div class="project-bottom">
+                        <div class="project-tags">
+                            <span class="project-tag">#SQL</span>
+                            <span class="project-tag">#DBMS</span>
+                            <span class="project-tag">#Database</span>
+                        </div>
+                        <div class="project-links">
+                            <button class="btn-inspect-modal" data-inspect="hoteldbms">Inspect 🔍</button>
+                            <a class="project-action-link" href="https://s1prime.github.io/Hotel-Management-System-DBMS/" target="_blank"
+                                rel="noreferrer">
+                                <span>Live App</span>
+                                <span>↗</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
                 <!-- Project 4: Student Task Manager -->
                 <article class="project-card reveal" data-category="web" data-project-id="taskmanager">
                     <div class="project-card-top">
@@ -695,7 +660,7 @@ print(f"Execution Latency: {exec_time:.2f} ms")</code></pre>
         <section id="contact">
             <div class="section-head reveal">
                 <div>
-                    <div class="section-num">06 / Initiation &amp; Connect</div>
+                    <div class="section-num">05 / Initiation &amp; Connect</div>
                     <h2 class="section-title">Let's build together.</h2>
                 </div>
                 <p class="section-desc">
