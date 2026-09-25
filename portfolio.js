@@ -73,13 +73,119 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Attach subtle audio feedback on hover
-    document.querySelectorAll("a, button, .project-card, .sandbox-tab").forEach(el => {
+    /* =========================================================
+       UNIVERSAL CLICKABLE ANIMATION, SHOCKWAVE & AUDIO ENGINE
+    ========================================================= */
+    const CLICKABLE_SELECTOR = 'a, button, input, textarea, select, .project-card, .pillar-card, .channel-card, .timeline-card, .tech-chip, .tag-pill, .hud-stat-box, .profile-avatar-wrap, .btn-inspect-modal, .filter-btn, .theme-opt, .scroll-top-btn, [role="button"]';
+
+    function spawnCyberRipple(e, target) {
+        if (!target) return;
+        const rect = target.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const size = Math.max(rect.width, rect.height) * 2.2;
+
+        const ripple = document.createElement("span");
+        ripple.className = "cyber-ripple";
+        ripple.style.width = `${size}px`;
+        ripple.style.height = `${size}px`;
+        ripple.style.left = `${x}px`;
+        ripple.style.top = `${y}px`;
+
+        const computed = window.getComputedStyle(target);
+        if (computed.position === 'static') {
+            target.style.position = 'relative';
+        }
+        if (computed.overflow !== 'hidden' && !target.classList.contains('theme-dropdown')) {
+            target.style.overflow = 'hidden';
+        }
+
+        target.appendChild(ripple);
+        setTimeout(() => {
+            ripple.remove();
+        }, 650);
+    }
+
+    function spawnSparks(x, y) {
+        const sparkCount = 6;
+        for (let i = 0; i < sparkCount; i++) {
+            const spark = document.createElement("span");
+            spark.className = "click-spark";
+            const angle = (i / sparkCount) * (Math.PI * 2) + (Math.random() - 0.5) * 0.4;
+            const distance = Math.random() * 45 + 30;
+            const tx = Math.cos(angle) * distance;
+            const ty = Math.sin(angle) * distance;
+
+            spark.style.setProperty("--spark-tx", `${tx}px`);
+            spark.style.setProperty("--spark-ty", `${ty}px`);
+            spark.style.left = `${x}px`;
+            spark.style.top = `${y}px`;
+
+            document.body.appendChild(spark);
+            setTimeout(() => {
+                spark.remove();
+            }, 550);
+        }
+    }
+
+    // Attach subtle audio feedback on hover across all clickable targets
+    document.querySelectorAll(CLICKABLE_SELECTOR).forEach(el => {
         el.addEventListener("mouseenter", () => {
-            playAudioTone(440, 'sine', 0.03, 0.015);
+            playAudioTone(440, 'sine', 0.025, 0.015);
         });
-        el.addEventListener("click", () => {
+    });
+
+    // Delegated click handler for ripples, sparks, and specialized audio
+    document.addEventListener("click", (e) => {
+        const target = e.target.closest(CLICKABLE_SELECTOR);
+        if (!target) return;
+
+        // Specialized audio feedback
+        if (target.classList.contains("tech-chip")) {
+            playAudioTone(820, 'triangle', 0.06, 0.04);
+        } else if (target.classList.contains("hud-stat-box")) {
+            playAudioTone(580, 'sine', 0.06, 0.04);
+            setTimeout(() => playAudioTone(880, 'sine', 0.08, 0.04), 60);
+        } else if (target.classList.contains("profile-avatar-wrap")) {
+            playAchievementSound();
+        } else if (target.classList.contains("filter-btn")) {
+            playAudioTone(540, 'sine', 0.06, 0.035);
+        } else if (target.classList.contains("theme-opt")) {
+            playAudioTone(720, 'sine', 0.07, 0.04);
+        } else {
             playAudioTone(660, 'sine', 0.05, 0.03);
+        }
+
+        spawnCyberRipple(e, target);
+        spawnSparks(e.clientX, e.clientY);
+    });
+
+    // Special avatar & HUD stats click animations
+    const avatarWrap = document.querySelector(".profile-avatar-wrap");
+    if (avatarWrap) {
+        let avatarSpins = 0;
+        avatarWrap.addEventListener("click", () => {
+            avatarSpins++;
+            avatarWrap.style.transform = `scale(1.15) rotate(${avatarSpins % 2 === 0 ? 10 : -10}deg)`;
+            setTimeout(() => {
+                avatarWrap.style.transform = "";
+            }, 300);
+            showToast("Neural Core Active", "System clock frequency overclocked to maximum!");
+        });
+    }
+
+    document.querySelectorAll(".hud-stat-box").forEach(box => {
+        box.addEventListener("click", () => {
+            const counter = box.querySelector(".stat-counter");
+            if (counter) {
+                counter.style.transform = "scale(1.22)";
+                counter.style.color = "var(--accent)";
+                counter.style.transition = "transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.25s ease";
+                setTimeout(() => {
+                    counter.style.transform = "";
+                    counter.style.color = "";
+                }, 300);
+            }
         });
     });
 
@@ -176,13 +282,21 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         animateCursorFollower();
 
-        const interactiveTargets = document.querySelectorAll(
-            'a, button, input, textarea, select, .project-card, .pillar-card, .channel-card, .timeline-card, .sandbox-tab'
-        );
+        const interactiveTargets = document.querySelectorAll(CLICKABLE_SELECTOR);
 
         interactiveTargets.forEach((target) => {
             target.addEventListener("mouseenter", () => cursorFollower.classList.add("hover-active"));
             target.addEventListener("mouseleave", () => cursorFollower.classList.remove("hover-active"));
+        });
+
+        window.addEventListener("mousedown", () => {
+            cursorDot.classList.add("cursor-clicked");
+            cursorFollower.classList.add("cursor-clicked");
+        });
+
+        window.addEventListener("mouseup", () => {
+            cursorDot.classList.remove("cursor-clicked");
+            cursorFollower.classList.remove("cursor-clicked");
         });
 
         document.addEventListener("mouseleave", () => {
@@ -416,6 +530,7 @@ document.addEventListener("DOMContentLoaded", () => {
         calculator: {
             title: "Desktop Arithmetic System",
             badge: "PYTHON CORE",
+            url: "https://github.com/S1Prime/Calculator",
             arch: "Engineered in Python with custom string expression tokenization, operator precedence evaluation (Shunting-yard algorithm), and decimal precision formatting.",
             highlights: [
                 "Custom infix to postfix expression parsing engine",
@@ -427,6 +542,7 @@ document.addEventListener("DOMContentLoaded", () => {
         budget: {
             title: "Personal Budget Tracker",
             badge: "PYTHON DATA",
+            url: "https://github.com/S1Prime/Personal-Budget-Tracker",
             arch: "Built with Python data persistence logic to record, filter, and summarize incoming cashflows, recurring expenses, and financial goals.",
             highlights: [
                 "JSON / CSV data serialization for expense records",
@@ -438,6 +554,7 @@ document.addEventListener("DOMContentLoaded", () => {
         quiz: {
             title: "Online Quiz Management System",
             badge: "JAVA ENTERPRISE",
+            url: "https://online-quiz-cqaw.onrender.com",
             arch: "Full-stack enterprise application built using Java Servlets, JDBC persistence layer, and SQL schemas for online testing.",
             highlights: [
                 "Servlet session state authentication and encrypted parameters",
@@ -449,6 +566,7 @@ document.addEventListener("DOMContentLoaded", () => {
         hoteldbms: {
             title: "Hotel Management System DBMS",
             badge: "DBMS / SQL",
+            url: "https://s1prime.github.io/Hotel-Management-System-DBMS/",
             arch: "Designed relational SQL database tables, foreign key constraints, primary key indexing, and transaction workflows for hotel management operations.",
             highlights: [
                 "SQL table normalization (3NF) for room and guest records",
@@ -460,6 +578,7 @@ document.addEventListener("DOMContentLoaded", () => {
         taskmanager: {
             title: "Student Task Manager",
             badge: "WEB APPLICATION",
+            url: "https://s1prime.github.io/Student-Task-Manager/",
             arch: "Academic workflow app built with Vanilla JavaScript, LocalStorage persistence, and CSS Glassmorphism to manage deadlines.",
             highlights: [
                 "LocalStorage JSON state sync for offline access",
@@ -471,6 +590,7 @@ document.addEventListener("DOMContentLoaded", () => {
         webcalc: {
             title: "Modern Calculator Web Engine",
             badge: "FRONTEND ENGINE",
+            url: "https://s1prime.github.io/Calculator-Using-Frontend/",
             arch: "Interactive web calculator featuring real-time expression evaluation, CSS variable dynamic theme switching, and keyboard event hooks.",
             highlights: [
                 "Full keyboard event listener bindings (0-9, +, -, *, /, Enter)",
@@ -482,6 +602,7 @@ document.addEventListener("DOMContentLoaded", () => {
         matlab: {
             title: "MATLAB Analytical Workspace",
             badge: "COMPUTATIONAL",
+            url: "https://github.com/S1Prime/Matlab",
             arch: "Numerical mathematics workspace built in MATLAB executing linear algebra matrix operations, system solvers, and spatial 2D/3D plots.",
             highlights: [
                 "Eigenvalue and eigenvector decomposition scripts",
@@ -499,6 +620,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const modalArchDesc = document.getElementById("modalArchDesc");
     const modalHighlights = document.getElementById("modalHighlights");
     const modalCodeSnippet = document.getElementById("modalCodeSnippet");
+    const modalRepoLink = document.getElementById("modalRepoLink");
 
     document.querySelectorAll(".btn-inspect-modal").forEach(btn => {
         btn.addEventListener("click", (e) => {
@@ -511,6 +633,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (modalBadge) modalBadge.textContent = data.badge;
                 if (modalArchDesc) modalArchDesc.textContent = data.arch;
                 if (modalCodeSnippet) modalCodeSnippet.textContent = data.code;
+                if (modalRepoLink && data.url) {
+                    modalRepoLink.href = data.url;
+                }
 
                 if (modalHighlights) {
                     modalHighlights.innerHTML = data.highlights.map(h => `<li>${h}</li>`).join("");
