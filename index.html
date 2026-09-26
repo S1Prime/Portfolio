@@ -70,6 +70,7 @@
             <a href="#education" class="nav-link">Education</a>
             <a href="#skills" class="nav-link">Skills</a>
             <a href="#projects" class="nav-link">Projects</a>
+            <a href="#certifications" class="nav-link">Certifications</a>
             <a href="#contact" class="nav-link">Contact</a>
         </nav>
 
@@ -673,12 +674,101 @@
         </section>
 
         <!-- =========================================================
+             HACKATHON CERTIFICATIONS SECTION
+        ========================================================= -->
+        <section id="certifications">
+            <div class="section-head reveal">
+                <div>
+                    <div class="section-num">05 / Competitions &amp; Honors</div>
+                    <h2 class="section-title">Hackathons &amp; Credentials.</h2>
+                </div>
+                <p class="section-desc">
+                    Verified competitive hackathon participations, algorithmic problem-solving assessments, and collaborative engineering sprints.
+                </p>
+            </div>
+
+            <div class="certifications-grid">
+                <!-- Certificate 1: Adobe University Hackathon -->
+                <article class="cert-card reveal" data-cert-id="adobe">
+                    <div class="cert-image-wrap" data-cert-full="cert-adobe-hackathon.png" data-cert-title="Adobe University Hackathon 2026 Certificate">
+                        <img src="cert-adobe-hackathon.png" alt="Adobe University Hackathon 2026 Certificate of Participation" class="cert-image" loading="lazy">
+                        <div class="cert-overlay">
+                            <span class="cert-zoom-btn"><span>🔍</span> View Full Credential</span>
+                        </div>
+                    </div>
+                    <div class="cert-body">
+                        <div class="cert-meta">
+                            <span class="cert-badge cert-badge-adobe">Adobe × Unstop</span>
+                            <span class="cert-date">Sep 2026</span>
+                        </div>
+                        <h3 class="cert-title">Adobe University Hackathon 2026</h3>
+                        <div class="cert-subtitle">// Round 1 · Online Assessment (MCQ + Coding)</div>
+                        <p class="cert-desc">
+                            Qualified and completed the nationwide competitive assessment covering complex data structures, algorithmic coding challenges, and core computer science fundamentals organized by Adobe on the Unstop platform.
+                        </p>
+                        <div class="cert-tags">
+                            <span class="tag-pill">Algorithms</span>
+                            <span class="tag-pill">Coding Assessment</span>
+                            <span class="tag-pill">Adobe</span>
+                            <span class="tag-pill">Unstop</span>
+                        </div>
+                        <div class="cert-actions">
+                            <button class="btn btn-secondary btn-cert-view" data-cert="adobe">
+                                <span>Inspect 🔍</span>
+                            </button>
+                            <a class="btn btn-primary btn-cert-link" href="https://unstop.com/certificate-preview/d5bc9ab8-6e46-455f-85d8-e611a830b107?utm_campaign=site-emails&utm_medium=d2c-automated&utm_source=wow-look-at-your-certificate-adobe-university-hackathon-2026" target="_blank" rel="noreferrer">
+                                <span>Verify on Unstop</span>
+                                <span>↗</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Certificate 2: Amrita Amritapuri Hackathon -->
+                <article class="cert-card reveal" data-cert-id="amrita">
+                    <div class="cert-image-wrap" data-cert-full="cert-amrita-hackathon.png" data-cert-title="Amrita University Amritapuri Campus Hackathon Certificate">
+                        <img src="cert-amrita-hackathon.png" alt="Amrita University Amritapuri Campus Hackathon Certificate of Participation" class="cert-image" loading="lazy">
+                        <div class="cert-overlay">
+                            <span class="cert-zoom-btn"><span>🔍</span> View Full Credential</span>
+                        </div>
+                    </div>
+                    <div class="cert-body">
+                        <div class="cert-meta">
+                            <span class="cert-badge cert-badge-amrita">Amrita University</span>
+                            <span class="cert-date">Jul 17–18, 2026</span>
+                        </div>
+                        <h3 class="cert-title">Amrita Amritapuri Campus Hackathon</h3>
+                        <div class="cert-subtitle">// Team "ByteDex" · Nitrostack &amp; Wekan</div>
+                        <p class="cert-desc">
+                            Participated as a core developer of team "ByteDex" in the Amrita University Hackathon, engineering full-stack software and prototype architectures endorsed by Abhishek Pandit (CEO, Nitrostack) and Pablo Jiménez Godoy (CEO, Wekan Enterprises).
+                        </p>
+                        <div class="cert-tags">
+                            <span class="tag-pill">Team ByteDex</span>
+                            <span class="tag-pill">Nitrostack</span>
+                            <span class="tag-pill">Wekan</span>
+                            <span class="tag-pill">Rapid Prototyping</span>
+                        </div>
+                        <div class="cert-actions">
+                            <button class="btn btn-secondary btn-cert-view" data-cert="amrita">
+                                <span>Inspect 🔍</span>
+                            </button>
+                            <a class="btn btn-primary btn-cert-link" href="vaishnav-venu-amrita-university-amritapuri-campus-certificate (1).pdf" target="_blank" rel="noreferrer">
+                                <span>Official PDF</span>
+                                <span>↗</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- =========================================================
              CONTACT SECTION
         ========================================================= -->
         <section id="contact">
             <div class="section-head reveal">
                 <div>
-                    <div class="section-num">05 / Initiation &amp; Connect</div>
+                    <div class="section-num">06 / Initiation &amp; Connect</div>
                     <h2 class="section-title">Let's build together.</h2>
                 </div>
                 <p class="section-desc">
@@ -826,6 +916,34 @@ PreparedStatement ps = conn.prepareStatement("SELECT * FROM exams WHERE id=?");<
                     <span>View Repository</span>
                     <span>↗</span>
                 </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hackathon Certificate Lightbox Modal -->
+    <div class="cert-modal-backdrop" id="certModal">
+        <div class="cert-modal-card">
+            <div class="cert-modal-header">
+                <div>
+                    <span class="modal-badge" id="certModalBadge">VERIFIED CREDENTIAL</span>
+                    <h3 id="certModalTitle">Certificate of Participation</h3>
+                </div>
+                <button class="btn-modal-close" id="btnCloseCertModal" aria-label="Close certificate modal">✕</button>
+            </div>
+            <div class="cert-modal-image-box">
+                <img id="certModalImage" src="" alt="Certificate" class="cert-modal-img">
+            </div>
+            <div class="cert-modal-footer">
+                <span id="certModalDesc" class="cert-modal-desc"></span>
+                <div class="cert-modal-btns">
+                    <a id="certModalDownload" class="btn btn-secondary" href="" target="_blank" download>
+                        <span>Download Credential ⬇</span>
+                    </a>
+                    <a id="certModalExternal" class="btn btn-primary" href="" target="_blank" rel="noreferrer">
+                        <span>Verify Source</span>
+                        <span>↗</span>
+                    </a>
+                </div>
             </div>
         </div>
     </div>

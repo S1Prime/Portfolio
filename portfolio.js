@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
     /* =========================================================
        UNIVERSAL CLICKABLE ANIMATION, SHOCKWAVE & AUDIO ENGINE
     ========================================================= */
-    const CLICKABLE_SELECTOR = 'a, button, input, textarea, select, .project-card, .pillar-card, .channel-card, .timeline-card, .tech-chip, .tag-pill, .hud-stat-box, .profile-avatar-wrap, .btn-inspect-modal, .filter-btn, .theme-opt, .scroll-top-btn, [role="button"]';
+    const CLICKABLE_SELECTOR = 'a, button, input, textarea, select, .project-card, .cert-card, .cert-image-wrap, .btn-cert-view, .btn-cert-link, .pillar-card, .channel-card, .timeline-card, .tech-chip, .tag-pill, .hud-stat-box, .profile-avatar-wrap, .btn-inspect-modal, .filter-btn, .theme-opt, .scroll-top-btn, [role="button"]';
 
     function spawnCyberRipple(e, target) {
         if (!target) return;
@@ -655,6 +655,87 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* =========================================================
+       8B. HACKATHON CERTIFICATE LIGHTBOX MODAL
+    ========================================================= */
+    const certDetails = {
+        adobe: {
+            title: "Adobe University Hackathon 2026",
+            badge: "ADOBE × UNSTOP",
+            img: "cert-adobe-hackathon.png",
+            download: "cert-adobe-hackathon.png",
+            external: "https://unstop.com/certificate-preview/d5bc9ab8-6e46-455f-85d8-e611a830b107?utm_campaign=site-emails&utm_medium=d2c-automated&utm_source=wow-look-at-your-certificate-adobe-university-hackathon-2026",
+            desc: "Round 1 Online Assessment (MCQ + Coding) · Verified on Unstop"
+        },
+        amrita: {
+            title: "Amrita University Amritapuri Campus Hackathon",
+            badge: "AMRITA UNIVERSITY",
+            img: "cert-amrita-hackathon.png",
+            download: "vaishnav-venu-amrita-university-amritapuri-campus-certificate (1).pdf",
+            external: "vaishnav-venu-amrita-university-amritapuri-campus-certificate (1).pdf",
+            desc: "Team 'ByteDex' · Endorsed by Nitrostack (CEO Abhishek Pandit) & Wekan (CEO Pablo Jiménez Godoy)"
+        }
+    };
+
+    const certModal = document.getElementById("certModal");
+    const btnCloseCertModal = document.getElementById("btnCloseCertModal");
+    const certModalTitle = document.getElementById("certModalTitle");
+    const certModalBadge = document.getElementById("certModalBadge");
+    const certModalImage = document.getElementById("certModalImage");
+    const certModalDesc = document.getElementById("certModalDesc");
+    const certModalDownload = document.getElementById("certModalDownload");
+    const certModalExternal = document.getElementById("certModalExternal");
+
+    function openCertModal(key) {
+        const data = certDetails[key];
+        if (!data || !certModal) return;
+
+        if (certModalTitle) certModalTitle.textContent = data.title;
+        if (certModalBadge) certModalBadge.textContent = data.badge;
+        if (certModalImage) {
+            certModalImage.src = data.img;
+            certModalImage.alt = data.title;
+        }
+        if (certModalDesc) certModalDesc.textContent = data.desc;
+        if (certModalDownload) certModalDownload.href = data.download;
+        if (certModalExternal) certModalExternal.href = data.external;
+
+        certModal.classList.add("active");
+        playAudioTone(720, 'sine', 0.08, 0.04);
+        unlockAchievement("inspector");
+    }
+
+    document.querySelectorAll(".btn-cert-view").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            e.preventDefault();
+            const key = btn.getAttribute("data-cert");
+            openCertModal(key);
+        });
+    });
+
+    document.querySelectorAll(".cert-image-wrap").forEach(wrap => {
+        wrap.addEventListener("click", () => {
+            const card = wrap.closest(".cert-card");
+            const key = card?.getAttribute("data-cert-id");
+            if (key) openCertModal(key);
+        });
+    });
+
+    if (btnCloseCertModal && certModal) {
+        btnCloseCertModal.addEventListener("click", () => certModal.classList.remove("active"));
+        certModal.addEventListener("click", (e) => {
+            if (e.target === certModal) certModal.classList.remove("active");
+        });
+    }
+
+    // Keyboard escape closes all modals
+    window.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+            if (projectModal) projectModal.classList.remove("active");
+            if (certModal) certModal.classList.remove("active");
+        }
+    });
+
+    /* =========================================================
        9. SCROLL REVEAL & NAVIGATION TRACKING
     ========================================================= */
     const navLinks = document.querySelectorAll("#navLinks a");
@@ -679,7 +760,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        if (currentSectionId === "education" || currentSectionId === "sandbox" || currentSectionId === "projects") {
+        if (currentSectionId === "education" || currentSectionId === "sandbox" || currentSectionId === "projects" || currentSectionId === "certifications") {
             unlockAchievement("explorer");
         }
 
