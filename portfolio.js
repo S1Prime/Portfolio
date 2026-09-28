@@ -73,6 +73,235 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    /* =========================================================
+       0. SYSTEM INITIALIZING FULLSCREEN LOADER (1% -> 100%)
+          WITH OS DETECTION (WINDOWS vs MAC) & TYPEWRITER GREETING
+    ========================================================= */
+    function initSystemLoader() {
+        const loader = document.getElementById("systemLoader");
+        if (!loader) return;
+
+        const counterNum = document.getElementById("loaderCounterNum");
+        const progressFill = document.getElementById("loaderProgressFill");
+        const logText = document.getElementById("loaderLogText");
+        const statusTitle = document.getElementById("loaderStatusTitle");
+        const clockEl = document.getElementById("loaderClock");
+        const osBadge = document.getElementById("loaderOsBadge");
+        const termTitle = document.getElementById("loaderTermTitle");
+        const termControls = document.getElementById("loaderTermControls");
+        const footerOs = document.getElementById("loaderFooterOs");
+        const typewriterEl = document.getElementById("loaderTypewriterText");
+
+        // Lock scroll while initializing
+        document.body.classList.add("system-loading");
+
+        // 1. Detect Client OS (Windows vs macOS)
+        function detectOS() {
+            const ua = navigator.userAgent || "";
+            const platform = (navigator.userAgentData && navigator.userAgentData.platform) || navigator.platform || "";
+            if (/Mac|iPhone|iPad|iPod/i.test(platform) || /Macintosh|Mac OS X/i.test(ua)) {
+                return {
+                    name: "macOS",
+                    badge: "🍎 macOS_DARWIN",
+                    badgeClass: "os-mac",
+                    subsystem: "macOS Darwin (ARM64 / x86_64)",
+                    kernelLog: "[KERNEL.MAC] Metal GPU pipeline & Mach-O runtime initialized.",
+                    isMac: true
+                };
+            }
+            return {
+                name: "Windows",
+                badge: "🪟 WINDOWS_NT",
+                badgeClass: "os-win",
+                subsystem: "Microsoft Windows NT (x86_64)",
+                kernelLog: "[KERNEL.WIN] Win32 GUI engine & DirectX hardware acceleration OK.",
+                isMac: false
+            };
+        }
+
+        const clientOS = detectOS();
+
+        // 2. Render OS Badges and Controls
+        if (osBadge) {
+            osBadge.textContent = clientOS.badge;
+            osBadge.classList.add(clientOS.badgeClass);
+        }
+        if (termTitle) {
+            termTitle.textContent = `${clientOS.name.toUpperCase()} // BOOT_SEQUENCE`;
+        }
+        if (footerOs) {
+            footerOs.textContent = `HOST: ${clientOS.subsystem.toUpperCase()}`;
+        }
+        if (termControls) {
+            if (clientOS.isMac) {
+                termControls.innerHTML = `
+                    <span class="t-light t-red"></span>
+                    <span class="t-light t-yellow"></span>
+                    <span class="t-light t-green"></span>
+                `;
+            } else {
+                termControls.innerHTML = `
+                    <div class="win-ctrls">
+                        <span class="win-btn" title="Minimize">—</span>
+                        <span class="win-btn" title="Maximize">▢</span>
+                        <span class="win-btn close" title="Close">✕</span>
+                    </div>
+                `;
+            }
+        }
+
+        // 3. Telemetry UTC Clock
+        function updateClock() {
+            if (clockEl) {
+                const now = new Date();
+                const pad = (n) => String(n).padStart(2, '0');
+                clockEl.textContent = `UTC ${pad(now.getUTCHours())}:${pad(now.getUTCMinutes())}:${pad(now.getUTCSeconds())}`;
+            }
+        }
+        updateClock();
+        const clockTimer = setInterval(updateClock, 1000);
+
+        // 4. Typewriter Welcome Message Animation
+        const welcomeMessage = "Welcome to Vaishnav Venu's portfolio.";
+        let charIndex = 0;
+        function typeWelcomeMessage() {
+            if (!typewriterEl) return;
+            if (charIndex <= welcomeMessage.length) {
+                typewriterEl.textContent = welcomeMessage.slice(0, charIndex);
+                charIndex++;
+                setTimeout(typeWelcomeMessage, 28);
+            }
+        }
+        setTimeout(typeWelcomeMessage, 150);
+
+        // 5. Dynamic Boot Logs with Detected OS
+        const bootLogs = [
+            { pct: 1, text: `[SYS.INIT] Spawning core thread on ${clientOS.name}...` },
+            { pct: 16, text: clientOS.kernelLog },
+            { pct: 32, text: "[TOKENS] Initializing cyber design tokens & glassmorphism..." },
+            { pct: 46, text: "[ACADEMIC.CORE] Connecting Amrita CSE node @ Amritapuri..." },
+            { pct: 62, text: "[REGISTRY] Synchronizing 7+ open-source engineering repos..." },
+            { pct: 76, text: "[TELEMETRY] Loading capability matrix & dynamic inspectors..." },
+            { pct: 88, text: "[SECURITY] Validating mail server handshake (vaishnavvenu2007)..." },
+            { pct: 98, text: "[SYS.FINAL] Binding interactive controllers & gestures..." },
+            { pct: 100, text: `[SYS.ONLINE] ${clientOS.name} environment verified. Welcome.` }
+        ];
+
+        function getLogForProgress(val) {
+            let active = bootLogs[0].text;
+            for (let i = 0; i < bootLogs.length; i++) {
+                if (val >= bootLogs[i].pct) {
+                    active = bootLogs[i].text;
+                }
+            }
+            return active;
+        }
+
+        // 6. Interactive Ready To Enter Controller
+        const btnEnterWorkspace = document.getElementById("btnEnterWorkspace");
+        const btnEnterText = document.getElementById("btnEnterText");
+        let hasEntered = false;
+
+        function enterWorkspace() {
+            if (hasEntered) return;
+            hasEntered = true;
+            clearInterval(clockTimer);
+            window.removeEventListener("keydown", onKeyDown);
+
+            if (counterNum) counterNum.textContent = "100";
+            if (progressFill) progressFill.style.width = "100%";
+            if (statusTitle) {
+                statusTitle.textContent = "SYSTEM READY // ENTERING...";
+                statusTitle.style.color = "var(--success, #00e676)";
+            }
+            if (btnEnterText) {
+                btnEnterText.textContent = "ENTERING WORKSPACE...";
+            }
+
+            // Cyber boot chime
+            playAudioTone(523.25, 'sine', 0.08, 0.04);
+            setTimeout(() => {
+                playAudioTone(880, 'triangle', 0.12, 0.05);
+            }, 70);
+
+            loader.classList.add("loader-complete");
+            document.body.classList.remove("system-loading");
+
+            // Trigger scroll reveals for initial viewport
+            const reveals = document.querySelectorAll(".reveal");
+            reveals.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 50) {
+                    el.classList.add("active");
+                }
+            });
+
+            setTimeout(() => {
+                loader.style.display = "none";
+            }, 600);
+        }
+
+        if (btnEnterWorkspace) {
+            btnEnterWorkspace.addEventListener("click", (e) => {
+                e.preventDefault();
+                enterWorkspace();
+            });
+        }
+
+        function onKeyDown(e) {
+            if (e.key === "Enter" || e.key === " ") {
+                enterWorkspace();
+            }
+        }
+        window.addEventListener("keydown", onKeyDown);
+
+        // 7. Stepped Animation Loop
+        const startTime = performance.now();
+        const targetDuration = 1600; // ~1.6s smooth, balanced pacing
+
+        function stepLoader(currentTime) {
+            if (hasEntered) return;
+
+            const elapsed = currentTime - startTime;
+            const rawRatio = Math.min(1, elapsed / targetDuration);
+
+            // High-tech curved progression
+            const eased = 1 - Math.pow(1 - rawRatio, 2.4);
+            const progress = Math.max(1, Math.min(100, Math.floor(eased * 100)));
+
+            if (counterNum) counterNum.textContent = progress;
+            if (progressFill) progressFill.style.width = `${progress}%`;
+            if (logText) logText.textContent = getLogForProgress(progress);
+
+            if (progress < 100) {
+                requestAnimationFrame(stepLoader);
+            } else {
+                if (counterNum) counterNum.textContent = "100";
+                if (progressFill) progressFill.style.width = "100%";
+                if (statusTitle) {
+                    statusTitle.textContent = "SYSTEM READY // READY TO ENTER";
+                    statusTitle.style.color = "var(--success, #00e676)";
+                }
+                if (btnEnterWorkspace) {
+                    btnEnterWorkspace.classList.add("is-ready");
+                    if (btnEnterText) btnEnterText.textContent = "READY TO ENTER →";
+                }
+
+                // Auto-enter fallback after 2.6s if user doesn't click or press Enter
+                setTimeout(() => {
+                    if (!hasEntered) {
+                        enterWorkspace();
+                    }
+                }, 2600);
+            }
+        }
+
+        requestAnimationFrame(stepLoader);
+    }
+
+    // Launch loading screen sequence immediately
+    initSystemLoader();
+
     const CLICKABLE_SELECTOR = 'a, button, input, textarea, select, .project-card, .cert-card, .cert-image-wrap, .btn-cert-view, .btn-cert-link, .pillar-card, .channel-card, .timeline-card, .tech-chip, .tag-pill, .hud-stat-box, .profile-avatar-wrap, .btn-inspect-modal, .filter-btn, .theme-opt, .scroll-top-btn, .btn-tech-action, .btn-scan-trigger, .btn-hud-toggle, .btn-tech-spec-toggle, .btn-run-sim, .spec-pill, .btn-copy-email, [role="button"]';
 
     function spawnCyberRipple(e, target) {
@@ -524,11 +753,11 @@ document.addEventListener("DOMContentLoaded", () => {
     ========================================================= */
     const typewriterEl = document.getElementById("typewriterText");
     const phrases = [
-        "Artificial Intelligence & Machine Learning",
+        "Computer Science & Engineering",
         "Full-Stack Systems Architecture",
         "Algorithmic Problem Solving",
         "Python & Java Backend Engineering",
-        "Open-Source AI Explorations"
+        "Aspiring AI & Machine Learning Explorer"
     ];
 
     if (typewriterEl) {
@@ -565,7 +794,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* =========================================================
-       6. AI VOICE BRIEFING ENGINE (SPEECH SYNTHESIS)
+       6. AUDIO BRIEFING ENGINE (SPEECH SYNTHESIS)
     ========================================================= */
     const btnVoice = document.getElementById("btnVoiceBriefing");
     let isSpeaking = false;
@@ -576,11 +805,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 window.speechSynthesis.cancel();
                 isSpeaking = false;
                 btnVoice.classList.remove("speaking");
-                btnVoice.innerHTML = `<span>🎙️ AI Voice Briefing</span>`;
+                btnVoice.innerHTML = `<span>🎙️ Audio Briefing</span>`;
                 return;
             }
 
-            const speechText = "Welcome to Vaishnav Venu's Neural Command Center. Vaishnav is a Computer Science and Artificial Intelligence Engineering student at Amrita Vishwa Vidyapeetham, specializing in machine learning, full-stack systems, and high-performance algorithms.";
+            const speechText = "Welcome to Vaishnav Venu's Engineering Command Center. Vaishnav is a B.Tech Computer Science and Engineering student at Amrita Vishwa Vidyapeetham, Kollam, focusing on software engineering, algorithms, and full-stack systems, with a keen aspiration to learn AI and machine learning afterwards.";
 
             const utterance = new SpeechSynthesisUtterance(speechText);
             utterance.rate = 1.05;
@@ -593,14 +822,14 @@ document.addEventListener("DOMContentLoaded", () => {
             utterance.onstart = () => {
                 isSpeaking = true;
                 btnVoice.classList.add("speaking");
-                btnVoice.innerHTML = `<span>⏹️ Stop Voice</span>`;
+                btnVoice.innerHTML = `<span>⏹️ Stop Audio</span>`;
                 unlockAchievement("voice");
             };
 
             utterance.onend = () => {
                 isSpeaking = false;
                 btnVoice.classList.remove("speaking");
-                btnVoice.innerHTML = `<span>🎙️ AI Voice Briefing</span>`;
+                btnVoice.innerHTML = `<span>🎙️ Audio Briefing</span>`;
             };
 
             window.speechSynthesis.speak(utterance);
