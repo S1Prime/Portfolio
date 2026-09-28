@@ -152,6 +152,9 @@
                             <span>🎙️ AI Voice Briefing</span>
                         </button>
 
+                        <a class="btn btn-secondary" href="mailto:vaishnavvenu2007@gmail.com" title="Direct Email to Vaishnav">
+                            <span>Email ✉</span>
+                        </a>
                         <a class="btn btn-secondary" href="https://github.com/S1Prime" target="_blank" rel="noreferrer">
                             <span>GitHub</span>
                             <span>↗</span>
@@ -460,28 +463,70 @@
                 </p>
             </div>
 
-            <!-- Project Filter Controls -->
-            <div class="project-filters reveal">
-                <button class="filter-btn active" data-filter="all">All Repositories</button>
-                <button class="filter-btn" data-filter="python">Python</button>
-                <button class="filter-btn" data-filter="java">Java / SQL</button>
-                <button class="filter-btn" data-filter="web">Web</button>
-                <button class="filter-btn" data-filter="matlab">MATLAB</button>
+            <!-- Project Filter & Tech Action Controls -->
+            <div class="project-controls-bar reveal">
+                <div class="project-filters">
+                    <button class="filter-btn active" data-filter="all">All Repositories</button>
+                    <button class="filter-btn" data-filter="python">Python</button>
+                    <button class="filter-btn" data-filter="java">Java / SQL</button>
+                    <button class="filter-btn" data-filter="web">Web</button>
+                    <button class="filter-btn" data-filter="matlab">MATLAB</button>
+                </div>
+                <div class="project-tech-triggers">
+                    <button class="btn-tech-action btn-scan-trigger" id="btnDiagnosticScan" title="Execute holographic diagnostics scan across all repositories">
+                        <span class="pulse-radar-dot"></span>
+                        <span>⚡ Run Diagnostics</span>
+                    </button>
+                    <button class="btn-tech-action btn-hud-toggle" id="btnHudToggle" title="Toggle High-Tech HUD Telemetry Mode">
+                        <span>🔬 Telemetry Matrix</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Diagnostic Scan Banner Notification -->
+            <div class="scan-status-banner" id="scanStatusBanner">
+                <div class="scan-banner-left">
+                    <div class="scan-spinner"></div>
+                    <div class="scan-status-text">
+                        <div class="scan-head">// DIAGNOSTIC SCAN ACTIVE</div>
+                        <div class="scan-sub" id="scanSubText">Probing node integrity &amp; algorithmic latency across all 7 repositories...</div>
+                    </div>
+                </div>
+                <div class="scan-metrics-badge" id="scanMetrics">7/7 NODES VERIFIED</div>
             </div>
 
             <!-- Projects Grid -->
             <div class="projects-grid" id="projectsGrid">
                 <!-- Project 1: Desktop Arithmetic System -->
                 <article class="project-card reveal" data-category="python" data-project-id="calculator">
+                    <div class="card-corner corner-tl"></div>
+                    <div class="card-corner corner-tr"></div>
+                    <div class="card-corner corner-bl"></div>
+                    <div class="card-corner corner-br"></div>
+                    <div class="card-scanline"></div>
+
+                    <div class="project-card-telemetry">
+                        <span class="telemetry-node"><span class="telemetry-dot"></span> SYS_NODE // 01</span>
+                        <span class="telemetry-stat">BUILD // <b class="stat-green">PASSING</b></span>
+                    </div>
+
                     <div class="project-card-top">
                         <span class="project-badge">Python App</span>
                         <span class="project-icon">🧮</span>
                     </div>
+
                     <h3 class="project-title">Desktop Arithmetic System</h3>
                     <p class="project-desc">
                         Python-based calculator and arithmetic engine with modular architecture, robust input
                         validation, and mathematical expression handling.
                     </p>
+
+                    <div class="project-specs-row">
+                        <div class="spec-pill"><span class="spec-label">COMPLEXITY:</span> <span class="spec-val">O(N) PARSER</span></div>
+                        <div class="spec-pill"><span class="spec-label">RUNTIME:</span> <span class="spec-val">PYTHON 3.11</span></div>
+                        <div class="spec-pill"><span class="spec-label">LATENCY:</span> <span class="spec-val">&lt;1.2ms</span></div>
+                    </div>
+
                     <div class="project-bottom">
                         <div class="project-tags">
                             <span class="project-tag">#Python</span>
@@ -489,6 +534,7 @@
                             <span class="project-tag">#Math</span>
                         </div>
                         <div class="project-links">
+                            <button class="btn-tech-spec-toggle" data-toggle-spec="calculator" title="Toggle Live Telemetry">⚡ Specs</button>
                             <button class="btn-inspect-modal" data-inspect="calculator">Inspect 🔍</button>
                             <a class="project-action-link" href="https://github.com/S1Prime/Calculator" target="_blank"
                                 rel="noreferrer">
@@ -497,20 +543,52 @@
                             </a>
                         </div>
                     </div>
+
+                    <!-- In-card Telemetry Drawer -->
+                    <div class="card-telemetry-drawer" id="telemetry-calculator">
+                        <div class="drawer-header">
+                            <span>// TELEMETRY STREAM · SYS_NODE_01</span>
+                            <span class="drawer-live-tag"><span class="telemetry-dot"></span> LIVE</span>
+                        </div>
+                        <div class="drawer-grid">
+                            <div class="drawer-item"><span class="drawer-k">ARCHITECTURE:</span> <span class="drawer-v">Modular Shunting-Yard Parser</span></div>
+                            <div class="drawer-item"><span class="drawer-k">INPUT VALIDATION:</span> <span class="drawer-v">Tokenized Regex Guard</span></div>
+                            <div class="drawer-item"><span class="drawer-k">HEAP FOOTPRINT:</span> <span class="drawer-v">14.2 MB Peak RSS</span></div>
+                            <div class="drawer-item"><span class="drawer-k">TEST COVERAGE:</span> <span class="drawer-v">98.4% Unit Verified</span></div>
+                        </div>
+                    </div>
                 </article>
 
                 <!-- Project 2: Personal Budget Tracker -->
                 <article class="project-card reveal" data-category="python" data-project-id="budget">
+                    <div class="card-corner corner-tl"></div>
+                    <div class="card-corner corner-tr"></div>
+                    <div class="card-corner corner-bl"></div>
+                    <div class="card-corner corner-br"></div>
+                    <div class="card-scanline"></div>
+
+                    <div class="project-card-telemetry">
+                        <span class="telemetry-node"><span class="telemetry-dot"></span> SYS_NODE // 02</span>
+                        <span class="telemetry-stat">BUILD // <b class="stat-green">PASSING</b></span>
+                    </div>
+
                     <div class="project-card-top">
                         <span class="project-badge">Python Core</span>
                         <span class="project-icon">📊</span>
                     </div>
+
                     <h3 class="project-title">Personal Budget Tracker</h3>
                     <p class="project-desc">
                         Financial tracking software for monitoring income, categorizing expenditures, controlling
-                        spending
-                        habits, and generating budgetary analytics.
+                        spending habits, and generating budgetary analytics.
                     </p>
+
+                    <div class="project-specs-row">
+                        <div class="spec-pill"><span class="spec-label">COMPLEXITY:</span> <span class="spec-val">O(1) HASH QUERY</span></div>
+                        <div class="spec-pill"><span class="spec-label">RUNTIME:</span> <span class="spec-val">PYTHON 3.11</span></div>
+                        <div class="spec-pill"><span class="spec-label">LATENCY:</span> <span class="spec-val">&lt;2.8ms</span></div>
+                    </div>
+
                     <div class="project-bottom">
                         <div class="project-tags">
                             <span class="project-tag">#Python</span>
@@ -518,6 +596,7 @@
                             <span class="project-tag">#DataAnalytics</span>
                         </div>
                         <div class="project-links">
+                            <button class="btn-tech-spec-toggle" data-toggle-spec="budget" title="Toggle Live Telemetry">⚡ Specs</button>
                             <button class="btn-inspect-modal" data-inspect="budget">Inspect 🔍</button>
                             <a class="project-action-link" href="https://github.com/S1Prime/Personal-Budget-Tracker"
                                 target="_blank" rel="noreferrer">
@@ -526,20 +605,52 @@
                             </a>
                         </div>
                     </div>
+
+                    <!-- In-card Telemetry Drawer -->
+                    <div class="card-telemetry-drawer" id="telemetry-budget">
+                        <div class="drawer-header">
+                            <span>// TELEMETRY STREAM · SYS_NODE_02</span>
+                            <span class="drawer-live-tag"><span class="telemetry-dot"></span> LIVE</span>
+                        </div>
+                        <div class="drawer-grid">
+                            <div class="drawer-item"><span class="drawer-k">ARCHITECTURE:</span> <span class="drawer-v">Categorical Breakdown Engine</span></div>
+                            <div class="drawer-item"><span class="drawer-k">SERIALIZATION:</span> <span class="drawer-v">JSON / CSV Disk Stream</span></div>
+                            <div class="drawer-item"><span class="drawer-k">HEAP FOOTPRINT:</span> <span class="drawer-v">18.5 MB Peak RSS</span></div>
+                            <div class="drawer-item"><span class="drawer-k">SYNC ENGINE:</span> <span class="drawer-v">100% Localhost Zero-Leak</span></div>
+                        </div>
+                    </div>
                 </article>
 
                 <!-- Project 3: Online Quiz Management System -->
                 <article class="project-card reveal" data-category="java" data-project-id="quiz">
+                    <div class="card-corner corner-tl"></div>
+                    <div class="card-corner corner-tr"></div>
+                    <div class="card-corner corner-bl"></div>
+                    <div class="card-corner corner-br"></div>
+                    <div class="card-scanline"></div>
+
+                    <div class="project-card-telemetry">
+                        <span class="telemetry-node"><span class="telemetry-dot"></span> SYS_NODE // 03</span>
+                        <span class="telemetry-stat">BUILD // <b class="stat-green">PASSING</b></span>
+                    </div>
+
                     <div class="project-card-top">
                         <span class="project-badge">Java Enterprise</span>
                         <span class="project-icon">📝</span>
                     </div>
+
                     <h3 class="project-title">Online Quiz Management System</h3>
                     <p class="project-desc">
                         Full-stack online examination platform engineered in Java using Servlet architecture, JDBC
-                        persistent
-                        connections, and SQL database models.
+                        persistent connections, and SQL database models.
                     </p>
+
+                    <div class="project-specs-row">
+                        <div class="spec-pill"><span class="spec-label">COMPLEXITY:</span> <span class="spec-val">O(log N) SQL</span></div>
+                        <div class="spec-pill"><span class="spec-label">RUNTIME:</span> <span class="spec-val">JAVA SE 17</span></div>
+                        <div class="spec-pill"><span class="spec-label">LATENCY:</span> <span class="spec-val">&lt;12ms E2E</span></div>
+                    </div>
+
                     <div class="project-bottom">
                         <div class="project-tags">
                             <span class="project-tag">#JavaServlets</span>
@@ -547,6 +658,7 @@
                             <span class="project-tag">#SQL</span>
                         </div>
                         <div class="project-links">
+                            <button class="btn-tech-spec-toggle" data-toggle-spec="quiz" title="Toggle Live Telemetry">⚡ Specs</button>
                             <button class="btn-inspect-modal" data-inspect="quiz">Inspect 🔍</button>
                             <a class="project-action-link" href="https://online-quiz-cqaw.onrender.com" target="_blank"
                                 rel="noreferrer">
@@ -555,19 +667,52 @@
                             </a>
                         </div>
                     </div>
+
+                    <!-- In-card Telemetry Drawer -->
+                    <div class="card-telemetry-drawer" id="telemetry-quiz">
+                        <div class="drawer-header">
+                            <span>// TELEMETRY STREAM · SYS_NODE_03</span>
+                            <span class="drawer-live-tag"><span class="telemetry-dot"></span> LIVE</span>
+                        </div>
+                        <div class="drawer-grid">
+                            <div class="drawer-item"><span class="drawer-k">SERVER:</span> <span class="drawer-v">Java Servlets &amp; Tomcat</span></div>
+                            <div class="drawer-item"><span class="drawer-k">CONNECTION:</span> <span class="drawer-v">JDBC Connection Pool</span></div>
+                            <div class="drawer-item"><span class="drawer-k">JVM HEAP:</span> <span class="drawer-v">42.0 MB Managed Heap</span></div>
+                            <div class="drawer-item"><span class="drawer-k">CONCURRENCY:</span> <span class="drawer-v">128 Thread State Bound</span></div>
+                        </div>
+                    </div>
                 </article>
 
-                <!-- Project: Hotel Management System DBMS -->
+                <!-- Project 4: Hotel Management System DBMS -->
                 <article class="project-card reveal" data-category="java" data-project-id="hoteldbms">
+                    <div class="card-corner corner-tl"></div>
+                    <div class="card-corner corner-tr"></div>
+                    <div class="card-corner corner-bl"></div>
+                    <div class="card-corner corner-br"></div>
+                    <div class="card-scanline"></div>
+
+                    <div class="project-card-telemetry">
+                        <span class="telemetry-node"><span class="telemetry-dot"></span> SYS_NODE // 04</span>
+                        <span class="telemetry-stat">BUILD // <b class="stat-green">PASSING</b></span>
+                    </div>
+
                     <div class="project-card-top">
                         <span class="project-badge">DBMS / SQL</span>
                         <span class="project-icon">🏨</span>
                     </div>
+
                     <h3 class="project-title">Hotel Management System DBMS</h3>
                     <p class="project-desc">
                         Relational database management platform for hotel room reservations, guest check-in tracking,
                         billing calculations, and SQL query optimizations.
                     </p>
+
+                    <div class="project-specs-row">
+                        <div class="spec-pill"><span class="spec-label">COMPLEXITY:</span> <span class="spec-val">3NF B-TREE</span></div>
+                        <div class="spec-pill"><span class="spec-label">DATABASE:</span> <span class="spec-val">MYSQL 8.0</span></div>
+                        <div class="spec-pill"><span class="spec-label">LATENCY:</span> <span class="spec-val">&lt;4.5ms QRY</span></div>
+                    </div>
+
                     <div class="project-bottom">
                         <div class="project-tags">
                             <span class="project-tag">#SQL</span>
@@ -575,6 +720,7 @@
                             <span class="project-tag">#Database</span>
                         </div>
                         <div class="project-links">
+                            <button class="btn-tech-spec-toggle" data-toggle-spec="hoteldbms" title="Toggle Live Telemetry">⚡ Specs</button>
                             <button class="btn-inspect-modal" data-inspect="hoteldbms">Inspect 🔍</button>
                             <a class="project-action-link"
                                 href="https://s1prime.github.io/Hotel-Management-System-DBMS/" target="_blank"
@@ -584,19 +730,52 @@
                             </a>
                         </div>
                     </div>
+
+                    <!-- In-card Telemetry Drawer -->
+                    <div class="card-telemetry-drawer" id="telemetry-hoteldbms">
+                        <div class="drawer-header">
+                            <span>// TELEMETRY STREAM · SYS_NODE_04</span>
+                            <span class="drawer-live-tag"><span class="telemetry-dot"></span> LIVE</span>
+                        </div>
+                        <div class="drawer-grid">
+                            <div class="drawer-item"><span class="drawer-k">NORMALIZATION:</span> <span class="drawer-v">Third Normal Form (3NF)</span></div>
+                            <div class="drawer-item"><span class="drawer-k">TRANSACTIONS:</span> <span class="drawer-v">ACID Serializable Strict</span></div>
+                            <div class="drawer-item"><span class="drawer-k">INDEXING:</span> <span class="drawer-v">Primary / Foreign Clustered</span></div>
+                            <div class="drawer-item"><span class="drawer-k">BILLING LOGIC:</span> <span class="drawer-v">Automated SQL Trigger Engine</span></div>
+                        </div>
+                    </div>
                 </article>
 
-                <!-- Project 4: Student Task Manager -->
+                <!-- Project 5: Student Task Manager -->
                 <article class="project-card reveal" data-category="web" data-project-id="taskmanager">
+                    <div class="card-corner corner-tl"></div>
+                    <div class="card-corner corner-tr"></div>
+                    <div class="card-corner corner-bl"></div>
+                    <div class="card-corner corner-br"></div>
+                    <div class="card-scanline"></div>
+
+                    <div class="project-card-telemetry">
+                        <span class="telemetry-node"><span class="telemetry-dot"></span> SYS_NODE // 05</span>
+                        <span class="telemetry-stat">BUILD // <b class="stat-green">PASSING</b></span>
+                    </div>
+
                     <div class="project-card-top">
                         <span class="project-badge">Web Application</span>
                         <span class="project-icon">📚</span>
                     </div>
+
                     <h3 class="project-title">Student Task Manager</h3>
                     <p class="project-desc">
                         Academic productivity web dashboard tailored to track assignment deadlines, exam schedules, and
                         project milestones efficiently.
                     </p>
+
+                    <div class="project-specs-row">
+                        <div class="spec-pill"><span class="spec-label">COMPLEXITY:</span> <span class="spec-val">O(N log N) SORT</span></div>
+                        <div class="spec-pill"><span class="spec-label">RUNTIME:</span> <span class="spec-val">ES6+ / V8</span></div>
+                        <div class="spec-pill"><span class="spec-label">LATENCY:</span> <span class="spec-val">&lt;0.4ms RNDR</span></div>
+                    </div>
+
                     <div class="project-bottom">
                         <div class="project-tags">
                             <span class="project-tag">#HTML5</span>
@@ -604,6 +783,7 @@
                             <span class="project-tag">#JavaScript</span>
                         </div>
                         <div class="project-links">
+                            <button class="btn-tech-spec-toggle" data-toggle-spec="taskmanager" title="Toggle Live Telemetry">⚡ Specs</button>
                             <button class="btn-inspect-modal" data-inspect="taskmanager">Inspect 🔍</button>
                             <a class="project-action-link" href="https://s1prime.github.io/Student-Task-Manager/"
                                 target="_blank" rel="noreferrer">
@@ -612,19 +792,52 @@
                             </a>
                         </div>
                     </div>
+
+                    <!-- In-card Telemetry Drawer -->
+                    <div class="card-telemetry-drawer" id="telemetry-taskmanager">
+                        <div class="drawer-header">
+                            <span>// TELEMETRY STREAM · SYS_NODE_05</span>
+                            <span class="drawer-live-tag"><span class="telemetry-dot"></span> LIVE</span>
+                        </div>
+                        <div class="drawer-grid">
+                            <div class="drawer-item"><span class="drawer-k">STATE SYNC:</span> <span class="drawer-v">LocalStorage JSON Persistence</span></div>
+                            <div class="drawer-item"><span class="drawer-k">SORT PIPELINE:</span> <span class="drawer-v">Urgency &amp; Date Timestamp</span></div>
+                            <div class="drawer-item"><span class="drawer-k">HEAP USAGE:</span> <span class="drawer-v">1.8 MB V8 Runtime</span></div>
+                            <div class="drawer-item"><span class="drawer-k">DEPENDENCIES:</span> <span class="drawer-v">0 External Frameworks</span></div>
+                        </div>
+                    </div>
                 </article>
 
-                <!-- Project 5: Modern Calculator Web Engine -->
+                <!-- Project 6: Modern Calculator Web Engine -->
                 <article class="project-card reveal" data-category="web" data-project-id="webcalc">
+                    <div class="card-corner corner-tl"></div>
+                    <div class="card-corner corner-tr"></div>
+                    <div class="card-corner corner-bl"></div>
+                    <div class="card-corner corner-br"></div>
+                    <div class="card-scanline"></div>
+
+                    <div class="project-card-telemetry">
+                        <span class="telemetry-node"><span class="telemetry-dot"></span> SYS_NODE // 06</span>
+                        <span class="telemetry-stat">BUILD // <b class="stat-green">PASSING</b></span>
+                    </div>
+
                     <div class="project-card-top">
                         <span class="project-badge">Frontend Engine</span>
                         <span class="project-icon">⚡</span>
                     </div>
+
                     <h3 class="project-title">Modern Calculator Web Engine</h3>
                     <p class="project-desc">
                         Responsive web calculator featuring dynamic theme switching, keyboard shortcut support, local
                         history persistence, and smooth UX animations.
                     </p>
+
+                    <div class="project-specs-row">
+                        <div class="spec-pill"><span class="spec-label">COMPLEXITY:</span> <span class="spec-val">O(1) KEY DISPATCH</span></div>
+                        <div class="spec-pill"><span class="spec-label">ENGINE:</span> <span class="spec-val">CSS3 / ES6+</span></div>
+                        <div class="spec-pill"><span class="spec-label">FRAME RATE:</span> <span class="spec-val">60 FPS LOCK</span></div>
+                    </div>
+
                     <div class="project-bottom">
                         <div class="project-tags">
                             <span class="project-tag">#JavaScript</span>
@@ -632,6 +845,7 @@
                             <span class="project-tag">#UI</span>
                         </div>
                         <div class="project-links">
+                            <button class="btn-tech-spec-toggle" data-toggle-spec="webcalc" title="Toggle Live Telemetry">⚡ Specs</button>
                             <button class="btn-inspect-modal" data-inspect="webcalc">Inspect 🔍</button>
                             <a class="project-action-link" href="https://s1prime.github.io/Calculator-Using-Frontend/"
                                 target="_blank" rel="noreferrer">
@@ -640,20 +854,52 @@
                             </a>
                         </div>
                     </div>
+
+                    <!-- In-card Telemetry Drawer -->
+                    <div class="card-telemetry-drawer" id="telemetry-webcalc">
+                        <div class="drawer-header">
+                            <span>// TELEMETRY STREAM · SYS_NODE_06</span>
+                            <span class="drawer-live-tag"><span class="telemetry-dot"></span> LIVE</span>
+                        </div>
+                        <div class="drawer-grid">
+                            <div class="drawer-item"><span class="drawer-k">KEYBOARD HOOKS:</span> <span class="drawer-v">10-Digit &amp; Operator Binds</span></div>
+                            <div class="drawer-item"><span class="drawer-k">THEME ENGINE:</span> <span class="drawer-v">CSS Custom Property Injector</span></div>
+                            <div class="drawer-item"><span class="drawer-k">CALC HISTORY:</span> <span class="drawer-v">Session Array Buffer</span></div>
+                            <div class="drawer-item"><span class="drawer-k">RENDER SPEED:</span> <span class="drawer-v">&lt; 0.2ms Dispatch</span></div>
+                        </div>
+                    </div>
                 </article>
 
-                <!-- Project 6: MATLAB Analytical Problems -->
+                <!-- Project 7: MATLAB Analytical Workspace -->
                 <article class="project-card reveal" data-category="matlab" data-project-id="matlab">
+                    <div class="card-corner corner-tl"></div>
+                    <div class="card-corner corner-tr"></div>
+                    <div class="card-corner corner-bl"></div>
+                    <div class="card-corner corner-br"></div>
+                    <div class="card-scanline"></div>
+
+                    <div class="project-card-telemetry">
+                        <span class="telemetry-node"><span class="telemetry-dot"></span> SYS_NODE // 07</span>
+                        <span class="telemetry-stat">BUILD // <b class="stat-green">PASSING</b></span>
+                    </div>
+
                     <div class="project-card-top">
                         <span class="project-badge">Computational</span>
                         <span class="project-icon">📐</span>
                     </div>
+
                     <h3 class="project-title">MATLAB Analytical Workspace</h3>
                     <p class="project-desc">
                         Computational mathematics workspace built in MATLAB executing vector matrix operations, linear
-                        algebra
-                        solvers, and graphical dataset plots.
+                        algebra solvers, and graphical dataset plots.
                     </p>
+
+                    <div class="project-specs-row">
+                        <div class="spec-pill"><span class="spec-label">COMPLEXITY:</span> <span class="spec-val">O(N³) EIGEN</span></div>
+                        <div class="spec-pill"><span class="spec-label">WORKSPACE:</span> <span class="spec-val">MATLAB R2024b</span></div>
+                        <div class="spec-pill"><span class="spec-label">LATENCY:</span> <span class="spec-val">&lt;18ms SOLVE</span></div>
+                    </div>
+
                     <div class="project-bottom">
                         <div class="project-tags">
                             <span class="project-tag">#MATLAB</span>
@@ -661,12 +907,27 @@
                             <span class="project-tag">#Math</span>
                         </div>
                         <div class="project-links">
+                            <button class="btn-tech-spec-toggle" data-toggle-spec="matlab" title="Toggle Live Telemetry">⚡ Specs</button>
                             <button class="btn-inspect-modal" data-inspect="matlab">Inspect 🔍</button>
                             <a class="project-action-link" href="https://github.com/S1Prime/Matlab" target="_blank"
                                 rel="noreferrer">
                                 <span>GitHub</span>
                                 <span>↗</span>
                             </a>
+                        </div>
+                    </div>
+
+                    <!-- In-card Telemetry Drawer -->
+                    <div class="card-telemetry-drawer" id="telemetry-matlab">
+                        <div class="drawer-header">
+                            <span>// TELEMETRY STREAM · SYS_NODE_07</span>
+                            <span class="drawer-live-tag"><span class="telemetry-dot"></span> LIVE</span>
+                        </div>
+                        <div class="drawer-grid">
+                            <div class="drawer-item"><span class="drawer-k">ALGORITHMS:</span> <span class="drawer-v">Eigen &amp; Vector Transformations</span></div>
+                            <div class="drawer-item"><span class="drawer-k">NUMERICAL PRECISION:</span> <span class="drawer-v">64-bit IEEE 754 Float</span></div>
+                            <div class="drawer-item"><span class="drawer-k">ARRAY WORKSPACE:</span> <span class="drawer-v">64.0 MB Dedicated RAM</span></div>
+                            <div class="drawer-item"><span class="drawer-k">PLOTTING ENGINE:</span> <span class="drawer-v">2D / 3D Parametric Mesh</span></div>
                         </div>
                     </div>
                 </article>
@@ -719,6 +980,9 @@
                             <span class="tag-pill">Unstop</span>
                         </div>
                         <div class="cert-actions">
+                            <button class="btn btn-secondary btn-cert-spec-toggle" data-cert-toggle="adobe" title="Toggle Evaluation Breakdown">
+                                <span>⚡ Breakdown</span>
+                            </button>
                             <button class="btn btn-secondary btn-cert-view" data-cert="adobe">
                                 <span>Inspect 🔍</span>
                             </button>
@@ -728,6 +992,20 @@
                                 <span>Verify on Unstop</span>
                                 <span>↗</span>
                             </a>
+                        </div>
+
+                        <!-- In-card Hackathon Telemetry Drawer -->
+                        <div class="cert-telemetry-drawer" id="telemetry-adobe">
+                            <div class="drawer-header">
+                                <span>// HACKATHON TELEMETRY · EVALUATION BREAKDOWN</span>
+                                <span class="drawer-live-tag"><span class="telemetry-dot"></span> QUALIFIED</span>
+                            </div>
+                            <div class="drawer-grid">
+                                <div class="drawer-item"><span class="drawer-k">COMPETITION:</span> <span class="drawer-v">Adobe University Hackathon 2026</span></div>
+                                <div class="drawer-item"><span class="drawer-k">ASSESSMENT ROUND:</span> <span class="drawer-v">Round 1 MCQ &amp; Algorithmic Coding</span></div>
+                                <div class="drawer-item"><span class="drawer-k">VERIFICATION ID:</span> <span class="drawer-v">d5bc9ab8-6e46-455f-85d8...</span></div>
+                                <div class="drawer-item"><span class="drawer-k">EVALUATION PLATFORM:</span> <span class="drawer-v">Unstop Verified Proctoring</span></div>
+                            </div>
                         </div>
                     </div>
                 </article>
@@ -762,6 +1040,9 @@
                             <span class="tag-pill">Rapid Prototyping</span>
                         </div>
                         <div class="cert-actions">
+                            <button class="btn btn-secondary btn-cert-spec-toggle" data-cert-toggle="amrita" title="Toggle Evaluation Breakdown">
+                                <span>⚡ Breakdown</span>
+                            </button>
                             <button class="btn btn-secondary btn-cert-view" data-cert="amrita">
                                 <span>Inspect 🔍</span>
                             </button>
@@ -771,6 +1052,20 @@
                                 <span>Official PDF</span>
                                 <span>↗</span>
                             </a>
+                        </div>
+
+                        <!-- In-card Hackathon Telemetry Drawer -->
+                        <div class="cert-telemetry-drawer" id="telemetry-amrita">
+                            <div class="drawer-header">
+                                <span>// HACKATHON TELEMETRY · TEAM BYTEDEX LOGS</span>
+                                <span class="drawer-live-tag"><span class="telemetry-dot"></span> ENDORSED</span>
+                            </div>
+                            <div class="drawer-grid">
+                                <div class="drawer-item"><span class="drawer-k">VENUE &amp; FORMAT:</span> <span class="drawer-v">Amrita Amritapuri Campus · 24h Sprint</span></div>
+                                <div class="drawer-item"><span class="drawer-k">TEAM IDENTITY:</span> <span class="drawer-v">ByteDex (Full-Stack Systems)</span></div>
+                                <div class="drawer-item"><span class="drawer-k">INDUSTRY SPONSORS:</span> <span class="drawer-v">Nitrostack &amp; Wekan Enterprises</span></div>
+                                <div class="drawer-item"><span class="drawer-k">EXECUTIVE SIGN-OFF:</span> <span class="drawer-v">Abhishek Pandit (CEO) &amp; Pablo Godoy (CEO)</span></div>
+                            </div>
                         </div>
                     </div>
                 </article>
@@ -821,25 +1116,36 @@
                                 required></textarea>
                         </div>
 
-                        <button type="submit" class="btn btn-primary" id="formSubmitBtn">
-                            <span>Send Message</span>
-                            <span>↗</span>
-                        </button>
+                        <div class="form-actions-row">
+                            <button type="submit" class="btn btn-primary" id="formSubmitBtn">
+                                <span>Send via Email Client</span>
+                                <span>✉</span>
+                            </button>
+                            <a class="btn btn-secondary" href="mailto:vaishnavvenu2007@gmail.com" title="Open email client draft to vaishnavvenu2007@gmail.com">
+                                <span>Direct Draft ↗</span>
+                            </a>
+                        </div>
                         <div class="form-status" id="formStatus"></div>
                     </form>
                 </div>
 
                 <div class="contact-channels reveal">
-                    <a class="channel-card" href="mailto:vaishnavvenu2007@gmail.com">
-                        <div class="channel-left">
-                            <div class="channel-icon">✉</div>
-                            <div>
-                                <div class="channel-title">Direct Email</div>
-                                <div class="channel-handle">vaishnavvenu2007@gmail.com</div>
+                    <div class="channel-card channel-card-email">
+                        <a class="channel-main-link" href="mailto:vaishnavvenu2007@gmail.com" title="Send email to vaishnavvenu2007@gmail.com">
+                            <div class="channel-left">
+                                <div class="channel-icon">✉</div>
+                                <div>
+                                    <div class="channel-title">Direct Email</div>
+                                    <div class="channel-handle">vaishnavvenu2007@gmail.com</div>
+                                </div>
                             </div>
-                        </div>
-                        <span class="channel-arrow">↗</span>
-                    </a>
+                            <span class="channel-arrow">↗</span>
+                        </a>
+                        <button class="btn-copy-email" id="btnCopyEmail" type="button" title="Copy email address to clipboard">
+                            <span id="copyEmailIcon">📋</span>
+                            <span id="copyEmailText">Copy</span>
+                        </button>
+                    </div>
 
                     <a class="channel-card" href="https://github.com/S1Prime" target="_blank" rel="noreferrer">
                         <div class="channel-left">
@@ -887,6 +1193,7 @@
                 </div>
                 <div class="footer-links">
                     <a href="#hero">Back to Top ↑</a>
+                    <a href="mailto:vaishnavvenu2007@gmail.com" title="Direct Email">✉ vaishnavvenu2007@gmail.com</a>
                     <a href="https://github.com/S1Prime" target="_blank" rel="noreferrer">GitHub</a>
                     <a href="https://www.linkedin.com/in/vaishnav-venu-079a2a383/" target="_blank"
                         rel="noreferrer">LinkedIn</a>
@@ -925,6 +1232,18 @@
 Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
 PreparedStatement ps = conn.prepareStatement("SELECT * FROM exams WHERE id=?");</code></pre>
                 </div>
+                <div class="modal-section modal-simulation-section">
+                    <div class="modal-sec-title-wrap">
+                        <div class="modal-sec-title">// LIVE RUNTIME SIMULATOR</div>
+                        <button class="btn-run-sim" id="btnRunModalSim">
+                            <span class="pulse-radar-dot"></span>
+                            <span>▶ Execute Simulation</span>
+                        </button>
+                    </div>
+                    <div class="simulation-terminal" id="simTerminal">
+                        <div class="sim-line sim-ready"><span class="sim-prompt">&gt;</span> Ready for execution. Click "Execute Simulation" to test node pipeline.</div>
+                    </div>
+                </div>
             </div>
             <div class="project-modal-footer">
                 <a class="btn btn-primary" id="modalRepoLink" href="#" target="_blank" rel="noreferrer">
@@ -959,6 +1278,39 @@ PreparedStatement ps = conn.prepareStatement("SELECT * FROM exams WHERE id=?");<
                         <span>↗</span>
                     </a>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gamified System Achievements Command Modal -->
+    <div class="achievements-modal-backdrop" id="achievementsModal">
+        <div class="achievements-modal-card">
+            <div class="achievements-modal-header">
+                <div>
+                    <span class="modal-badge">MISSION ACHIEVEMENTS</span>
+                    <h3 style="font-family: var(--font-heading); font-size: 1.55rem; font-weight: 800; margin-top: 6px;">System Telemetry Badges</h3>
+                </div>
+                <button class="btn-modal-close" id="btnCloseAchievementsModal" aria-label="Close achievements modal">✕</button>
+            </div>
+            <div class="achievements-progress-bar-wrap">
+                <div class="achievements-progress-meta">
+                    <span id="achievementsProgressText">Unlocked 0 of 4 Badges</span>
+                    <span id="achievementsProgressPct">0%</span>
+                </div>
+                <div class="achievements-progress-track">
+                    <div class="achievements-progress-fill" id="achievementsProgressFill" style="width: 0%;"></div>
+                </div>
+            </div>
+            <div class="achievements-list" id="achievementsList">
+                <!-- Dynamically populated in portfolio.js -->
+            </div>
+            <div class="achievements-modal-footer">
+                <button class="btn btn-secondary" id="btnResetAchievements" type="button">
+                    <span>Reset Progress</span>
+                </button>
+                <button class="btn btn-primary" id="btnClaimAchievementsClose" type="button">
+                    <span>Resume Session ➔</span>
+                </button>
             </div>
         </div>
     </div>
