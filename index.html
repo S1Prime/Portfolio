@@ -24,7 +24,7 @@
         href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='25' fill='%2305080f'/><text x='50%' y='65%' font-family='monospace' font-size='50' font-weight='bold' fill='%2365f7ff' text-anchor='middle'>V</text></svg>">
 
     <!-- Design System Stylesheet -->
-    <link rel="stylesheet" href="my-style.css">
+    <link rel="stylesheet" href="my-style.css?v=3d_2026">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,6 +35,10 @@
 
     <!-- DevIcons -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+
+    <!-- Three.js & GSAP 3D WebGL Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 </head>
 
 <body class="system-loading">
@@ -158,7 +162,8 @@
     <div class="custom-cursor-dot" id="cursorDot"></div>
     <div class="custom-cursor-follower" id="cursorFollower"></div>
 
-    <!-- Interactive Neural Network Particle Canvas -->
+    <!-- Interactive 3D WebGL Universe Canvas & Neural Canvas -->
+    <canvas id="bg-3d-canvas"></canvas>
     <canvas id="bg-canvas"></canvas>
     <div class="bg-noise"></div>
     <div class="bg-grid"></div>
@@ -278,7 +283,7 @@
                     </div>
                 </div>
 
-                <!-- Profile & Live HUD Status Card -->
+                <!-- Profile & Interactive 3D Cyber Core HUD Card -->
                 <div class="hero-hud-card reveal">
                     <div class="hud-profile-header">
                         <div class="profile-avatar-wrap">
@@ -297,7 +302,41 @@
                         </div>
                     </div>
 
-                    <div class="hud-terminal-preview">
+                    <!-- 3D Core View Mode Switcher -->
+                    <div class="hud-view-tabs">
+                        <button class="hud-tab-btn active" id="tab3dCore" type="button">
+                            <span class="tab-icon">🔮</span>
+                            <span>3D CYBER CORE</span>
+                        </button>
+                        <button class="hud-tab-btn" id="tabTerminal" type="button">
+                            <span class="tab-icon">💻</span>
+                            <span>SYS TERMINAL</span>
+                        </button>
+                    </div>
+
+                    <!-- 3D Cyber Core Interactive Stage -->
+                    <div class="hero-3d-stage" id="hero3dStageView">
+                        <div class="core-canvas-container">
+                            <canvas id="hero-core-canvas"></canvas>
+                            <div class="core-interaction-overlay">
+                                <span class="core-drag-hint">✦ DRAG TO ROTATE 3D CORE ✦</span>
+                            </div>
+                        </div>
+                        <div class="core-controls-row">
+                            <button class="btn-core-action" id="btnCoreTurbo" type="button" title="Turbo spin 3D core">
+                                <span>⚡ Turbo</span>
+                            </button>
+                            <button class="btn-core-action" id="btnCoreExplode" type="button" title="Deconstruct 3D components">
+                                <span>💥 Deconstruct</span>
+                            </button>
+                            <button class="btn-core-action" id="btnCorePulse" type="button" title="Emit 3D energy pulse">
+                                <span>✨ Pulse</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Terminal Preview Pane -->
+                    <div class="hud-terminal-preview" id="heroTerminalView" style="display: none;">
                         <div><span class="terminal-status-ok">● SYSTEM</span> vaishnav@kollam-core:~$</div>
                         <div class="terminal-dim">-------------------------------------</div>
                         <div>$ whoami <span style="color:var(--text);">&rarr; B.Tech CSE @ Amrita Kollam</span></div>
@@ -663,6 +702,27 @@
                     <button class="btn-tech-action btn-hud-toggle" id="btnHudToggle" title="Toggle High-Tech HUD Telemetry Mode">
                         <span>🔬 Telemetry Matrix</span>
                     </button>
+                </div>
+            <!-- Interactive 3D System Architecture Stage -->
+            <div class="project-3d-stage reveal" id="project3dStage">
+                <div class="stage-header">
+                    <div class="stage-title-wrap">
+                        <span class="stage-dot"></span>
+                        <span class="stage-title">INTERACTIVE 3D SYSTEM ARCHITECTURE PIPELINE</span>
+                    </div>
+                    <span class="stage-telemetry-tag">// ROTATABLE 3D TOPOLOGY // 60 FPS</span>
+                </div>
+                <div class="stage-canvas-wrap">
+                    <canvas id="project-arch-canvas"></canvas>
+                    <div class="stage-nodes-overlay">
+                        <span class="arch-node-badge b-1">CLIENT UI [REACT / HTML5]</span>
+                        <span class="arch-arrow">&rarr;</span>
+                        <span class="arch-node-badge b-2">API ROUTER [SERVLET / REST]</span>
+                        <span class="arch-arrow">&rarr;</span>
+                        <span class="arch-node-badge b-3">ENGINE CORE [PYTHON / JAVA]</span>
+                        <span class="arch-arrow">&rarr;</span>
+                        <span class="arch-node-badge b-4">DATA TIER [SQL / MATRICES]</span>
+                    </div>
                 </div>
             </div>
 
@@ -1490,8 +1550,10 @@ PreparedStatement ps = conn.prepareStatement("SELECT * FROM exams WHERE id=?");<
         ↑
     </button>
 
+    <!-- 3D WebGL Engine -->
+    <script src="three-engine.js?v=3d_2026"></script>
     <!-- Application Script -->
-    <script src="portfolio.js"></script>
+    <script src="portfolio.js?v=3d_2026"></script>
 </body>
 
 </html>

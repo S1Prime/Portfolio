@@ -231,13 +231,21 @@ document.addEventListener("DOMContentLoaded", () => {
             const reveals = document.querySelectorAll(".reveal");
             reveals.forEach(el => {
                 const rect = el.getBoundingClientRect();
-                if (rect.top < window.innerHeight - 50) {
+                if (rect.top < window.innerHeight + 100) {
+                    el.classList.add("visible");
                     el.classList.add("active");
                 }
             });
 
+            // Refresh 3D renderers to active layout
+            window.dispatchEvent(new Event("resize"));
+            if (window.Portfolio3D && window.Portfolio3D.heroCore) {
+                window.Portfolio3D.heroCore.resizeRenderer();
+            }
+
             setTimeout(() => {
                 loader.style.display = "none";
+                window.dispatchEvent(new Event("resize"));
             }, 600);
         }
 
@@ -1324,8 +1332,38 @@ document.addEventListener("DOMContentLoaded", () => {
                     card.classList.add("hide");
                 }
             });
+
+            // 3D Architecture Node Highlighting
+            if (window.Portfolio3D && window.Portfolio3D.projectArch) {
+                const map = { all: 0, web: 0, java: 1, python: 2, matlab: 3 };
+                window.Portfolio3D.projectArch.highlightNode(map[filter] !== undefined ? map[filter] : 0);
+            }
         });
     });
+
+    // 3D Cyber Core & Terminal View Mode Switcher
+    const tab3dCore = document.getElementById("tab3dCore");
+    const tabTerminal = document.getElementById("tabTerminal");
+    const hero3dStageView = document.getElementById("hero3dStageView");
+    const heroTerminalView = document.getElementById("heroTerminalView");
+
+    if (tab3dCore && tabTerminal && hero3dStageView && heroTerminalView) {
+        tab3dCore.addEventListener("click", () => {
+            tab3dCore.classList.add("active");
+            tabTerminal.classList.remove("active");
+            hero3dStageView.style.display = "flex";
+            heroTerminalView.style.display = "none";
+            playAudioTone(800, 'sine', 0.08, 0.04);
+        });
+
+        tabTerminal.addEventListener("click", () => {
+            tabTerminal.classList.add("active");
+            tab3dCore.classList.remove("active");
+            hero3dStageView.style.display = "none";
+            heroTerminalView.style.display = "block";
+            playAudioTone(600, 'sine', 0.08, 0.04);
+        });
+    }
 
     // In-card Individual Telemetry Drawer Toggle
     document.querySelectorAll(".btn-tech-spec-toggle").forEach((toggleBtn) => {
