@@ -180,7 +180,7 @@ document.addEventListener("DOMContentLoaded", () => {
             { pct: 16, text: clientOS.kernelLog },
             { pct: 32, text: "[TOKENS] Initializing cyber design tokens & glassmorphism..." },
             { pct: 46, text: "[ACADEMIC.CORE] Connecting Amrita CSE node @ Amritapuri..." },
-            { pct: 62, text: "[REGISTRY] Synchronizing 7+ open-source engineering repos..." },
+            { pct: 62, text: "[REGISTRY] Synchronizing 10+ open-source engineering repos..." },
             { pct: 76, text: "[TELEMETRY] Loading capability matrix & dynamic inspectors..." },
             { pct: 88, text: "[SECURITY] Validating mail server handshake (vaishnavvenu2007)..." },
             { pct: 98, text: "[SYS.FINAL] Binding interactive controllers & gestures..." },
@@ -849,91 +849,184 @@ document.addEventListener("DOMContentLoaded", () => {
        8. PROJECT ARCHITECTURE INSPECTOR MODAL
     ========================================================= */
     const projectDetails = {
-        calculator: {
-            title: "Desktop Arithmetic System",
-            badge: "PYTHON CORE",
-            url: "https://github.com/S1Prime/Calculator",
-            arch: "Engineered in Python with custom string expression tokenization, operator precedence evaluation (Shunting-yard algorithm), and decimal precision formatting.",
-            highlights: [
-                "Custom infix to postfix expression parsing engine",
-                "Error boundary handling for division by zero and invalid syntax",
-                "Modular UI component separation for GUI expansion"
-            ],
-            code: `def evaluate_expression(expr):\n    tokens = tokenize(expr)\n    postfix = shunting_yard(tokens)\n    return compute_postfix(postfix)`
-        },
-        budget: {
+        personalbudgettracker: {
             title: "Personal Budget Tracker",
-            badge: "PYTHON DATA",
+            badge: "PYTHON CORE",
             url: "https://github.com/S1Prime/Personal-Budget-Tracker",
-            arch: "Built with Python data persistence logic to record, filter, and summarize incoming cashflows, recurring expenses, and financial goals.",
+            arch: "Categorical breakdown engine utilizing persistent JSON serialization, automated budget limit alerts, and cryptographic zero-leak localhost storage.",
             highlights: [
-                "JSON / CSV data serialization for expense records",
-                "Categorical expenditure breakdown analytics",
-                "Budget threshold alert flags and cashflow forecasting"
+                "Modular ledger tracking with multi-currency calculations",
+                "Zero external telemetry - 100% localhost data privacy",
+                "Monthly trend analysis & graphical breakdown exports",
+                "Optimized in-memory dictionary hashing for instantaneous balance lookup"
             ],
-            code: `class BudgetTracker:\n    def add_expense(self, category, amount):\n        self.records.append({'cat': category, 'amt': amount})\n        self.save_to_storage()`
+            code: "def log_transaction(self, category: str, amount: float):\n    self.ledger[category] = self.ledger.get(category, 0.0) + amount\n    self.audit_log.append({'timestamp': time.time(), 'cat': category, 'val': amount})\n    return self.recompute_variance(category)"
         },
-        quiz: {
-            title: "Online Quiz Management System",
-            badge: "JAVA ENTERPRISE",
-            url: "https://online-quiz-cqaw.onrender.com",
-            arch: "Full-stack enterprise application built using Java Servlets, JDBC persistence layer, and SQL schemas for online testing.",
-            highlights: [
-                "Servlet session state authentication and encrypted parameters",
-                "JDBC connection pool architecture for high concurrency",
-                "Automated statistics computation and candidate report generation"
-            ],
-            code: `Class.forName("com.mysql.cj.jdbc.Driver");\nConnection conn = DriverManager.getConnection(DB_URL, USER, PASS);\nPreparedStatement ps = conn.prepareStatement("SELECT * FROM exams WHERE id=?");`
-        },
-        hoteldbms: {
+        hotelmanagementsystemdbms: {
             title: "Hotel Management System DBMS",
             badge: "DBMS / SQL",
-            url: "https://s1prime.github.io/Hotel-Management-System-DBMS/",
-            arch: "Designed relational SQL database tables, foreign key constraints, primary key indexing, and transaction workflows for hotel management operations.",
+            url: "https://github.com/S1Prime/Hotel-Management-System-DBMS",
+            arch: "Normalized Third Normal Form (3NF) relational architecture with ACID-compliant transactions, trigger cascades for billing, and indexed foreign key trees.",
             highlights: [
-                "SQL table normalization (3NF) for room and guest records",
-                "Automated bill generation and checkout transaction procedures",
-                "Web frontend interface integrated with relational DBMS endpoints"
+                "Multi-table schema normalized to 3NF eliminating data redundancy",
+                "Transactional reservations with atomic rollback guards",
+                "Stored procedures & triggers for automated checkout invoice generation",
+                "Optimized B-tree indexes ensuring sub-5ms query response times"
             ],
-            code: `CREATE TABLE Rooms (room_id INT PRIMARY KEY, room_type VARCHAR(50), status VARCHAR(20));\nSELECT * FROM Bookings WHERE check_in_date <= CURRENT_DATE();`
+            code: "CREATE TRIGGER trg_calc_invoice_total\nAFTER INSERT ON RoomReservations\nFOR EACH ROW\nBEGIN\n    UPDATE Invoices SET TotalAmount = TotalAmount + (NEW.Nights * NEW.NightlyRate)\n    WHERE GuestID = NEW.GuestID;\nEND;"
         },
-        taskmanager: {
+        studenttaskmanager: {
             title: "Student Task Manager",
             badge: "WEB APPLICATION",
-            url: "https://s1prime.github.io/Student-Task-Manager/",
-            arch: "Academic workflow app built with Vanilla JavaScript, LocalStorage persistence, and CSS Glassmorphism to manage deadlines.",
+            url: "https://github.com/S1Prime/Student-Task-Manager",
+            arch: "Vanilla ES6+ reactive state engine with synchronous LocalStorage snapshot caching, dynamic urgency sort trees, and zero external framework overhead.",
             highlights: [
-                "LocalStorage JSON state sync for offline access",
-                "Urgent task priority sorting & deadline countdowns",
-                "Responsive glassmorphic UI with zero framework overhead"
+                "Zero-latency reactive state synchronization via pure DOM events",
+                "Intelligent chronological sorting by urgency and exam countdowns",
+                "Keyboard accessible modal system with keyboard traps",
+                "Exportable JSON backup and offline-first Progressive Web App capability"
             ],
-            code: `const tasks = JSON.parse(localStorage.getItem('student-tasks') || '[]');\ntasks.push({ title, deadline, priority });\nlocalStorage.setItem('student-tasks', JSON.stringify(tasks));`
+            code: "class TaskManager {\n    dispatch(action, payload) {\n        this.state = this.reducer(this.state, action, payload);\n        localStorage.setItem('STUDENT_TASKS_CACHE', JSON.stringify(this.state));\n        this.render();\n    }\n}"
         },
-        webcalc: {
+        studenttaskmanager2: {
+            title: "Student Task Manager v2",
+            badge: "PRODUCTIVITY SUITE",
+            url: "https://github.com/S1Prime/student-task-manager-2",
+            arch: "Event-driven architecture with normalized task hash maps, CSS custom properties dynamic theming, and responsive flexbox grids.",
+            highlights: [
+                "Revamped high-contrast telemetry UI for reduced eye fatigue during study sessions",
+                "Multi-category tagging with real-time substring search filtering",
+                "Drag & drop inspired priority shifting with instantaneous state updates",
+                "Zero third-party library overhead for lightning-fast mobile performance"
+            ],
+            code: "const taskStore = new Proxy(initialTasks, {\n    set(target, prop, value) {\n        target[prop] = value;\n        scheduleRender();\n        return true;\n    }\n});"
+        },
+        calculator: {
+            title: "Desktop Arithmetic System",
+            badge: "PYTHON APP",
+            url: "https://github.com/S1Prime/Calculator",
+            arch: "Tokenized shunting-yard operator precedence parser with division-by-zero protection, stateful memory registers, and custom GUI layout.",
+            highlights: [
+                "Custom operator precedence tokenizer supporting parenthetical nesting",
+                "Stateful memory accumulator registers (M+, M-, MR, MC)",
+                "Strict regex input validation filtering malformed numeric streams",
+                "Clean decoupling between numerical engine and UI view layers"
+            ],
+            code: "def evaluate_expression(self, expr: str) -> float:\n    tokens = self.tokenize(expr)\n    rpn = self.shunting_yard(tokens)\n    return self.execute_rpn(rpn)"
+        },
+        calculatorusingfrontend: {
             title: "Modern Calculator Web Engine",
             badge: "FRONTEND ENGINE",
-            url: "https://s1prime.github.io/Calculator-Using-Frontend/",
-            arch: "Interactive web calculator featuring real-time expression evaluation, CSS variable dynamic theme switching, and keyboard event hooks.",
+            url: "https://github.com/S1Prime/Calculator-Using-Frontend",
+            arch: "CSS Grid responsive container with event-delegated key matrix, hardware-accelerated button transitions, and calculation tape persistence.",
             highlights: [
-                "Full keyboard event listener bindings (0-9, +, -, *, /, Enter)",
-                "Local history persistence for previous calculations",
-                "CSS Custom Properties theme engine"
+                "Full physical keyboard binding with visual button-press mirroring",
+                "Dynamic CSS custom properties theme toggling without page reload",
+                "Floating calculation tape drawer storing historical operations",
+                "High touch-target precision optimized for smartphone screens"
             ],
-            code: `window.addEventListener('keydown', (e) => {\n    if (e.key >= '0' && e.key <= '9') appendInput(e.key);\n    else if (e.key === 'Enter') calculateResult();\n});`
+            code: "window.addEventListener('keydown', (e) => {\n    const keyMap = { '/': '÷', '*': '×', 'Enter': '=' };\n    const char = keyMap[e.key] || e.key;\n    if (calculator.supportsKey(char)) calculator.press(char);\n});"
         },
         matlab: {
             title: "MATLAB Analytical Workspace",
             badge: "COMPUTATIONAL",
             url: "https://github.com/S1Prime/Matlab",
-            arch: "Numerical mathematics workspace built in MATLAB executing linear algebra matrix operations, system solvers, and spatial 2D/3D plots.",
+            arch: "Vectorized computational matrix pipeline leveraging BLAS and LAPACK routines with parametric 2D/3D visualizations and differential solvers.",
             highlights: [
-                "Eigenvalue and eigenvector decomposition scripts",
-                "Numerical matrix transformation and linear regression",
-                "Automated 2D/3D surface vector visualization"
+                "Vectorized linear algebra algorithms replacing sluggish nested loops",
+                "Eigenvalue and eigenvector decomposition for multi-dimensional matrices",
+                "High-resolution 3D surface and mesh contour plotting routines",
+                "Numerical integration & ordinary differential equation (ODE) models"
             ],
-            code: `% MATLAB Matrix Transformation\nA = [2, 1; 1, 3];\n[V, D] = eig(A);\nplot(V(:,1), V(:,2), '-o');`
+            code: "% Vectorized Matrix Eigen-Decomposition\nA = rand(100, 100);\n[V, D] = eig(A);\nsurf(real(V(1:20, 1:20)));\ntitle('Eigenvector Field Topology');"
+        },
+        javaprojects: {
+            title: "Java Enterprise & OOP Suite",
+            badge: "JAVA SE 17",
+            url: "https://github.com/S1Prime/Java-Projects",
+            arch: "SOLID-compliant object model with polymorphic interface abstractions, concurrent collections, and robust JUnit test suites.",
+            highlights: [
+                "Comprehensive implementation of core Creational & Structural design patterns",
+                "Thread-safe worker queues and concurrent collection pipelines",
+                "Custom generic collection classes with O(log N) binary search tree lookups",
+                "Full compliance with Java SE strict typing and clean exception hierarchies"
+            ],
+            code: "public record TaskNode<T extends Comparable<T>>(T payload, int priority) implements Comparable<TaskNode<T>> {\n    @Override\n    public int compareTo(TaskNode<T> other) {\n        return Integer.compare(this.priority, other.priority);\n    }\n}"
+        },
+        studentregistrationform: {
+            title: "Student Registration Portal",
+            badge: "WEB VALIDATION",
+            url: "https://github.com/S1Prime/Student-Registration-Form",
+            arch: "Semantic HTML5 form architecture with CSS :valid/:invalid pseudoclass styling, WCAG-compliant color contrast, and regex constraint engines.",
+            highlights: [
+                "Zero-library validation using native HTML5 Constraint Validation API",
+                "Immediate inline error micro-copy with smooth height animations",
+                "Cross-browser mobile tested with specialized input types (tel, email, date)",
+                "Semantic ARIA roles and labels for complete screen reader accessibility"
+            ],
+            code: "input:user-invalid {\n    border-color: var(--danger, #ff3366);\n    box-shadow: 0 0 10px rgba(255, 51, 102, 0.25);\n}\ninput:valid {\n    border-color: var(--success, #00e676);\n}"
+        },
+        portfolio: {
+            title: "3D WebGL Engineering Portfolio",
+            badge: "THREE.JS / WEBGL",
+            url: "https://github.com/S1Prime/Portfolio",
+            arch: "Modular WebGL architecture featuring multi-scene throttling, procedural starfield shaders, algorithmic wave surface physics, and mobile-adaptive GPU scaling.",
+            highlights: [
+                "Deep space cosmic starfield with 2,200 glowing particles and scroll camera fly-through",
+                "Interactive 3D Holographic Cyber Core with momentum drag physics and turbo spin",
+                "3D System Architecture stage with traversing photon data packets in projects section",
+                "Adaptive mobile throttling with IntersectionObserver to conserve laptop/phone battery"
+            ],
+            code: "const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: 'high-performance' });\nrenderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2));"
         }
     };
+
+    // Dynamic loader for projects-data.json
+    try {
+        fetch('./projects-data.json')
+            .then(res => res.json())
+            .then(data => {
+                if (data && data.projects) {
+                    data.projects.forEach(p => {
+                        projectDetails[p.id] = {
+                            title: p.title,
+                            badge: p.badge,
+                            url: p.githubUrl,
+                            arch: p.arch,
+                            highlights: p.highlights,
+                            code: p.codeSnippet
+                        };
+                    });
+                    if (data.totalStars !== undefined) {
+                        const starsEl = document.getElementById("ghTotalStars");
+                        if (starsEl) starsEl.textContent = `★ ${data.totalStars}`;
+                    }
+                    if (data.totalProjects !== undefined) {
+                        const repoEl = document.getElementById("ghRepoCount");
+                        if (repoEl) repoEl.textContent = data.totalProjects;
+                    }
+                }
+            })
+            .catch(() => {});
+    } catch (e) {}
+
+    // Background live GitHub sync
+    function syncLiveGitHubStats() {
+        fetch('https://api.github.com/users/S1Prime/repos?per_page=100')
+            .then(r => r.json())
+            .then(repos => {
+                if (Array.isArray(repos) && repos.length > 0) {
+                    const valid = repos.filter(r => r.name !== 'S1Prime');
+                    const totalStars = valid.reduce((acc, r) => acc + (r.stargazers_count || 0), 0);
+                    const repoEl = document.getElementById("ghRepoCount");
+                    const starsEl = document.getElementById("ghTotalStars");
+                    if (repoEl) repoEl.textContent = valid.length;
+                    if (starsEl) starsEl.textContent = `★ ${totalStars}`;
+                }
+            })
+            .catch(() => {});
+    }
+    setTimeout(syncLiveGitHubStats, 2000);
 
     const projectModal = document.getElementById("projectModal");
     const btnCloseModal = document.getElementById("btnCloseModal");
@@ -1335,8 +1428,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // 3D Architecture Node Highlighting
             if (window.Portfolio3D && window.Portfolio3D.projectArch) {
-                const map = { all: 0, web: 0, java: 1, python: 2, matlab: 3 };
-                window.Portfolio3D.projectArch.highlightNode(map[filter] !== undefined ? map[filter] : 0);
+                if (typeof window.Portfolio3D.projectArch.highlightCategory === 'function') {
+                    window.Portfolio3D.projectArch.highlightCategory(filter);
+                } else if (typeof window.Portfolio3D.projectArch.highlightNode === 'function') {
+                    const map = { all: 0, web: 0, java: 1, python: 2, matlab: 3 };
+                    window.Portfolio3D.projectArch.highlightNode(map[filter] !== undefined ? map[filter] : 0);
+                }
             }
         });
     });

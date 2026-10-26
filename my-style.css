@@ -2038,6 +2038,75 @@ section {
     transform: scale(0.93);
 }
 
+/* GitHub Live Sync Telemetry Pill */
+.github-sync-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 14px;
+    background: rgba(0, 255, 136, 0.06);
+    border: 1px solid rgba(0, 255, 136, 0.25);
+    border-radius: var(--radius-full);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    transition: all 0.25s var(--ease);
+}
+
+.github-sync-pill:hover {
+    background: rgba(0, 255, 136, 0.12);
+    border-color: #00ff88;
+    box-shadow: 0 0 16px rgba(0, 255, 136, 0.2);
+}
+
+.gh-sync-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #00ff88;
+    box-shadow: 0 0 8px #00ff88;
+    animation: radarPulse 1.6s infinite ease-in-out;
+}
+
+.gh-sync-text {
+    letter-spacing: 0.04em;
+}
+
+.gh-sync-text b {
+    color: #00ff88;
+    font-weight: 700;
+}
+
+.gh-sync-stars {
+    padding: 2px 7px;
+    background: rgba(255, 193, 7, 0.12);
+    border: 1px solid rgba(255, 193, 7, 0.3);
+    border-radius: var(--radius-full);
+    color: #ffd166;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.telemetry-stars {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 7px;
+    background: rgba(255, 209, 102, 0.1);
+    border: 1px solid rgba(255, 209, 102, 0.25);
+    border-radius: var(--radius-sm);
+    color: #ffd166;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    margin-right: 6px;
+}
+
+.telemetry-right-badges {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
 .pulse-radar-dot {
     width: 8px;
     height: 8px;
